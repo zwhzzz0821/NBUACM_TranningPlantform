@@ -8,6 +8,7 @@ const routes = [
     {
         path: '/user',
         component: () => import('../views/UserLayout.vue'),
+        
         // children:[
         //     {
         //         path: '/test',
