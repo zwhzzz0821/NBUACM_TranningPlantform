@@ -20,9 +20,13 @@ public class UserServiceImpl implements UserService {
     public void register(User user) {
         userMapper.register(user);
     }
-
     @Override
     public User getByUid(User user) {
         return userMapper.getByUid(user);
     }
+    @Override
+    public void deleteByUid(User user) {
+        userMapper.deleteByUid(user);
+    }
+
 }

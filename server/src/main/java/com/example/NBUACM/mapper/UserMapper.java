@@ -1,10 +1,7 @@
 package com.example.NBUACM.mapper;
 
 import com.example.NBUACM.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 
 import java.util.List;
@@ -18,5 +15,6 @@ public interface UserMapper {
     @Insert("insert into user(uid,username,password)" +
             "values(#{uid},#{username},#{password})")
     void register(User user);
-
+    @Delete("delete from user where uid = #{uid}")
+    void deleteByUid(User user);
 }

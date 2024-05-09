@@ -27,6 +27,8 @@
                               <el-menu-item class="el-icon-setting" index="1-6" @click="handleMenuSelect(5)"> 设置 </el-menu-item>
                               
                               <el-menu-item class="el-icon-s-management" index="1-7" @click="handleMenuSelect(6)"> 荣誉墙 </el-menu-item>
+
+                              <el-menu-item class="el-icon-s-test" index="1-8" @click="handleMenuSelect(7)"> test </el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
                     </el-menu>
@@ -54,6 +56,7 @@
             { name: '用户', url: '/user/user' },
             { name: '设置', url: '/user/setting'},
             { name: '荣誉墙', url: '/user/honor' },
+            { name: 'test', url: '/test' },
         ]
       }
     },

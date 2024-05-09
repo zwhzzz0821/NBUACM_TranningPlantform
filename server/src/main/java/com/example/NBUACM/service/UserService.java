@@ -9,4 +9,6 @@ import java.util.Map;
 public interface UserService {
     void register(User user);
     User getByUid(User user);
+
+    void deleteByUid(User user);
 }

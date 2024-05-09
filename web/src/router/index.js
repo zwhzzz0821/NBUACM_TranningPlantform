@@ -6,9 +6,22 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/',
-        component: () => import('../views/UserLayout.vue')
-    },
+        path: '/user',
+        component: () => import('../views/UserLayout.vue'),
+        // children:[
+        //     {
+        //         path: '/test',
+        //         component: () => import('../views/test.vue'),
+
+        //     }
+        // ]
+        // children: [
+        //     {
+        //         path: '/test',
+        //         component: () => import('../views/test.vue'),
+        //     }
+        // ]
+    }
 ]
 
 const router = new VueRouter({

@@ -4,6 +4,7 @@ import com.example.NBUACM.Bean.R;
 import com.example.NBUACM.entity.User;
 import com.example.NBUACM.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +58,16 @@ public class UserController {
         }
     }
 
+
+    @DeleteMapping("/deleteuser")
+    public Map<String, Object> deleteuser(@RequestBody User user) {
+        try {
+            System.out.println("user:"+user);
+            userService.deleteByUid(user);
+            return new R().ok().builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
 
 }
