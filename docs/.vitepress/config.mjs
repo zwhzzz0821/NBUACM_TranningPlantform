@@ -19,7 +19,7 @@ export default defineConfig({
           { text: '数据结构', link: '/struct/index', },
         ]
       },
-      { text: 'About US', link: '/about_us'},
+      { text: 'About US', link: '/about/constitution'},
       { text: '队员链接', link: 'http://www.nbuoj.com' },
       { text: '管理员链接', link: 'http://www.nbuoj.com'}
     ],
@@ -28,7 +28,7 @@ export default defineConfig({
       {
         text: 'Examples',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
+          { text: 'Markdown Examples', link: '/about/member' },
           { text: 'Runtime API Examples', link: '/api-examples' }
         ]
       }
