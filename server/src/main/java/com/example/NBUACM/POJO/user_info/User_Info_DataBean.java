@@ -1,13 +1,13 @@
-package com.example.NBUACM.POJO;
+package com.example.NBUACM.POJO.user_info;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DataBean {
+public class User_Info_DataBean {
 
-//			"country": "China",
+    //			"country": "China",
 //			"lastOnlineTimeSeconds": 1715237708,
 //			"city": "Ningbo",
 //			"rating": 1782,

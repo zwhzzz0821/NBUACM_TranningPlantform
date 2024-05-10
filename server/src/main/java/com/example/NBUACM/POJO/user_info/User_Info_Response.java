@@ -1,4 +1,4 @@
-package com.example.NBUACM.POJO;
+package com.example.NBUACM.POJO.user_info;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Response {
+public class User_Info_Response {
     private String status;
-    private List<DataBean> result;
+    private List<User_Info_DataBean> result;
 }
