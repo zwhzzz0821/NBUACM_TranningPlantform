@@ -5,11 +5,12 @@ USE `NBUACM`;
 DROP TABLE IF EXISTS `problem`;
 
 CREATE TABLE `problem` (
-    contestId INT,
-    index CHAR(1),
-    name VARCHAR(255),
-    type VARCHAR(50),
-    points DECIMAL(10, 1),
-    rating INT,
-    tags TEXT
+    `ProblemId` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `contestId` INT,
+    `index` CHAR(1),
+    `name` VARCHAR(255),
+    `type` VARCHAR(50),
+    `points` DECIMAL(10, 1),
+    `rating` INT,
+    `tags` TEXT
 )
