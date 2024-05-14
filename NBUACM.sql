@@ -7,10 +7,10 @@ DROP TABLE IF EXISTS `problem`;
 CREATE TABLE `problem` (
     `ProblemId` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `contestId` INT,
-    `index` CHAR(1),
+    `Index` CHAR(1),
     `name` VARCHAR(255),
-    `type` VARCHAR(50),
+    `Type` VARCHAR(50),
     `points` DECIMAL(10, 1),
     `rating` INT,
-    `tags` TEXT
+    `tags` VARCHAR(255)
 )

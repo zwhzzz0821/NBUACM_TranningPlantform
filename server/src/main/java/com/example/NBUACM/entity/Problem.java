@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Problem {
-    int ProblemId;
-    int contestId;
-    String index;
-    String name;
-    String type;
-    Double points;
-    int rating;
-    String tags;
+    private long contestId;
+    private String index;
+    private String name;
+    private String type;
+    private Double points;
+    private int rating;
+    private String tags;
 }

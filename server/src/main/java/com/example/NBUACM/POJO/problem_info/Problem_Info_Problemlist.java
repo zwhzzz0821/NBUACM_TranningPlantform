@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Problem_Info_Response {
-    private String status;
-    private Problem_Info_Problemlist result;
+public class Problem_Info_Problemlist {
+    public List<Problem_Info_DataBean> problems;
 }
