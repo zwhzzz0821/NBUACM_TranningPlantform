@@ -1,18 +1,18 @@
 package com.example.NBUACM.controller;
 
-import com.example.NBUACM.POJO.user_info.*;
-import com.example.NBUACM.POJO.user_rating.*;
+import com.example.NBUACM.Bean.R;
+import com.example.NBUACM.POJO.ReceiveCFData.user_info.*;
+import com.example.NBUACM.POJO.ReceiveCFData.user_rating.*;
 
+import com.example.NBUACM.POJO.ReturnAppFrontData.GroupedRatingList;
+import com.example.NBUACM.mapper.UserRatingMapper;
+import com.example.NBUACM.service.CodeforcesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import java.util.List;
+import java.util.Map;
 
 
 @RequestMapping("/CFAPI")
@@ -20,71 +20,84 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 @EnableAutoConfiguration
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class CodeforcesController {
+    /*
+    * 注入服务
+    * */
+    @Autowired
+    private CodeforcesService codeforcesService;
+
+    /*
+    * 注入Mapper
+    * */
+    @Autowired
+    private UserRatingMapper userRatingMapper;
+
+
+    /*
+    * 用户初步测试后端接口是否可用
+    * */
     @GetMapping("/hello")
     public String hello(){
         return "hello world";
     }
 
+    /*
+    * 用于获取指定用户的Codeforces的基本信息,
+    * 并更新个人用户的rating
+    * */
     @GetMapping("/user_info")
-    public User_Info_Response getRatingByHandle(String handle) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
-        String url = "https://codeforces.com/api/user.info?handles=" + handle;
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
+    public Map<String, Object> user_info(String handle) {
         try {
-            ResponseEntity<User_Info_Response> responseEntity = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    entity,
-                    User_Info_Response.class  // 指定返回类型为Response
-            );
-
-            User_Info_Response response = responseEntity.getBody();
-            System.out.println(responseEntity);  // 打印Response对象的详细信息
-            System.out.println("result:"+response);
-            return response;
+            User_Info_Response response = codeforcesService.getUserInfoByHandle(handle);
+            if(response.equals(null)) {
+                return new R().bad().builder();
+            } else {
+                codeforcesService.updateUserCodeforcesRating(response.getResult().get(0).getRating(),handle);
+                return new R().ok().add("user", response.getResult()).builder();
+            }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            return null;
+            System.out.println("ERROR:"+e.getMessage());
+            return new R().bad().builder();
+        }
+
+    }
+
+    /*
+    * 用于获取指定用户的Codeforces的历史rating列表，
+    * 并更新数据库
+    * */
+    @GetMapping("/user_rating")
+    public Map<String, Object> user_rating(String handle) {
+        User_Rating_Response response = codeforcesService.getRatingListByHandle(handle);
+        if(response.equals(null)) {
+            return new R().bad().builder();
+        } else {
+            codeforcesService.updateTableAllRatingList(response);
+            return new R().ok().add("ratingList", response.getResult()).builder();
         }
     }
 
-
-    @GetMapping("/user_rating")
-    public User_Rating_Response getRatingListByHandle(String handle) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
-        String url = "https://codeforces.com/api/user.rating?handle=" + handle;
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        try {
-            ResponseEntity<User_Rating_Response> responseEntity = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    entity,
-                    User_Rating_Response.class  // 指定返回类型为Response
-            );
-
-            User_Rating_Response response = responseEntity.getBody();
-            System.out.println(responseEntity);  // 打印Response对象的详细信息
-            System.out.println("result:"+response);
-//            return response.getResult().get(0).getRating();
-            return response;
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-//            return -1;
-            return null;
+    /*
+    *返回所有用户的ratinglist，类似
+    * {
+    * "code":200
+    * "result":{
+    *   ["user":{……}, "ratinglist":[]],
+    *   [],
+    *   [],
+    *   [],
+    * ………………
+    * }
+    *
+    * }
+    * */
+    @GetMapping("/get_user_with_ratinglists")
+    public Map<String, Object> get_user_with_ratinglists() {
+        List<GroupedRatingList> list = codeforcesService.getUserWithRatinglists();
+        if(list.equals(null)) {
+            return new R().bad().builder();
+        } else {
+            return new R().ok().add("userwithratinglists",list).builder();
         }
     }
 }

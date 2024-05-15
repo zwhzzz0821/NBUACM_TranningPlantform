@@ -10,5 +10,6 @@ public class User {
     String uid;
     String username;
     String password;
-
+    String codeforceshandle;
+    int codeforcesrating;
 }

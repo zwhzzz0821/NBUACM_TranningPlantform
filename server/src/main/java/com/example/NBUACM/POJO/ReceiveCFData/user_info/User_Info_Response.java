@@ -1,4 +1,4 @@
-package com.example.NBUACM.POJO.user_info;
+package com.example.NBUACM.POJO.ReceiveCFData.user_info;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

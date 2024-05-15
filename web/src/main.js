@@ -12,18 +12,22 @@ import VMdPreview from "@kangc/v-md-editor/lib/preview";
 import "@kangc/v-md-editor/lib/style/preview.css";
 import vuepressTheme from "@kangc/v-md-editor/lib/theme/vuepress.js";
 import "@kangc/v-md-editor/lib/theme/style/vuepress.css";
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 Vue.config.productionTip = false
 
 Vue.use(Vant);
 Vue.use(ElementUI);
+Vue.use(BootstrapVue);
 
 function getUser() {
     return JSON.parse(localStorage.getItem('user'));
 }
 
 function timeStamp(value) {
-    let date = new Date(value); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    let date = new Date(value*1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
     let year = date.getFullYear();
     let month = ("0" + (date.getMonth() + 1)).slice(-2);
     let sdate = ("0" + date.getDate()).slice(-2);
@@ -38,6 +42,7 @@ function timeStamp(value) {
 Vue.prototype.$getUser=getUser
 Vue.prototype.$formatTime = timeStamp
 Vue.prototype.$echarts = echarts
+Vue.use(echarts);
 
 new Vue({
     router,

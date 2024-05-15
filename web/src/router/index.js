@@ -10,6 +10,16 @@ const routes = [
         component: () => import('../views/UserLayout.vue'),
         children:[
             {
+                path: '/user/test',
+                component: () => import('../views/test.vue'),
+            },
+            {
+                path: '/user/trybootstrap',
+                component: () => import('../views/trybootstrap.vue'),
+            },
+            {
+                path: '/user/userList',
+                component: () => import('../views/userList.vue'),
                 path: 'test',
                 component: () => import('../views/test.vue'),
 

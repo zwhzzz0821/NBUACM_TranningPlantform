@@ -1,4 +1,4 @@
-package com.example.NBUACM.POJO.user_rating;
+package com.example.NBUACM.POJO.ReceiveCFData.user_rating;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
