@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Problem_Info_DataInDB {
     private long contestId;
-    private String Index;
+    private String ProblemIndex;
     private String name;
     private String Type;
     private Double points;
@@ -20,7 +20,7 @@ public class Problem_Info_DataInDB {
 
     public Problem_Info_DataInDB(Problem_Info_DataBean dataBean) {
         contestId = dataBean.getContestId();
-        Index = dataBean.getIndex();
+        ProblemIndex = dataBean.getIndex();
         name = dataBean.getName();
         Type = dataBean.getType();
         points = dataBean.getPoints();
