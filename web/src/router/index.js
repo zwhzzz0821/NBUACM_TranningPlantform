@@ -10,9 +10,13 @@ const routes = [
         component: () => import('../views/UserLayout.vue'),
         children:[
             {
-                path: '/test',
+                path: 'test',
                 component: () => import('../views/test.vue'),
 
+            },
+            {
+                path: 'problem',
+                component: () => import('../components/problem.vue'),
             }
         ]
     }

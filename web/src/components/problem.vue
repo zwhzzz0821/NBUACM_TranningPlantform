@@ -5,7 +5,7 @@
           <el-input v-model="number" placeholder="问题号"></el-input>
         </el-form-item>
         <el-form-item label="比赛场次" style="margin-left: 20px">
-          <el-input v-model="username" placeholder="比赛场次"></el-input>
+          <el-input v-model="contestNumber" placeholder="比赛场次"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="find" class="niceButton5" style="margin-left: 50px"><span>查找</span></el-button>
@@ -19,38 +19,57 @@
         :row-style="{ height: '40px' }"
         style="width: 100%; margin-left: 50px; margin-right: 50px">
         <el-table-column
-            label="问题号"
-            width="280">
+            label="问题来源"
+            width="100">
           <template slot-scope="scope">
-            <div>{{ scope.row.number }}</div>
+            <div>
+              <a href="https://codeforces.com/">
+                <img :src="CFLogo" style="width: 30px; margin-top: 5px; margin-bottom: 5px">
+              </a>
+            </div>
           </template>
         </el-table-column>
         <el-table-column
-            label="比赛名称"
+            label="问题号"
             width="280">
           <template slot-scope="scope">
-            <div>{{ scope.row.username }}</div>
+            <div>{{ scope.row.ProblemId }}</div>
           </template>
         </el-table-column>
         <el-table-column
             label="问题名"
             width="280">
           <template slot-scope="scope">
-            <div style="color: red;">{{ scope.row.score }}</div>
+            <div>{{ scope.row.name }}</div>
           </template>
         </el-table-column>
         <el-table-column
             label="标签"
             width="280">
           <template slot-scope="scope">
-            <div style="color: red;">{{ scope.row.score }}</div>
+            <div>{{ scope.row.tags }}</div>
           </template>
         </el-table-column>
         <el-table-column
             label="难度分"
             width="280">
           <template slot-scope="scope">
-            <div style="color: red;">{{ scope.row.score }}</div>
+            <div v-if="scope.row.rating >= 800 && scope.row.rating < 1200" style="color: darkgray;">{{ scope.row.rating }}</div>
+            <div v-if="scope.row.rating >= 1200 && scope.row.rating < 1400" style="color: darkgreen;">{{ scope.row.rating }}</div>
+            <div v-if="scope.row.rating >= 1400 && scope.row.rating < 1600" style="color: aquamarine;">{{ scope.row.rating }}</div>
+            <div v-if="scope.row.rating >= 1600 && scope.row.rating < 1900" style="color: blue;">{{ scope.row.rating }}</div>
+            <div v-if="scope.row.rating >= 1900 && scope.row.rating < 2100" style="color: blueviolet;">{{ scope.row.rating }}</div>
+            <div v-if="scope.row.rating >= 2100 && scope.row.rating < 2400" style="color: chocolate;">{{ scope.row.rating }}</div>
+            <div v-if="scope.row.rating >= 2400" style="color: red;">{{ scope.row.rating }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="查看其他同学题解"
+            width="280">
+          <template slot-scope="scope">
+            <div>
+              <el-button size="mini" type="primary" @click="handleViewOtherSolutions(scope.$index, scope.row)">查看</el-button>
+            </div>
           </template>
         </el-table-column>
 
@@ -71,19 +90,18 @@
   
 <script>
   import request from "@/util/request";
-  
+  import CFLogo from "../assets/CF.png";
   export default {
     name: "BlacklistManagement",
     data() {
       return {
+        CFLogo: CFLogo,
         rows: null,
-        username: null,
         currentPage: 1,
         pageSize: 10,
         totalRows: 0,
         number: null,
-        dialogVisible: false,
-        signInCode: null,
+        contestNumber: null,
         pagedRows: []
       }
     },
@@ -121,37 +139,23 @@
             return item.number == targetNumber || item.username === targetUsername;
         });
       },
-      remarkPwd(index, row) {
-        this.$nextTick(() => {
-          let input = document.getElementById('input' + index);
-          console.log(input);
-          request.post('/Blacklist/change', {
-            uid: row.uid,
-            score: input.value
-          }).then(res => {
-            input.value = ''
-            this.$message({
-              message: '修改成功',
-              type: 'success'
-            });
-            this.update()
-          })
-        });
-  
-      },
       onPageChange(page) {
         this.currentPage = page;
         this.pagedRows = this.currentPagedData;
       },
       update() {
-        request.get('/Blacklist/show').then(res => {
-          console.log(res);
-          this.rows = res.blacklists
+        request.get('/Problem/show').then(res => {
+          this.rows = res.problemList;
         })
-      }
+      },
+      handleViewOtherSolutions(index, row) {
+        console.log('当前行的索引:', index);
+        console.log('当前行的数据:', row);
+         // TODO
+        // 在这里添加实际的功能逻辑，比如跳转或数据处理
+      },
     },
     created() {
-   
       this.update()
     }
   }
@@ -217,7 +221,6 @@
     right: 0;
   }
   .pagination-container {
-    position: fixed;
     bottom: 75px; /* 或者你希望的任何位置 */
     left: 280px;
     z-index: 1000; /* 确保它在页面最上层 */

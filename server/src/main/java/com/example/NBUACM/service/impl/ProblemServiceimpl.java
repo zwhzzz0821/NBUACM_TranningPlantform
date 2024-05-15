@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import java.util.Map;
 
 
 @Service
@@ -22,7 +23,7 @@ public class ProblemServiceimpl implements ProblemService {
 
     @Override
     @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
-    public void getAllProblem() {
+    public void getAllProblemFromCF() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
@@ -45,10 +46,9 @@ public class ProblemServiceimpl implements ProblemService {
                 Problem_Info_DataInDB dataInDB = new Problem_Info_DataInDB(response.getResult().getProblems().get(i));
                 db_list.add(dataInDB);
             }
-            List<Problem_Info_DataInDB> oldDataInDB = problemMapper.selectAllProblem();
+            List<Map<String, Object>> oldDataInDB = problemMapper.selectAllProblem();
 
             for (int i = oldDataInDB.size(); i < db_list.size(); i++) {
-                System.out.println(db_list.get(i));
                 problemMapper.insert(db_list.get(i));
             }
         } catch (Exception e) {
@@ -56,5 +56,7 @@ public class ProblemServiceimpl implements ProblemService {
         }
     }
 
-
+    public List<Map<String, Object>> getAllProblem() {
+        return problemMapper.selectAllProblem();
+    }
 }
