@@ -29,6 +29,8 @@
                               <el-menu-item class="el-icon-s-management" index="1-7" @click="handleMenuSelect(6)"> 荣誉墙 </el-menu-item>
 
                               <el-menu-item class="el-icon-s-test" index="1-8" @click="handleMenuSelect(7)"> test </el-menu-item>
+
+                              <el-menu-item class="el-icon-s-trybootstrap" index="1-8" @click="handleMenuSelect(8)"> trybootstrap </el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
                     </el-menu>
@@ -53,10 +55,11 @@
             { name: '比赛', url: '/user/competition'},
             { name: '题目', url: '/user/problem' },
             { name: '博客', url: '/user/blog' },
-            { name: '用户', url: '/user/user' },
+            { name: '用户', url: '/user/userList' },
             { name: '设置', url: '/user/setting'},
             { name: '荣誉墙', url: '/user/honor' },
-            { name: 'test', url: '/test' },
+            { name: 'test', url: '/user/test' },
+            { name: 'trybootstrap', url: '/user/trybootstrap' },
         ]
       }
     },
