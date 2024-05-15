@@ -14,7 +14,7 @@ import java.util.Map;
 
 
 
-@RequestMapping("/before")
+@RequestMapping("/user")
 @RestController
 @EnableAutoConfiguration
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS})
@@ -58,7 +58,10 @@ public class UserController {
         }
     }
 
-
+    /*
+    * 删除用户，
+    * 按照传过来的uid来删除
+    * */
     @DeleteMapping("/deleteuser")
     public Map<String, Object> deleteuser(@RequestBody User user) {
         try {
@@ -70,4 +73,24 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getallusers")
+    public Map<String, Object> getallusers() {
+        try {
+            List<User> userlist = userService.getAllUsers();
+            return new R().ok().add("userlist", userlist).builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
+
+    @PostMapping("/changeuserinfo")
+    public Map<String, Object> changeuserinfo(@RequestBody User user) {
+        try {
+            System.out.println("user:"+user);
+            userService.changeUserInfo(user);
+            return new R().ok().builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
 }
