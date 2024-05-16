@@ -6,9 +6,6 @@
             <el-form-item label="问题号" style="margin-left: 60px">
               <el-input v-model="number" placeholder="问题号"></el-input>
             </el-form-item>
-            <el-form-item label="比赛场次" style="margin-left: 20px">
-              <el-input v-model="contestNumber" placeholder="比赛场次"></el-input>
-            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="find" class="niceButton5" style="margin-left: 50px"><span>查找</span></el-button>
             </el-form-item>
@@ -18,79 +15,54 @@
           </el-form>
         </el-header>
         <el-divider></el-divider>
-        <el-table
-          :data="pagedRows"
-          :row-style="{ height: '40px' }"
-          style="width: 100%; margin-left: 0 auto">
-          <el-table-column
-              label="问题来源"
-              width="100">
-            <template slot-scope="scope">
-              <div>
-                <a href="https://codeforces.com/">
-                  <img :src="CFLogo" style="width: 30px; margin-top: 5px; margin-bottom: 5px">
-                </a>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-              label="问题号"
-              width="100">
-            <template slot-scope="scope">
-              <div>{{ scope.row.ProblemId }}</div>
-            </template>
-          </el-table-column>
-          <el-table-column
-              label="问题名"
-              >
-            <template slot-scope="scope">
-              <div>
-                <el-link :href="generateLink(scope.row)" type="primary">
-                  <div>{{ scope.row.name }}</div>
-                </el-link>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-              label="标签"
-              >
-            <template slot-scope="scope">
-              <el-row class="tags-container">
-                <el-tag style="margin: 5px;"
-                  v-for="(tag, index) in scope.row.tags.split(',')"
-                  :key="index"
-                  :type="primary">
-                  {{ tag }}
-                </el-tag>
-              </el-row>
-            </template>
-          </el-table-column>
-          <el-table-column
-              label="难度分"
-              >
-            <template slot-scope="scope">
-              <div>
-                <span :style="`color: ${getRatingColor(scope.row.rating)}`">
-                  <div :class="scope.row.rating >= 3000 ? `first-letter-black` : ``">
-                    {{ scope.row.rating ? scope.row.rating : "No rating" }}
+            <el-table
+              :data="pagedRows"
+              :row-style="{ height: '40px' }"
+              style="width: 100%; margin-left: 0 auto">
+              <el-table-column
+                  label="发布人"
+                  >
+                <template slot-scope="scope">
+                  <div>
+                    <a href="https://codeforces.com/">
+                      <img :src="CFLogo" style="width: 30px; margin-top: 5px; margin-bottom: 5px">
+                    </a>
                   </div>
-                </span>
-              </div>
-  
-            </template>
-          </el-table-column>
-          <el-table-column
-              label="题解"
-              >
-            <template slot-scope="scope">
-              <div>
-                <el-button size="mini" type="primary" class="niceButton5" @click="handleViewOtherSolutions(scope.$index, scope.row)">查看</el-button>
-                <el-button size="mini" type="primary" class="niceButton5" >发布</el-button>
-              </div>
-            </template>
-          </el-table-column>
-  
-        </el-table>
+                </template>
+              </el-table-column>
+              <el-table-column
+                  label="发布日期"
+                  >
+                <template slot-scope="scope">
+                  <div>{{ scope.row.ProblemId }}</div>
+                </template>
+              </el-table-column>
+              <el-table-column
+                  label="题目"
+                  >
+                <template slot-scope="scope">
+                  <div>{{ scope.row.ProblemId }}</div>
+                </template>
+              </el-table-column>
+              <el-table-column
+                  label="难度"
+                  >
+                <template slot-scope="scope">
+                  <div>{{ scope.row.ProblemId }}</div>
+                </template>
+              </el-table-column>
+              <el-table-column
+                  label="标题"
+                  >
+                <template slot-scope="scope">
+                  <div>
+                    <el-link :href="generateLink(scope.row)" type="primary">
+                      <div>{{ scope.row.name }}</div>
+                    </el-link>
+                  </div>
+                </template>
+              </el-table-column>
+            </el-table>
         <el-pagination
           background
           layout="prev, pager, next"
@@ -104,18 +76,17 @@
       </el-container>
 
     </div>
+      
   
 </template>
   
 <script>
   import request from "@/util/request";
   import CFLogo from "../assets/CF.png";
-  import { getRatingColor } from "@/util/CFshow";
   export default {
     name: "BlacklistManagement",
     data() {
       return {
-        CFLogo: CFLogo,
         rows: null,
         currentPage: 1,
         pageSize: 10,
@@ -144,10 +115,6 @@
       },
     },
     methods: {
-      getRatingColor,
-      generateLink(row) {
-        return `https://codeforces.com/problemset/problem/${row.contestId}/${row.ProblemIndex}`;
-      },
       find() {
         const targetNumber = this.number;
         const targetUsername = this.username;

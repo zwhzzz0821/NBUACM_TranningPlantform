@@ -18,15 +18,21 @@ const routes = [
                 component: () => import('../views/trybootstrap.vue'),
             },
             {
-                path: '/user/userList',
-                component: () => import('../components/userList.vue'),
-                path: 'test',
-                component: () => import('../views/test.vue'),
+                path: 'userList',
+                component: () => import('../views/userList.vue'),
 
             },
             {
                 path: 'problem',
                 component: () => import('../components/problem.vue'),
+            },
+            {
+                path: 'blog',
+                component: () => import('../components/blog.vue'),
+            },
+            {
+                path: 'post',
+                component: () => import('../components/post.vue'),
             }
         ]
     }
