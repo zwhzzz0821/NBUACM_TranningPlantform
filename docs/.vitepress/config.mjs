@@ -26,10 +26,11 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Examples',
+        text: '关于我们',
         items: [
-          { text: 'Markdown Examples', link: '/about/member' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: '社团章程', link: '/about/member' },
+          { text: '社团简介', link: '/api-examples' },
+          { text: '社团活动', link: '/about/activities' }
         ]
       }
     ],
