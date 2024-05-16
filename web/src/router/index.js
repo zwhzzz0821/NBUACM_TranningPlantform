@@ -27,6 +27,14 @@ const routes = [
             {
                 path: 'problem',
                 component: () => import('../components/problem.vue'),
+            },
+            {
+                path: 'blog',
+                component: () => import('../components/blog.vue'),
+            },
+            {
+                path: 'post',
+                component: () => import('../components/post.vue'),
             }
         ]
     }
