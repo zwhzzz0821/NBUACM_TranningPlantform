@@ -15,9 +15,17 @@ import "@kangc/v-md-editor/lib/theme/style/vuepress.css";
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import VMdEditor from '@kangc/v-md-editor';
+import '@kangc/v-md-editor/lib/style/base-editor.css';
+import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
+import '@kangc/v-md-editor/lib/theme/style/github.css';
 
 Vue.config.productionTip = false
+import hljs from 'highlight.js';
 
+VMdEditor.use(githubTheme, {
+  Hljs: hljs,
+});
 Vue.use(Vant);
 Vue.use(ElementUI);
 Vue.use(BootstrapVue);
@@ -38,12 +46,11 @@ function timeStamp(value) {
     // 返回
     return result;
 }
-
 Vue.prototype.$getUser=getUser
 Vue.prototype.$formatTime = timeStamp
 Vue.prototype.$echarts = echarts
 Vue.use(echarts);
-
+Vue.use(VMdEditor);
 new Vue({
     router,
     render: function (h) {
