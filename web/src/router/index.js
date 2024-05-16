@@ -20,8 +20,6 @@ const routes = [
             {
                 path: 'userList',
                 component: () => import('../views/userList.vue'),
-                // path: 'test',
-                // component: () => import('../views/test.vue'),
 
             },
             {

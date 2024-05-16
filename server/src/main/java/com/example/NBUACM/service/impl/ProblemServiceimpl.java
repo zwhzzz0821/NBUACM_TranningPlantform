@@ -1,6 +1,6 @@
 package com.example.NBUACM.service.impl;
 
-import com.example.NBUACM.POJO.problem_info.*;
+import com.example.NBUACM.POJO.ReceiveCFData.problem_info.*;
 import com.example.NBUACM.mapper.ProblemMapper;
 import com.example.NBUACM.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
