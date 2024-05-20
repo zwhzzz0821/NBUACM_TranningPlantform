@@ -22,7 +22,7 @@ public class ProblemServiceimpl implements ProblemService {
     private ProblemMapper problemMapper;
 
     @Override
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000, initialDelay = 1000)
     public void getAllProblemFromCF() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -48,7 +48,10 @@ public class ProblemServiceimpl implements ProblemService {
             }
             List<Map<String, Object>> oldDataInDB = problemMapper.selectAllProblem();
 
-            for (int i = oldDataInDB.size(); i < db_list.size(); i++) {
+            int newlist_length = db_list.size();
+            int oldlist_length = oldDataInDB.size();
+
+            for (int i = (newlist_length - oldlist_length - 1); i >=0 ; i--) {
                 problemMapper.insert(db_list.get(i));
             }
         } catch (Exception e) {

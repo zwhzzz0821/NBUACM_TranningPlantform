@@ -37,7 +37,16 @@ const routes = [
             {
                 path: 'post/:problemId',
                 component: () => import('../components/post.vue'),
+            },//individual
+            {
+                path: '/user/individual',
+                component: () => import('../components/IndividualInfoShow.vue')
+            },
+            {
+                path: '/user/login',
+                component: () => import('../components/login.vue')
             }
+
         ]
     }
 ]

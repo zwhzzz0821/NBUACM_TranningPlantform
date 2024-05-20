@@ -14,7 +14,7 @@ public class Submission_Info_DataBean {
     private long creationTimeSeconds; // 使用 Unix 时间格式
     private long relativeTimeSeconds; // 相对于比赛开始的时间
 
-    private Problem_Info_DataBean problem; // Problem 对象
+    private Problem_Info_DataBean problem; //  Problem对象
     private Party author; // Party 对象
     private String programmingLanguage; // 编程语言
     private String verdict; // 判决结果，可以为 null 或者不设置

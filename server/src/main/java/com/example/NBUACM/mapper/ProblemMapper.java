@@ -19,6 +19,11 @@ public interface ProblemMapper {
     @Select("SELECT * FROM problem")
     List<Map<String, Object>> selectAllProblem();
 
+    @Select("select * from problem " +
+            "where contestId=#{contestId} and ProblemIndex=#{ProblemIndex}")
+    List<Problem_Info_DataInDB> getProblemByContestIdAndIndex(long contestId, String ProblemIndex);
+
     @Select("SELECT * FROM problem WHERE ProblemId = #{problemId}")
     Map<String, Object> selectByProblemId(long problemId);
+
 }
