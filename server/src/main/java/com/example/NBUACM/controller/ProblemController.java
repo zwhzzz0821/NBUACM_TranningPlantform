@@ -23,4 +23,11 @@ public class ProblemController {
     public Map<String, Object> show() {
         return new R().ok().add("problemList", problemService.getAllProblem()).builder();
     }
+
+    @GetMapping("/GetProblem/{problemId}")
+    public Map<String, Object> GetProblem(@PathVariable Long problemId) {
+        Map<String, Object> ret = problemService.getOneProblem(problemId);
+        return new R().ok().add("ProblemRet", ret).builder();
+    }
+
 }

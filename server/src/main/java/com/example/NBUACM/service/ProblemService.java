@@ -12,7 +12,8 @@ public interface ProblemService {
     void getAllProblemFromCF();
 
     List<Map<String, Object>> getAllProblem();
+  
+    public List<Map<String, Object>> getAllProblem();
 
-
-
+    public Map<String, Object> getOneProblem(long problemId);
 }

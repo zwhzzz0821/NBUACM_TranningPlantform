@@ -63,5 +63,5 @@ public class ProblemServiceimpl implements ProblemService {
         return problemMapper.selectAllProblem();
     }
 
-
+    public Map<String, Object> getOneProblem(long problemId) { return problemMapper.selectByProblemId(problemId);}
 }
