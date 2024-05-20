@@ -69,7 +69,7 @@
                         <el-table-column prop="all" label="All" align="center" />
                         </el-table>
                     </el-header>
-                    <div>月提交数排名: {{this.submissionStatus.active_ranking}}</div>
+                    <div>月AC数排名: {{this.submissionStatus.active_ranking}}</div>
                     <el-main style="overflow: hidden">
                         <el-tooltip
                         effect="light"
@@ -89,7 +89,7 @@
                                 font-weight: 700;
                                 color: #464646;
                             "
-                            >月提交数排名:
+                            >月AC数排名:
                             {{
                                 this.submissionStatus.active_ranking
                             }}</span

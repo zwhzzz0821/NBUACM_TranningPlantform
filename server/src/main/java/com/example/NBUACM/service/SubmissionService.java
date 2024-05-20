@@ -1,11 +1,10 @@
 package com.example.NBUACM.service;
-import com.example.NBUACM.POJO.MySQLTable.ACSubmission;
+import com.example.NBUACM.POJO.MySQLTable.Submission;
 import com.example.NBUACM.POJO.ReceiveCFData.submission_info.Submission_Info_DataBean;
 import com.example.NBUACM.POJO.ReceiveCFData.submission_info.Submission_Info_Response;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
 import java.util.List;
 @Transactional
 public interface SubmissionService {
@@ -20,7 +19,7 @@ public interface SubmissionService {
 
     void uodateTableAllAcSubmission(Submission_Info_Response response, String handle);
 
-    List<ACSubmission> getACSubmissionFromDBByHandle(String handle);
+    List<Submission> getACSubmissionFromDBByHandle(String handle);
 
     void updateUserSubmits(Submission_Info_Response response, String handle);
 
