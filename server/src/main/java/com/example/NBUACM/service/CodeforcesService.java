@@ -4,12 +4,19 @@ import com.example.NBUACM.POJO.ReceiveCFData.user_info.User_Info_Response;
 import com.example.NBUACM.POJO.ReceiveCFData.user_rating.User_Rating_DataBean;
 import com.example.NBUACM.POJO.ReceiveCFData.user_rating.User_Rating_Response;
 import com.example.NBUACM.POJO.ReturnAppFrontData.GroupedRatingList;
+import com.example.NBUACM.entity.User;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Transactional
 public interface CodeforcesService {
+
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000, initialDelay = 10000)
+    void updateUserInfoAndRatingList();
+
+
     /*
      * “更新数据库子系统”要用的函数(往数据库存数据要用的函数)
      * */
@@ -35,6 +42,10 @@ public interface CodeforcesService {
     void updateTableAllRatingList(User_Rating_Response response);
 
     void updateUserCodeforcesRating(int rating, String handle);
+
+    void updateUserListRatingRank(List<User> userlist);
+
+    void updateUserListMonthACRank(List<User> userlist);
     //-------------------------------------------------------------------------------------------分割行
     /*
      * 从数据库库拿数据的函数

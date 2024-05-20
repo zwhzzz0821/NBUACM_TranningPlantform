@@ -9,3 +9,9 @@ This project is used in the NBU 21 software course, with the intention of making
 Problem显示已完成和未完成,User端实现能选择看已完成和未完成的题目情况，admin端要实现能看到集训队内部完成情况，比如(10 / 12)，然后可以具体查看是哪几个同学做了，哪几个同学没做。（Yukim1)
 
 博客系统，题目绑定题解。 (Yukim1)
+
+
+
+## 请注意！！！
+
+.sql文件中的allusersubmissionstatus表中的内容是必须要有的，现有的一条记录别删即可。

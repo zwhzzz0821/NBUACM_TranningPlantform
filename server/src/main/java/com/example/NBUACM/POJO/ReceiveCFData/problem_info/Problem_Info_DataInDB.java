@@ -1,5 +1,7 @@
 package com.example.NBUACM.POJO.ReceiveCFData.problem_info;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Problem_Info_DataInDB {
+    @TableId(type = IdType.AUTO)
+    private int ProblemId;
     private long contestId;
     private String ProblemIndex;
     private String name;

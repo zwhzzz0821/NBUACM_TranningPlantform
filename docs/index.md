@@ -7,7 +7,7 @@ hero:
   text: "宁波大学 ACM\n程序设计协会"
   tagline: Choose the NBU, Choose the ACM.
   image:
-    src: "icon/icpc.png"
+    src: "icon/nbucpc.png"
     alt: icpc
   actions:
     - theme: brand
@@ -18,13 +18,13 @@ hero:
       link: /about/introduction
 
 features:
-  - icon: 😎
+  - icon: 👋
     title: 我们是？
     details: 我们是宁波大学 ACM 程序设计协会，为同学们提供算法交流、训练平台，多次代表学校出征程序设计竞赛（ICPC/CCPC、浙江省赛、天梯赛等）。
-  - icon: 🚀
+  - icon: 👍
     title: 我们氛围超棒！
     details: 承担队内管理职责的均为本科学长学姐，氛围相当自由。很多队员最终拿到了大厂 Offer，也有很多队员保研/考研到浙大等名校。
-  - icon: 🎉
+  - icon: 👌
     title: 欢迎加入我们
     details: 我们随时欢迎感兴趣的同学加入我们！！！！！ QQ：NBUACM交流群 907464453
 ---
@@ -34,10 +34,10 @@ features:
 <style>
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #3CB371 30%, #41d1ff);
 
-  --vp-home-hero-image-background-image: linear-gradient(-45deg, #bd34fe50 50%, #47caff50 50%);
-  --vp-home-hero-image-filter: blur(44px);
+  --vp-home-hero-image-background-image: linear-gradient(-18deg, #90EE90 30%, #B0C4DE 40%);
+  --vp-home-hero-image-filter: blur(60px);
 }
 
 :root.dark {
@@ -56,3 +56,13 @@ features:
   }
 }
 </style>
+
+<div style="height: 30px;"></div>
+
+<h1>🎁我们的荣誉</h1>
+<p>我是文案</p>
+<Honor/>
+
+<h1>🎡我们的活动</h1>
+<p>我是文案</p>
+<Activities/>
