@@ -1,5 +1,5 @@
 import * as echarts from "echarts";
-import moment from "moment";
+// import moment from "moment";
 
 
 function showAcSubmissionsTypeChart(status) {
@@ -305,7 +305,7 @@ function showRecentUserStatusChart(submissionStatus, allUserSubmissionStatus) {
 }
 
 function showActivityCharts(calendarSubmissions,submissionStatus,allUserSubmissionStatus) {
-  showCalendarChart(calendarSubmissions);
+  // showCalendarChart(calendarSubmissions);
   showRecentUserStatusChart(
     submissionStatus,
     allUserSubmissionStatus

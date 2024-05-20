@@ -28,15 +28,15 @@
                     <el-header height="200px">
                         <div id="totalSubmissions" style="height: 200px"></div>
                     </el-header>
-                    <div>Rank: {{this.submissionStatus.career_ranking}}</div>
+                    <div>rating Rank: {{this.submissionStatus.career_ranking}}</div>
                     <el-main>
                         <el-tooltip
                             effect="light"
-                            :content="`Top ${100 - careerPercentage}%`"
+                            :content="`超过 ${careerPercentage}%`"
                             placement="top"
                         >
                             <el-progress
-                                style="height: 200px"
+                                style="height: 300px"
                                 type="dashboard"
                                 :percentage="careerPercentage"
                             >
@@ -55,9 +55,9 @@
             </el-card>
             <el-card
                 header="Activeness"
-                style="margin: 10px; text-align: center; height: 540px"
+                style="margin: 10px; text-align: center; height: 600px"
                 >
-                <el-container style="height: 280px">
+                <el-container style="height: 300px">
                     <el-aside width="66%" style="overflow: visible">
                     <div id="recentUserStatus" style="height: 280px"></div>
                     </el-aside>
@@ -69,14 +69,15 @@
                         <el-table-column prop="all" label="All" align="center" />
                         </el-table>
                     </el-header>
+                    <div>月提交数排名: {{this.submissionStatus.active_ranking}}</div>
                     <el-main style="overflow: hidden">
                         <el-tooltip
                         effect="light"
-                        :content="`Top ${100 - activePercentage}%`"
+                        :content="`超过 ${activePercentage}%`"
                         placement="top"
                         >
                         <el-progress
-                            style="height: 200px"
+                            style="height: 300px"
                             type="dashboard"
                             :percentage="activePercentage"
                         >
@@ -88,7 +89,7 @@
                                 font-weight: 700;
                                 color: #464646;
                             "
-                            >Rank:
+                            >月提交数排名:
                             {{
                                 this.submissionStatus.active_ranking
                             }}</span
@@ -252,16 +253,14 @@ export default {
         getPercentage() {
             this.careerPercentage = Number(
                 (
-                100 -
-                (this.submissionStatus.career_ranking /
+                    ((this.userlistsize - this.submissionStatus.career_ranking + 1) /
                     this.userlistsize) *
                     100
                 ).toFixed(2)
             );
             this.activePercentage = Number(
                 (
-                100 -
-                (this.submissionStatus.active_ranking /
+                ((this.userlistsize - this.submissionStatus.active_ranking + 1) /
                     this.userlistsize) *
                     100
                 ).toFixed(2)
