@@ -1,6 +1,7 @@
 package com.example.NBUACM.service.impl;
 
 import com.example.NBUACM.POJO.MySQLTable.UserAndRatingList;
+import com.example.NBUACM.POJO.ReceiveCFData.submission_info.Submission_Info_Response;
 import com.example.NBUACM.POJO.ReceiveCFData.user_info.User_Info_Response;
 import com.example.NBUACM.POJO.ReceiveCFData.user_rating.User_Rating_DataBean;
 import com.example.NBUACM.POJO.ReceiveCFData.user_rating.User_Rating_Response;
@@ -12,11 +13,13 @@ import com.example.NBUACM.service.CodeforcesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -26,7 +29,40 @@ public class CodeforcesServiceImpl implements CodeforcesService {
     @Autowired
     private UserMapper userMapper;
 
+    @Override
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000, initialDelay = 10000)
+    public void updateUserInfoAndRatingList() {
+        List<User> userlist = userMapper.getAllUsers();
+        int user_len = userlist.size();
 
+        for(int i=0 ;i < user_len; i++) {
+            String handle = userlist.get(i).getCodeforceshandle();
+
+            /*
+            * 更新个人的rating
+            * */
+            User_Info_Response user_info_response = getUserInfoByHandle(handle);
+            updateUserCodeforcesRating(user_info_response.getResult().get(0).getRating(),handle);
+
+
+            /*
+            * 更新userandratinglist
+            * */
+            User_Rating_Response user_rating_response = getRatingListByHandle(handle);
+            updateTableAllRatingList(user_rating_response);
+        }
+
+        /*
+         * 更新user表的ratingRank
+         * */
+        updateUserListRatingRank(userlist);
+
+        /*
+        * 更新user表的monthACRank
+        * */
+        updateUserListMonthACRank(userlist);
+
+    }
 
     /*
     * “更新数据库子系统”要用的函数(往数据库存数据要用的函数)
@@ -52,8 +88,8 @@ public class CodeforcesServiceImpl implements CodeforcesService {
             );
 
             User_Info_Response response = responseEntity.getBody();
-            System.out.println(responseEntity);  // 打印Response对象的详细信息
-            System.out.println("result:"+response);
+//            System.out.println(responseEntity);  // 打印Response对象的详细信息
+//            System.out.println("result:"+response);
             return response;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -82,8 +118,8 @@ public class CodeforcesServiceImpl implements CodeforcesService {
             );
 
             User_Rating_Response response = responseEntity.getBody();
-            System.out.println(responseEntity);  // 打印Response对象的详细信息
-            System.out.println("result:"+response);
+//            System.out.println(responseEntity);  // 打印Response对象的详细信息
+//            System.out.println("result:"+response);
 //            return response.getResult().get(0).getRating();
             return response;
         } catch (Exception e) {
@@ -123,6 +159,32 @@ public class CodeforcesServiceImpl implements CodeforcesService {
     public void updateUserCodeforcesRating(int rating, String handle) {
         userMapper.updateUserCodeforcesRating(rating,handle);
     }
+
+    @Override
+    public void updateUserListRatingRank(List<User> userlist) {
+        // 对 userlist 按照 rating 属性进行降序排序
+        Collections.sort(userlist, Comparator.comparingDouble(User::getCodeforcesrating).reversed());
+        int len = userlist.size();
+
+        for(int i=0;i<len;i++) {
+            String handle = userlist.get(i).getCodeforceshandle();
+            userMapper.updateRatingRankByHandle(handle, i+1);
+        }
+
+
+    }
+
+    @Override
+    public void updateUserListMonthACRank(List<User> userlist) {
+        // 对 userlist 按照 MonthAC 属性进行降序排序
+        Collections.sort(userlist, Comparator.comparingDouble(User::getMonthAC).reversed());
+        int len = userlist.size();
+        for(int i=0;i<len;i++) {
+            String handle = userlist.get(i).getCodeforceshandle();
+            userMapper.updateMonthACRankByHandle(handle, i+1);
+        }
+    }
+
     /*
     * 从数据库库拿数据的函数
     * */

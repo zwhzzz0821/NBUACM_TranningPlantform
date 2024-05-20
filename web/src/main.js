@@ -19,6 +19,7 @@ import VMdEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
 import '@kangc/v-md-editor/lib/theme/style/github.css';
+import store from './store'
 
 Vue.config.productionTip = false
 import hljs from 'highlight.js';
@@ -49,11 +50,13 @@ function timeStamp(value) {
 Vue.prototype.$getUser=getUser
 Vue.prototype.$formatTime = timeStamp
 Vue.prototype.$echarts = echarts
+Vue.use(store);
 Vue.use(echarts);
 Vue.use(VMdEditor);
 new Vue({
     router,
     render: function (h) {
         return h(App)
-    }
+    },
+    store
 }).$mount('#app')

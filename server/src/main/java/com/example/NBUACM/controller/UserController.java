@@ -1,10 +1,13 @@
 package com.example.NBUACM.controller;
 
 import com.example.NBUACM.Bean.R;
+import com.example.NBUACM.POJO.MySQLTable.AllUserSubmissionStatus;
 import com.example.NBUACM.entity.User;
+import com.example.NBUACM.service.AllUserSubmissionStatusService;
 import com.example.NBUACM.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +25,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private AllUserSubmissionStatusService allUserSubmissionStatusService;
 
 
     /*
@@ -93,4 +97,33 @@ public class UserController {
             return new R().bad().builder();
         }
     }
+
+    @GetMapping("/getuser")
+    public Map<String, Object> getuser(String uid) {
+        try {
+            User temp = new User();
+            temp.setUid(uid);
+            User user = userService.getByUid(temp);
+            List<User> list = userService.getAllUsers();
+
+            System.out.println("uid:" + uid);
+            System.out.println("user:"+user);
+            return new R().ok().add("user",user).add("userlistsize",list.size()).builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
+
+    @GetMapping("/getAllUserSubmissionStatus")
+    public Map<String, Object> getAllUserSubmissionStatus() {
+        try {
+            AllUserSubmissionStatus data = allUserSubmissionStatusService.getAllUserSubmissionStatus();
+            return new R().ok().add("allUserSubmissionStatus",data).builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
+
+
+
 }
