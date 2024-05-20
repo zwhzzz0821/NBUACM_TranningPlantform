@@ -1,6 +1,6 @@
 package com.example.NBUACM.mapper;
 
-import com.example.NBUACM.POJO.problem_info.Problem_Info_DataInDB;
+import com.example.NBUACM.POJO.ReceiveCFData.problem_info.Problem_Info_DataInDB;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
