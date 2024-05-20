@@ -18,4 +18,7 @@ public interface ProblemMapper {
 
     @Select("SELECT * FROM problem")
     List<Map<String, Object>> selectAllProblem();
+
+    @Select("SELECT * FROM problem WHERE ProblemId = #{problemId}")
+    Map<String, Object> selectByProblemId(long problemId);
 }
