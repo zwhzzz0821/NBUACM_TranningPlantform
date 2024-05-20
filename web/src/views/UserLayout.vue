@@ -22,13 +22,15 @@
                                
                               <el-menu-item class="el-icon-s-comment" index="1-4" @click="handleMenuSelect(3)"> 博客 </el-menu-item>
                               
-                              <el-menu-item class="el-icon-s-custom" index="1-5" @click="handleMenuSelect(4)"> 用户 </el-menu-item>
+                              <el-menu-item class="el-icon-s-custom" index="1-5" @click="handleMenuSelect(4)"> 用户列表 </el-menu-item>
                               
                               <el-menu-item class="el-icon-setting" index="1-6" @click="handleMenuSelect(5)"> 设置 </el-menu-item>
                               
                               <el-menu-item class="el-icon-s-management" index="1-7" @click="handleMenuSelect(6)"> 荣誉墙 </el-menu-item>
 
-                              <el-menu-item class="el-icon-s-test" index="1-8" @click="handleMenuSelect(7)"> test </el-menu-item>
+                              <el-menu-item class="el-icon-s-test" index="1-8" @click="handleMenuSelect(7)"> 个人用户 </el-menu-item>
+
+                              <el-menu-item class="el-icon-s-test" index="1-9" @click="handleMenuSelect(8)"> 登录测试 </el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
                     </el-menu>
@@ -53,10 +55,11 @@
             { name: '比赛', url: '/user/competition'},
             { name: '题目', url: '/user/problem' },
             { name: '博客', url: '/user/blog' },
-            { name: '用户', url: '/user/user' },
+            { name: '用户列表', url: '/user/userList' },
             { name: '设置', url: '/user/setting'},
             { name: '荣誉墙', url: '/user/honor' },
-            { name: 'test', url: '/test' },
+            { name: '个人用户', url: '/user/individual' },
+            { name: '登录测试', url: '/user/login'}
         ]
       }
     },

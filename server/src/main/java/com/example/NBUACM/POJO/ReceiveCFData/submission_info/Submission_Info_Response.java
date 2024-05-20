@@ -1,4 +1,4 @@
-package com.example.NBUACM.POJO.user_rating;
+package com.example.NBUACM.POJO.ReceiveCFData.submission_info;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User_Rating_Response {
+public class Submission_Info_Response {
     private String status;
-    private List<User_Rating_DataBean> result;
+    private List<Submission_Info_DataBean> result;
 }
