@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ACSubmission {
+public class Submission {
 
     private long acsubmissionid;
     private long submissionIdFromCF;
@@ -16,4 +16,5 @@ public class ACSubmission {
     private String handle;
     private int ProblemId;
     private int ProblemRating;
+    private String verdict;
 }

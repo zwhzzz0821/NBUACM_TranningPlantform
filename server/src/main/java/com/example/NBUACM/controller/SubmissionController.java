@@ -2,7 +2,7 @@ package com.example.NBUACM.controller;
 
 
 import com.example.NBUACM.Bean.R;
-import com.example.NBUACM.POJO.MySQLTable.ACSubmission;
+import com.example.NBUACM.POJO.MySQLTable.Submission;
 import com.example.NBUACM.POJO.ReceiveCFData.submission_info.Submission_Info_Response;
 import com.example.NBUACM.service.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class SubmissionController {
 
     @GetMapping("/getACsubmissionlist")
     public Map<String, Object> getACsubmissionlist(String handle) {
-        List<ACSubmission> list = submissionService.getACSubmissionFromDBByHandle(handle);
+        List<Submission> list = submissionService.getACSubmissionFromDBByHandle(handle);
         if(list.equals(null)) {
             return new R().bad().builder();
         } else {

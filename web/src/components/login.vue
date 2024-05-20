@@ -19,7 +19,7 @@ export default {
     },
     methods:{
         loginTest() {
-            this.$store.state.uid = "233333333";
+            this.$store.state.uid = "226001634";
         },
         getUserInfo(){
             request.get('/user/getuser', {

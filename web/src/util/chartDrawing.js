@@ -1,5 +1,5 @@
 import * as echarts from "echarts";
-// import moment from "moment";
+import moment from "moment";
 
 
 function showAcSubmissionsTypeChart(status) {
@@ -146,8 +146,8 @@ function showCareerCharts(submissionStatus) {
 
 function transformCalendarData(calendarSubmissions) {
   const calendarMap = {};
-  calendarSubmissions.forEach((actime) => {
-    const submitDate = moment.unix(actime).format("YYYY-MM-DD");
+  calendarSubmissions.forEach((calendarSubmissions) => {
+    const submitDate = moment.unix(calendarSubmissions.actime).format("YYYY-MM-DD");
     calendarMap[submitDate] = calendarMap[submitDate]
       ? calendarMap[submitDate] + 1
       : 1;
@@ -162,6 +162,7 @@ function transformCalendarData(calendarSubmissions) {
 
 function showCalendarChart(calendarSubmissions) {
   const data = transformCalendarData(calendarSubmissions);
+  // console.log("calendar->data:",data);
   const chartDom = document.getElementById("calendar");
   const myChart = echarts.init(chartDom);
   const option = {
@@ -185,14 +186,14 @@ function showCalendarChart(calendarSubmissions) {
     },
     visualMap: {
       pieces: [
-        { value: 1, color: "#B39DDB" },
-        { value: 2, color: "#9575CD" },
-        { value: 3, color: "#7E57C2" },
-        { value: 4, color: "#673AB7" },
-        { value: 5, color: "#5E35B1" },
-        { value: 6, color: "#512DA8" },
-        { value: 7, color: "#4527A0" },
-        { min: 7, color: "#311B92" },
+        { value: 1, color: "#E8F5E9" },  // 浅绿色
+        { value: 2, color: "#C8E6C9" },
+        { value: 3, color: "#A5D6A7" },
+        { value: 4, color: "#81C784" },
+        { value: 5, color: "#66BB6A" },
+        { value: 6, color: "#4CAF50" },
+        { value: 7, color: "#43A047" },  // 较深的绿色
+        { min: 7, color: "#388E3C" }     // 更深的绿色
       ],
       type: "piecewise",
       orient: "horizontal",
@@ -305,7 +306,7 @@ function showRecentUserStatusChart(submissionStatus, allUserSubmissionStatus) {
 }
 
 function showActivityCharts(calendarSubmissions,submissionStatus,allUserSubmissionStatus) {
-  // showCalendarChart(calendarSubmissions);
+  showCalendarChart(calendarSubmissions);
   showRecentUserStatusChart(
     submissionStatus,
     allUserSubmissionStatus

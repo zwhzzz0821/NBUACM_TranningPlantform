@@ -1,20 +1,18 @@
 package com.example.NBUACM.service.impl;
 
-import com.example.NBUACM.POJO.MySQLTable.ACSubmission;
+import com.example.NBUACM.POJO.MySQLTable.Submission;
 import com.example.NBUACM.POJO.MySQLTable.AllUserSubmissionStatus;
-import com.example.NBUACM.POJO.ReceiveCFData.problem_info.Problem_Info_DataBean;
 import com.example.NBUACM.POJO.ReceiveCFData.problem_info.Problem_Info_DataInDB;
 import com.example.NBUACM.POJO.ReceiveCFData.submission_info.Submission_Info_DataBean;
 import com.example.NBUACM.POJO.ReceiveCFData.submission_info.Submission_Info_Response;
 import com.example.NBUACM.entity.User;
-import com.example.NBUACM.mapper.ACSubmissionMapper;
+import com.example.NBUACM.mapper.SubmissionMapper;
 import com.example.NBUACM.mapper.AllUserSubmissionStatusMapper;
 import com.example.NBUACM.mapper.ProblemMapper;
 import com.example.NBUACM.mapper.UserMapper;
 import com.example.NBUACM.service.ProblemService;
 import com.example.NBUACM.service.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -33,7 +31,7 @@ import java.util.List;
 public class SubmissionServiceImpl implements SubmissionService {
 
     @Autowired
-    private ACSubmissionMapper acsubmissionMapper;
+    private SubmissionMapper acsubmissionMapper;
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -168,8 +166,6 @@ public class SubmissionServiceImpl implements SubmissionService {
             }
 
 
-
-
         }
 
         userMapper.updateMonthACByHandle(handle, monthAC);
@@ -192,7 +188,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     @Override
     public void updateWeekANDMonthANDTotalAvgACRatingWithHandle(String handle) {
-        List<ACSubmission> list = acsubmissionMapper.getACSubmissionByhandle(handle);
+        List<Submission> list = acsubmissionMapper.getACSubmissionByhandle(handle, "OK");
         int len = list.size();
 
         double week_Sum_Rating = 0;
@@ -203,7 +199,7 @@ public class SubmissionServiceImpl implements SubmissionService {
         int total_Count = 0;
 
         for(int i = 0; i < len; i++) {
-            ACSubmission data = list.get(i);
+            Submission data = list.get(i);
 
 
             long actime = data.getActime();
@@ -309,13 +305,14 @@ public class SubmissionServiceImpl implements SubmissionService {
     @Override
     public void insertOneAcSubmission(Submission_Info_DataBean data, String handle) {   //返回是否插入新AC数据成功
 
-        ACSubmission insertOne = new ACSubmission();
+        Submission insertOne = new Submission();
         insertOne.setSubmissionIdFromCF(data.getId());
         insertOne.setContestId(data.getProblem().getContestId());
         insertOne.setProblemIndex(data.getProblem().getIndex());
         insertOne.setActime(data.getCreationTimeSeconds());
         insertOne.setHandle(handle);
         insertOne.setProblemRating(data.getProblem().getRating());
+        insertOne.setVerdict(data.getVerdict());
 
         List<Problem_Info_DataInDB> problem = problemMapper.getProblemByContestIdAndIndex(insertOne.getContestId(), insertOne.getProblemIndex());
         if(problem.size() != 0) {
@@ -339,18 +336,16 @@ public class SubmissionServiceImpl implements SubmissionService {
     @Override
     public void uodateTableAllAcSubmission(Submission_Info_Response response, String handle) {
 
-        List<ACSubmission> old_list = acsubmissionMapper.getACSubmissionByhandle(handle);
+        List<Submission> old_list = acsubmissionMapper.getAllSubmissionByhandle(handle);
         int old_list_length = old_list.size();
 
         List<Submission_Info_DataBean> new_list = response.getResult();
         int new_list_length = new_list.size();
+        System.out.println("old_list_length:" + old_list_length);
+        System.out.println("new_list_length:" + new_list_length);
 
         for(int i = (new_list_length - old_list_length - 1); i >= 0; i--) {
-            if(!new_list.get(i).getVerdict().equals("OK")) {
-                continue; //不OK就下一个
-            }
-
-            insertOneAcSubmission(new_list.get(i), handle);
+            insertOneAcSubmission(new_list.get(i), handle);//插入新出现的提交记录
         }
 
 
@@ -366,7 +361,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
             List<Problem_Info_DataInDB> problem = problemMapper.getProblemByContestIdAndIndex(data.getProblem().getContestId(), data.getProblem().getIndex());
 
-            if(problem.size() == 0) {
+            if(problem.size() == 0) {  //problem表中不存在这个题目，那就插入新的题目
                 Problem_Info_DataInDB new_problem = new Problem_Info_DataInDB(data.getProblem());
                 problemMapper.insert(new_problem);
             }
@@ -375,9 +370,9 @@ public class SubmissionServiceImpl implements SubmissionService {
     }
 
     @Override
-    public List<ACSubmission> getACSubmissionFromDBByHandle(String handle) {
+    public List<Submission> getACSubmissionFromDBByHandle(String handle) {
         try {
-            List<ACSubmission> list = acsubmissionMapper.getACSubmissionByhandle(handle);
+            List<Submission> list = acsubmissionMapper.getACSubmissionByhandle(handle, "OK");
             return list;
 
         } catch (Exception e) {
