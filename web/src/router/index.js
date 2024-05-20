@@ -6,6 +6,10 @@ Vue.use(VueRouter)
 
 const routes = [
     {
+        path: '/',
+        component: () => import('../views/login.vue'),
+    },
+    {
         path: '/user',
         component: () => import('../views/UserLayout.vue'),
         children:[
@@ -19,7 +23,7 @@ const routes = [
             },
             {
                 path: 'userList',
-                component: () => import('../views/userList.vue'),
+                component: () => import('../components/userList.vue'),
 
             },
             {
@@ -31,7 +35,7 @@ const routes = [
                 component: () => import('../components/blog.vue'),
             },
             {
-                path: 'post',
+                path: 'post/:problemId',
                 component: () => import('../components/post.vue'),
             }
         ]

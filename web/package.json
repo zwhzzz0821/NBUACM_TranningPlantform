@@ -13,6 +13,11 @@
     "bootstrap-vue": "^2.23.1",
     "echarts": "^4.9.0",
     "element-ui": "^2.15.9",
+    "from": "^0.1.7",
+    "highlight.js": "^11.9.0",
+    "hljs": "^6.2.3",
+    "import": "^0.0.6",
+    "mathjax-vue": "^1.0.1",
     "vant": "^2.12.48",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
@@ -24,9 +29,10 @@
     "html5-qrcode": "^2.3.8",
     "less": "^4.2.0",
     "less-loader": "^7.3.0",
+    "sass-loader": "^14.2.1",
     "vue-loader": "^17.4.2",
     "vue-template-compiler": "^2.7.16",
-    "webpack": "^4.23.0"
+    "webpack": "^4.47.0"
   },
   "browserslist": [
     "> 1%",

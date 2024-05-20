@@ -19,13 +19,14 @@ import VMdEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
 import '@kangc/v-md-editor/lib/theme/style/github.css';
+import MathJax, { initMathJax, renderByMathjax } from 'mathjax-vue'
+import Prism from "prismjs";
+import hljs from "highlight.js";
 
-Vue.config.productionTip = false
-import hljs from 'highlight.js';
-
-VMdEditor.use(githubTheme, {
-  Hljs: hljs,
-});
+// Vue.config.productionTip = false    
+// VMdEditor.use(githubTheme, {
+//   Hljs: hljs,
+// });
 Vue.use(Vant);
 Vue.use(ElementUI);
 Vue.use(BootstrapVue);
@@ -33,6 +34,12 @@ Vue.use(BootstrapVue);
 function getUser() {
     return JSON.parse(localStorage.getItem('user'));
 }
+
+function onMathJaxReady() {
+    const el = document.getElementById('elementId')
+    renderByMathjax(el)
+}
+initMathJax({}, onMathJaxReady)
 
 function timeStamp(value) {
     let date = new Date(value*1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -46,11 +53,20 @@ function timeStamp(value) {
     // 返回
     return result;
 }
+VueMarkdownEditor.use(vuepressTheme, {
+    Prism,
+    Hljs: hljs,
+});
+VMdPreview.use(vuepressTheme, {
+    Hljs: hljs,
+});
 Vue.prototype.$getUser=getUser
 Vue.prototype.$formatTime = timeStamp
 Vue.prototype.$echarts = echarts
 Vue.use(echarts);
 Vue.use(VMdEditor);
+Vue.use(VMdPreview);
+Vue.use(MathJax)
 new Vue({
     router,
     render: function (h) {

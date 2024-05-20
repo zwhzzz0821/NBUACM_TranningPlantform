@@ -10,4 +10,6 @@ public interface ProblemService {
     void getAllProblemFromCF();
 
     public List<Map<String, Object>> getAllProblem();
+
+    public Map<String, Object> getOneProblem(long problemId);
 }
