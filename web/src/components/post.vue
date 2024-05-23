@@ -40,7 +40,7 @@
         <el-divider style="margin: 0" />
         <el-container style="width: 100%; margin: 15px;">
           <el-card style="width: 200%; margin: 0px">
-            <v-md-editor :value="postText" mode="preview"></v-md-editor>
+            <v-md-editor :value="blogText" mode="preview"></v-md-editor>
           </el-card>
         </el-container>
         <el-container style="width: 100%; margin: 15px">
@@ -62,6 +62,7 @@ export default {
       problem: null,
       rating: 0,
       postText: "> Problem: []() \n [TOC] \n # 思路 \n > 讲述看到这一题的思路 \n # 解题方法 \n> 描述你的解题方法 \n # 复杂度 \n 时间复杂度: \n > 添加时间复杂度, 示例： $O(n)$ \n 空间复杂度: \n > 添加空间复杂度, 示例： $O(n)$ \n # Code \n ``` \n cpp \n``` ",
+      blogText: "",
     }
   },
   methods: {
@@ -74,13 +75,30 @@ export default {
         this.problem = res.ProblemRet
       });
     },
+    updatePost() {
+      request.post(`/Blog/UpdateBlog/${this.problem_id}/${this.$store.state.uid}`, {
+        BlogContent: this.postText
+      }).then((res) => {
+        console.log(res)
+        this.$message({
+          message: '发布成功',
+          type: 'success'
+        });
+      });
+    }
   },
   components: {
     MathJax,
   },
   created() {
+    // console.log(userId)
+    console.log(this.$store.state.uid)
     this.problem_id = this.$route.params.problemId;
     this.GetProblem();
+    request.get(`/Blog/GetBlog/${this.problem_id}/${this.$store.state.uid}`).then((res) => {
+      console.log(res)
+      this.blogText = res.BlogContent.BlogContent
+    });
   },
 }
 </script>
