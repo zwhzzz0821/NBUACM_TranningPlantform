@@ -22,6 +22,7 @@ import '@kangc/v-md-editor/lib/theme/style/github.css';
 import MathJax, { initMathJax, renderByMathjax } from 'mathjax-vue'
 import Prism from "prismjs";
 import hljs from "highlight.js";
+import store from "../src/store/index.js"
 
 // Vue.config.productionTip = false    
 // VMdEditor.use(githubTheme, {
@@ -66,9 +67,12 @@ Vue.prototype.$echarts = echarts
 Vue.use(echarts);
 Vue.use(VMdEditor);
 Vue.use(VMdPreview);
-Vue.use(MathJax)
+Vue.use(MathJax);
+Vue.use(store);
+
 new Vue({
     router,
+    store,
     render: function (h) {
         return h(App)
     }

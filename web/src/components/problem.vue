@@ -85,7 +85,7 @@
             <template slot-scope="scope">
               <div>
                 <el-button size="mini" type="primary" class="niceButton5" @click="handleViewOtherSolutions(scope.$index, scope.row)">查看</el-button>
-                <el-button size="mini" type="primary" class="niceButton5" >发布</el-button>
+                <el-button size="mini" type="primary" class="niceButton5" @click="postBlog(scope.row)">发布</el-button>
               </div>
             </template>
           </el-table-column>
@@ -177,6 +177,9 @@
         console.log('当前行的数据:', row);
          // TODO
         // 在这里添加实际的功能逻辑，比如跳转或数据处理
+      },
+      postBlog(row) {
+        this.$router.replace('post/' + row.ProblemId)
       },
     },
     created() {
