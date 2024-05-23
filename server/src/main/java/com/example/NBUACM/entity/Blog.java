@@ -11,5 +11,5 @@ public class Blog {
     String uid;
     String username;
     String BlogContent;
-    int ProblemId;
+    Long ProblemId;
 }

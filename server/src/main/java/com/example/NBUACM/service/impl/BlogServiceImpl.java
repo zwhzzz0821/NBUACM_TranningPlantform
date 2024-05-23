@@ -21,4 +21,17 @@ public class BlogServiceImpl implements BlogService {
     public boolean InsertBlog(Blog blog) {
         return blogMapper.insertBlog(blog);
     }
+
+
+    public boolean IfBlogExist(Blog blog){
+        Map<String, Object> mp = blogMapper.getBlogByUidAndProblemId(blog.getUid(), blog.getProblemId());
+        if (mp == null || mp.size() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateBlog(Blog blog) {
+        return blogMapper.updateBlog(blog);
+    }
 }

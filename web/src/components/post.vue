@@ -63,6 +63,8 @@ export default {
       rating: 0,
       postText: "> Problem: []() \n [TOC] \n # 思路 \n > 讲述看到这一题的思路 \n # 解题方法 \n> 描述你的解题方法 \n # 复杂度 \n 时间复杂度: \n > 添加时间复杂度, 示例： $O(n)$ \n 空间复杂度: \n > 添加空间复杂度, 示例： $O(n)$ \n # Code \n ``` \n cpp \n``` ",
       blogText: "",
+      BlogContent: "",
+      ProblemId: 0,
     }
   },
   methods: {
@@ -76,14 +78,32 @@ export default {
       });
     },
     updatePost() {
-      request.post(`/Blog/UpdateBlog/${this.problem_id}/${this.$store.state.uid}`, {
-        BlogContent: this.postText
-      }).then((res) => {
-        console.log(res)
-        this.$message({
-          message: '发布成功',
-          type: 'success'
+      try {
+        console.log(this.postText)
+        request.post(`/Blog/Insert/${this.problem_id}/${this.$store.state.uid}`, {
+          uid: this.$store.state.uid,
+          username: this.$store.state.username,
+          blogContent: this.postText,
+          problemId: this.problem_id,
+        }).then((res) => {
+          this.$message({
+            message: '发布成功',
+            type: 'success'
+          });
+          this.update()
         });
+      } catch (error) {
+        console.log(error)
+        this.$message({
+            message: '发布失败',
+            type: 'error'
+        })
+      }
+    },
+    update() {
+      request.get(`/Blog/GetBlog/${this.problem_id}/${this.$store.state.uid}`).then((res) => {
+        console.log(res)
+        this.blogText = res.BlogContent.BlogContent
       });
     }
   },
@@ -91,13 +111,14 @@ export default {
     MathJax,
   },
   created() {
-    // console.log(userId)
-    console.log(this.$store.state.uid)
     this.problem_id = this.$route.params.problemId;
     this.GetProblem();
     request.get(`/Blog/GetBlog/${this.problem_id}/${this.$store.state.uid}`).then((res) => {
       console.log(res)
-      this.blogText = res.BlogContent.BlogContent
+      if (res.BlogContent.BlogContent != null) {
+        this.blogText = res.BlogContent.BlogContent
+        this.postText = res.BlogContent.BlogContent
+      }
     });
   },
 }

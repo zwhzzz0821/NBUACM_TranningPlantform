@@ -10,4 +10,8 @@ public interface BlogService {
     public Map<String, Object> GetBlog(String uid, Long problemId);
 
     public boolean InsertBlog(Blog blog);
+
+    public boolean IfBlogExist(Blog blog);
+
+    public boolean updateBlog(Blog blog);
 }

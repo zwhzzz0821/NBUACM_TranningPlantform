@@ -1,6 +1,7 @@
 package com.example.NBUACM.controller;
 
 import com.example.NBUACM.Bean.R;
+import com.example.NBUACM.entity.Blog;
 import com.example.NBUACM.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,8 +24,12 @@ public class BlogController {
     }
 
     @PostMapping("/Insert/{problemId}/{uid}")
-    public Map<String, Object> InsertBlog(@PathVariable Long problemId, @PathVariable String uid) {
-        Map<String, Object> ret = blogService.GetBlog(uid, problemId);
-        return new R().ok().add("BlogContent", ret).builder();
+    public Map<String, Object> InsertBlog(@RequestBody Blog blog) {
+        if (!blogService.IfBlogExist(blog)) {
+            return new R().ok().add("check", blogService.InsertBlog(blog)).builder();
+        }
+        else {
+            return new R().ok().add("check", blogService.updateBlog(blog)).builder();
+        }
     }
 }
