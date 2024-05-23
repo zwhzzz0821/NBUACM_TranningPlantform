@@ -59,7 +59,7 @@
             { name: '设置', url: '/user/setting'},
             { name: '荣誉墙', url: '/user/honor' },
             { name: '个人用户', url: '/user/individual' },
-            { name: '登录测试', url: '/user/login'}
+            { name: '登录测试', url: '/user/login'},
         ]
       }
     },
