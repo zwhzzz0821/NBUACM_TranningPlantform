@@ -62,7 +62,7 @@
 
 - **NBU-ACM新生入门过渡题单**：通过Virtual Judge ([viudge.net](https://www.viudge.net))进行题目练习。
 - **Vjudge入门题单使用方法**：详见PDF文档，帮助你快速上手。
-- **入门训练经验**：由[ZWH提供的详细PDF文档](/about/guide.md)，分享宝贵的训练经验和技巧。
+- **入门训练经验**：由[ZWH提供的详细PDF文档](/resource/guide.md)，分享宝贵的训练经验和技巧。
 
 ## 学习资源推荐
 
