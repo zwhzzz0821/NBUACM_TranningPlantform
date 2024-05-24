@@ -15,9 +15,9 @@ public interface SubmissionService {
 
     Submission_Info_Response getSubmissionsByHandleFromCF(String handle);
 
-    void insertOneAcSubmission(Submission_Info_DataBean data, String handle);
+    void insertOneAcSubmission(Submission_Info_DataBean data, String handle, String uid);
 
-    void uodateTableAllAcSubmission(Submission_Info_Response response, String handle);
+    void uodateTableAllAcSubmission(Submission_Info_Response response, String handle, String uid);
 
     List<Submission> getACSubmissionFromDBByHandle(String handle);
 

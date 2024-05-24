@@ -17,4 +17,5 @@ public class Submission {
     private int ProblemId;
     private int ProblemRating;
     private String verdict;
+    private String uid;
 }

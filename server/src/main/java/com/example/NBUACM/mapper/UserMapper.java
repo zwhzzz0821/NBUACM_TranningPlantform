@@ -23,6 +23,7 @@ public interface UserMapper {
     User getUserByCodeforcesHandle(String codeforceshandle);
 
 
+
     @Update("update user " +
             "set weekAverageACRating = #{rating} " +
             "where codeforceshandle = #{handle}")

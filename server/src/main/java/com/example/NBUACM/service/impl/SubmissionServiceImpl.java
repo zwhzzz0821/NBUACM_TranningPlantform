@@ -52,13 +52,14 @@ public class SubmissionServiceImpl implements SubmissionService {
 
         for(int i=0 ;i < user_len; i++) {
             String handle = userlist.get(i).getCodeforceshandle();
+            String uid = userlist.get(i).getUid();
 
             Submission_Info_Response response = getSubmissionsByHandleFromCF(handle);  //从CF那边拿数据
 
             updateUserSubmits(response, handle); //拿到的信息在这里分析并更新后端数据库的user表
 
             dealWithAllNoExistProblem(response);   //先把problem表中不存在的部分给更新一下
-            uodateTableAllAcSubmission(response, handle); //更新acsubmission表
+            uodateTableAllAcSubmission(response, handle, uid); //更新acsubmission表
 
             /*
             * 接下来更新user表中的周AC题目的平均rating，月AC题目的平均rating，以及所有AC题目的平均rating
@@ -303,7 +304,7 @@ public class SubmissionServiceImpl implements SubmissionService {
     }
 
     @Override
-    public void insertOneAcSubmission(Submission_Info_DataBean data, String handle) {   //返回是否插入新AC数据成功
+    public void insertOneAcSubmission(Submission_Info_DataBean data, String handle, String uid) {   //返回是否插入新AC数据成功
 
         Submission insertOne = new Submission();
         insertOne.setSubmissionIdFromCF(data.getId());
@@ -313,6 +314,7 @@ public class SubmissionServiceImpl implements SubmissionService {
         insertOne.setHandle(handle);
         insertOne.setProblemRating(data.getProblem().getRating());
         insertOne.setVerdict(data.getVerdict());
+        insertOne.setUid(userMapper.getUserByCodeforcesHandle(handle).getUid());
 
         List<Problem_Info_DataInDB> problem = problemMapper.getProblemByContestIdAndIndex(insertOne.getContestId(), insertOne.getProblemIndex());
         if(problem.size() != 0) {
@@ -334,7 +336,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     }
     @Override
-    public void uodateTableAllAcSubmission(Submission_Info_Response response, String handle) {
+    public void uodateTableAllAcSubmission(Submission_Info_Response response, String handle, String uid) {
 
         List<Submission> old_list = acsubmissionMapper.getAllSubmissionByhandle(handle);
         int old_list_length = old_list.size();
@@ -345,7 +347,7 @@ public class SubmissionServiceImpl implements SubmissionService {
         System.out.println("new_list_length:" + new_list_length);
 
         for(int i = (new_list_length - old_list_length - 1); i >= 0; i--) {
-            insertOneAcSubmission(new_list.get(i), handle);//插入新出现的提交记录
+            insertOneAcSubmission(new_list.get(i), handle, uid);//插入新出现的提交记录
         }
 
 

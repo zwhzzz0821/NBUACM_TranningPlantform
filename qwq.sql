@@ -89,7 +89,7 @@ CREATE TABLE `problem` (
   `rating` int DEFAULT NULL,
   `tags` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ProblemId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9666 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +114,7 @@ CREATE TABLE `problemlist` (
   `begin` varchar(100) DEFAULT NULL,
   `end` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,6 +137,9 @@ DROP TABLE IF EXISTS `problemlistwithproblems`;
 CREATE TABLE `problemlistwithproblems` (
   `problemListId` int DEFAULT NULL,
   `problemId` int DEFAULT NULL,
+  `contestId` int DEFAULT NULL,
+  `problemIndex` varchar(100) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
   KEY `problemlistwithproblems_problem_FK` (`problemId`),
   KEY `problemlistwithproblems_problemlist_FK` (`problemListId`),
   CONSTRAINT `problemlistwithproblems_problem_FK` FOREIGN KEY (`problemId`) REFERENCES `problem` (`ProblemId`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -197,10 +200,11 @@ CREATE TABLE `submission` (
   `submissionIdFromCF` bigint unsigned DEFAULT NULL,
   `ProblemRating` int DEFAULT '0',
   `verdict` varchar(100) DEFAULT NULL,
+  `uid` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`acsubmissionid`),
   KEY `fk_problem_id` (`ProblemId`),
   CONSTRAINT `fk_problem_id` FOREIGN KEY (`ProblemId`) REFERENCES `problem` (`ProblemId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3598 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +277,7 @@ CREATE TABLE `userandratinglist` (
   `newrating` int DEFAULT NULL,
   `ratingupdatetimeseconds` bigint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=338 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,4 +299,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-24 19:07:36
+-- Dump completed on 2024-05-24 20:55:12

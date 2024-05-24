@@ -45,6 +45,10 @@ const routes = [
             {
                 path: '/user/loginTest',
                 component: () => import('../components/loginTest.vue')
+            },//problemLists
+            {
+                path: '/user/problemLists',
+                component: () => import('../components/problemLists.vue')
             }
 
         ]

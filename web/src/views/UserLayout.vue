@@ -31,6 +31,8 @@
                               <el-menu-item class="el-icon-s-test" index="1-8" @click="handleMenuSelect(7)"> 个人用户 </el-menu-item>
 
                               <el-menu-item class="el-icon-s-test" index="1-9" @click="handleMenuSelect(8)"> 登录测试 </el-menu-item>
+
+                              <el-menu-item class="el-icon-s-test" index="1-10" @click="handleMenuSelect(9)"> 题单 </el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
                     </el-menu>
@@ -60,6 +62,7 @@
             { name: '荣誉墙', url: '/user/honor' },
             { name: '个人用户', url: '/user/individual' },
             { name: '登录测试', url: '/user/loginTest'},
+            { name: '题单',url: '/user/problemLists'},
         ]
       }
     },
