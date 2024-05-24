@@ -19,7 +19,7 @@ export default defineConfig({
           { text: '数据结构', link: '/struct/index', },
         ]
       },
-      { text: 'About US', link: '/about/constitution'},
+      { text: 'About US', link: '/about/intro'},
       { text: '队员链接', link: 'http://www.nbuoj.com' },
       { text: '管理员链接', link: 'http://www.nbuoj.com'}
     ],
@@ -28,11 +28,18 @@ export default defineConfig({
       {
         text: '关于我们',
         items: [
-          { text: '社团章程', link: '/about/member' },
-          { text: '社团简介', link: '/api-examples' },
-          { text: '社团活动', link: '/about/activities' }
+          { text: '社团成员', link: '/about/member' },
+          { text: '社团活动', link: '/about/activities' },
+          { text: '加入我们', link: '/about/joinus' },
+          { text: '社团章程', link: '/about/constitution' },
         ]
-      }
+      },
+      {
+        text: '学习资源',
+        items: [
+          { text: '入门指南', link: '/about/guide'},
+        ]
+      },
     ],
 
     socialLinks: [

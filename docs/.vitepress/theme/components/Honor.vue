@@ -56,10 +56,10 @@ export default {
         },
         {
           background:
-              '.vitepress/theme/styles/img/zwhqhd.JPG',
+              '.vitepress/theme/styles/img/lhfxa.JPG',
           icon: 'fas fa-tint',
-          main: 'ICPC济南区域赛 银奖',
-          sub: '朱文豪 赵瑞杰 李嘉琪',
+          main: 'ICPC西安区域赛 银奖',
+          sub: '梁航锋 李浩 林成峰',
         },
         {
           background:
@@ -70,10 +70,10 @@ export default {
         },
         {
           background:
-              '.vitepress/theme/styles/img/zwhqhd.JPG',
+              '.vitepress/theme/styles/img/hzwsy.JPG',
           icon: 'fas fa-tint',
-          main: 'ICPC济南区域赛 银奖',
-          sub: '朱文豪 赵瑞杰 李嘉琪',
+          main: 'ICPC沈阳区域赛 银奖',
+          sub: '胡值闻 蒋一波 吴凯晟',
         },
         {
           background:
