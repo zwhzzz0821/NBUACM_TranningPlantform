@@ -1,10 +1,8 @@
-package com.example.NBUACM.POJO.problem_info;
+package com.example.NBUACM.POJO.ReceiveCFData.problem_info;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.example.NBUACM.POJO.problem_info.Problem_Info_DataBean;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
