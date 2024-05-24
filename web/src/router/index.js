@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        component: () => import('../views/login.vue'),
+        component: () => import('../components/login.vue'),
     },
     {
         path: '/user',
@@ -43,8 +43,8 @@ const routes = [
                 component: () => import('../components/IndividualInfoShow.vue')
             },
             {
-                path: '/user/login',
-                component: () => import('../components/login.vue')
+                path: '/user/loginTest',
+                component: () => import('../components/loginTest.vue')
             }
 
         ]
