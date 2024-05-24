@@ -36,14 +36,22 @@ public class UserController {
     * */
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody User user) {
-        System.out.println();
-        User e = userService.getByUid(user);
-        System.out.println(e);
-        if(e.getPassword().equals(user.getPassword())){
-            return new R().ok().add("user", e).builder();
-        } else {
+        try {
+            System.out.println(user);
+            User e = userService.getByUid(user);
+            if(e.equals(null)) {
+                return new R().bad().builder();
+            }
+            if(e.getPassword().equals(user.getPassword())){
+                System.out.println(e);
+                return new R().ok().add("user", e).builder();
+            } else {
+                return new R().bad().builder();
+            }
+        } catch (Exception e) {
             return new R().bad().builder();
         }
+
     }
 
     /*
