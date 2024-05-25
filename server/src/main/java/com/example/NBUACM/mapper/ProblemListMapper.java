@@ -15,6 +15,6 @@ public interface ProblemListMapper {
     @Select("select * from problemlist")
     List<ProblemList> getAllProblemLists();//获取所有的题单
 
-
-
+    @Select("select * from problemlist where id = #{id}")
+    ProblemList getProblemListById(int id);
 }

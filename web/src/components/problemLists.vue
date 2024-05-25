@@ -45,7 +45,7 @@
     width="60%"
     :before-close="handleClose">
         <el-table
-        :data="problems"
+        :data="newProblems"
         :row-style="{ height: '40px' }"
         style="width: 100%; margin-left: 0 auto">
             <el-table-column
@@ -81,9 +81,11 @@
             label="状态"
             width="100">
             <template slot-scope="scope">
-            <div :style="getStyle(scope.row.status)">
-                {{ scope.row.status }}
-            </div>
+                <div :class="stateClass(scope.row.state)">
+                    <div v-if="scope.row.state === 1"></div> <!-- 什么也不展示 -->
+                    <div v-else-if="scope.row.state === 2">WA</div>
+                    <div v-else-if="scope.row.state === 3">AC</div>
+                </div>
             </template>
             </el-table-column>
           
@@ -104,6 +106,8 @@ export default {
             problemLists:[],
             dialogVisible: false,
             problems:[],
+            newProblems:[],
+            problemWithState:[],
         }
     },
     methods:{
@@ -113,8 +117,10 @@ export default {
 
         getProblemList() {
             try {
-                request.get('/ProblemList/getProblemLists',{
-
+                request.get('/ProblemList/getProblemListsByUid',{
+                    params:{
+                        uid:this.$store.state.uid
+                    }
                 }).then(res => {
                     this.problemLists = res.problemLists;
                 })
@@ -122,9 +128,9 @@ export default {
                 console.log("ERROR:",error);
             }
         },
+        
 
-        handleClick(row) {
-            this.dialogVisible = true;
+        dataPrepare(row) {
             try {
                 request.get('ProblemList/getProblems',{
                     params:{
@@ -132,15 +138,17 @@ export default {
                     }
                 }).then(res => {
                     this.problems = res.problems;
-                    console.log("problems:",this.problems);
+                    this.getProblemsWithState(row);//获取各个问题的状态
                 })
-
-
             } catch(error) {
                 console.log("ERROR:",error);
             }
 
+        },
 
+        handleClick(row) {
+            this.dataPrepare(row)
+            this.dialogVisible = true;
         },
 
         handleClose(done) {
@@ -151,20 +159,43 @@ export default {
             .catch(_ => {});
         },
 
-        getStyle(status) {
-            switch (status) {
-                case '1':
-                return { backgroundColor: 'white' };
-                case '2':
-                return { backgroundColor: 'red' };
-                case '3':
-                return { backgroundColor: 'green' };
-                default:
-                return {};
+        stateClass(state) {
+            switch (state) {
+            case 1:
+                return 'text-white'; // 假设你有一个白色文本的类
+            case 2:
+                return 'text-red';   // 假设你有一个红色文本的类
+            case 3:
+                return 'text-green'; // 假设你有一个绿色文本的类
+            default:
+                return '';
             }
         },
 
+        getProblemsWithState(row) {
+            try {
+                request.get('/ProblemList/getProblemsState',{
+                    params:{
+                        problemListId:row.id,
+                        uid:this.$store.state.uid
+                    }
+                }).then(res => {
+                    this.problemWithState = res.problemWithState;
+                    console.log("problemWithState:",this.problemWithState);
+                    for (let i = 0; i < this.problems.length; i++) {
+                        const problem = this.problems[i];
+                        let state = this.problemWithState[i].state;
+                        problem.state = state;
+                    }
+                    console.log("new problems:",this.problems)
+                    this.newProblems = this.problems;
 
+                })
+            } catch(error) {
+                console.log("error:",error)
+            }
+            
+        },
 
     },
     created() {
@@ -178,15 +209,15 @@ export default {
 </script>
 
 <style>
-.el-table .WA-row {
-    background: rgb(243, 76, 10);
+.text-white {
+  color: white;
 }
 
-.el-table .AC-row {
-    background: #80da4f;
+.text-red {
+  color: red;
 }
-/* 没提交 */
-.el-table .notsubmission-row {  
-    background: #f0f3ef;
+
+.text-green {
+  color: green;
 }
 </style>

@@ -13,4 +13,7 @@ public interface ProblemListWithUsersMapper {
     @Select("select * from problemlistwithusers " +
             "where problemListId = #{id}")
     List<ProblemListWithUsers> getUsersByProblemListId(int id);//通过题单的id来获取用户的id。即参加这个题单的用户列表
+
+    @Select("select * from problemlistwithusers where uid = #{id}")
+    List<ProblemListWithUsers> getProblemListsByUid(String id);
 }
