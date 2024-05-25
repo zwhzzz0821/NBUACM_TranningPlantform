@@ -49,6 +49,16 @@
         :row-style="{ height: '40px' }"
         style="width: 100%; margin-left: 0 auto">
             <el-table-column
+            width="30">
+            <template slot-scope="scope">
+                <div :class="getCellStyle(scope.row.state)">
+                    <div v-if="scope.row.state === 1">#</div> <!-- 什么也不展示 -->
+                    <div v-else-if="scope.row.state === 2">#</div>
+                    <div v-else-if="scope.row.state === 3">#</div>
+                </div>
+            </template>
+            </el-table-column>
+            <el-table-column
             label="问题来源"
             width="100">
             <template slot-scope="scope">
@@ -75,6 +85,13 @@
                     <div>{{ scope.row.name }}</div>
                 </el-link>
                 </div>
+            </template>
+            </el-table-column>
+            <el-table-column
+            label="AC人数"
+            width="100">
+            <template slot-scope="scope">
+                <div>{{ scope.row.acNumber }}</div>
             </template>
             </el-table-column>
             <el-table-column
@@ -162,16 +179,30 @@ export default {
         stateClass(state) {
             switch (state) {
             case 1:
-                return 'text-white'; // 假设你有一个白色文本的类
+                return 'text-white'; 
             case 2:
-                return 'text-red';   // 假设你有一个红色文本的类
+                return 'text-red';   
             case 3:
-                return 'text-green'; // 假设你有一个绿色文本的类
+                return 'text-green'; 
             default:
                 return '';
             }
         },
-
+        
+        getCellStyle(state) {
+            console.log("state:",state);
+            switch (state) {
+            case 1:
+                return "white-background";
+            case 2:
+                return "red-background";
+            case 3:
+                return "green-background";
+            default:
+                return { backgroundColor: 'white' }; // 默认背景颜色
+            }
+        },
+        
         getProblemsWithState(row) {
             try {
                 request.get('/ProblemList/getProblemsState',{
@@ -219,5 +250,14 @@ export default {
 
 .text-green {
   color: green;
+}
+.green-background {
+  background-color: rgb(52, 167, 52);
+}
+.white-background {
+  background-color: white;
+}
+.red-background {
+  background-color: rgb(194, 50, 14);
 }
 </style>

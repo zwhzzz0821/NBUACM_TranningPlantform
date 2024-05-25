@@ -14,4 +14,10 @@ public interface ProblemListWithProblemsMapper {
             "where problemListId = #{id}")
     List<ProblemListWithProblems> getProblemsByProblemListId(int id); //通过题单的id，获取所有的题目id。即这个题单有什么题目
 
+    @Update("update problemlistwithproblems " +
+            "set acNumber = #{acNumber} " +
+            "where problemListId = #{problemListId} and problemId = #{problemId}")
+    void updateACNumber(ProblemListWithProblems data);
+
+
 }

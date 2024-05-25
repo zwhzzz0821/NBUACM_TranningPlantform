@@ -13,4 +13,5 @@ public class ProblemListWithProblems {
     int contestId;
     String problemIndex;
     String name;
+    int acNumber;
 }
