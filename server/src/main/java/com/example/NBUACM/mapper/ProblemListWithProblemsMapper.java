@@ -20,7 +20,7 @@ public interface ProblemListWithProblemsMapper {
     void updateACNumber(ProblemListWithProblems data);
 
     @Insert("insert into problemlistwithproblems(problemListId, problemId, contestId, problemIndex, name) " +
-            "values (#{problemListId},#{problemId],#{contestId},#{problemIndex},#{name})")
+            "values(#{problemListId},#{problemId},#{contestId},#{problemIndex},#{name})")
     void InsertNewProblemsToList(ProblemListWithProblems data);
 
 

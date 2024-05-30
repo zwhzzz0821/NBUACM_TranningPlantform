@@ -58,7 +58,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
             updateUserSubmits(response, handle); //拿到的信息在这里分析并更新后端数据库的user表
 
-            dealWithAllNoExistProblem(response);   //先把problem表中不存在的部分给更新一下
+//            dealWithAllNoExistProblem(response);   //先把problem表中不存在的部分给更新一下
             uodateTableAllAcSubmission(response, handle, uid); //更新acsubmission表
 
             /*
@@ -317,19 +317,28 @@ public class SubmissionServiceImpl implements SubmissionService {
         insertOne.setUid(userMapper.getUserByCodeforcesHandle(handle).getUid());
 
         List<Problem_Info_DataInDB> problem = problemMapper.getProblemByContestIdAndIndex(insertOne.getContestId(), insertOne.getProblemIndex());
-        if(problem.size() != 0) {
-            insertOne.setProblemId(problem.get(0).getProblemId());
 
-            if(problem.size() > 1) {
-                System.out.println("查到了多个problemId，分别是(这里只显示两个)：" + problem.get(0).getProblemId() + " and " + problem.get(1).getProblemId());
-            }
+        if(problem.size() == 0) { //在题目列表中没找着这个题目,那就插入新的题目,再取problemId进行赋值
+            Problem_Info_DataInDB new_problem = new Problem_Info_DataInDB(data.getProblem());
+            problemMapper.insert(new_problem);
+            insertOne.setProblemId(new_problem.getProblemId());
         } else {
-            System.out.println("没在problem中找到：contestId and ProblemIndex ==== " + insertOne.getContestId() +" and " + insertOne.getProblemIndex());
-            System.out.println("↑的problem:"+data.getProblem());
-//            Problem_Info_DataInDB no_exsit_inDB_problem = problemService.dealWithNoExistProblem(data.getProblem());
-//            System.out.println(no_exsit_inDB_problem.getProblemId());
-//            insertOne.setProblemId(no_exsit_inDB_problem.getProblemId()); //给它赋值最新的ProblemId
+            insertOne.setProblemId(problem.get(0).getProblemId());
         }
+
+//        if(problem.size() != 0) {
+//            insertOne.setProblemId(problem.get(0).getProblemId());
+//
+//            if(problem.size() > 1) {
+//                System.out.println("查到了多个problemId，分别是(这里只显示两个)：" + problem.get(0).getProblemId() + " and " + problem.get(1).getProblemId());
+//            }
+//        } else {
+//            System.out.println("没在problem中找到：contestId and ProblemIndex ==== " + insertOne.getContestId() +" and " + insertOne.getProblemIndex());
+//            System.out.println("↑的problem:"+data.getProblem());
+////            Problem_Info_DataInDB no_exsit_inDB_problem = problemService.dealWithNoExistProblem(data.getProblem());
+////            System.out.println(no_exsit_inDB_problem.getProblemId());
+////            insertOne.setProblemId(no_exsit_inDB_problem.getProblemId()); //给它赋值最新的ProblemId
+//        }
 
 
         acsubmissionMapper.InsertOneACSubmission(insertOne);
