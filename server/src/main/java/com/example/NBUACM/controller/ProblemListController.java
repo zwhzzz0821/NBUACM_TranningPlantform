@@ -91,4 +91,55 @@ public class ProblemListController {
         }
     }
 
+    /*
+    * 创建新的题单(只需要题单名称name，开始时间begin，结束时间end)
+    * */
+    @PostMapping("/createNewProblemList")
+    public Map<String, Object> createNewProblemList(@RequestBody ProblemList data) {
+        try {
+            problemListService.CreateNewProblemList(data);
+            return new R().ok().builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
+
+    /*
+    * 添加一些题目到题单里
+    * */
+    @PostMapping("/insertNewProblemsToList")
+    public Map<String, Object> insertNewProblemsToList(@RequestBody List<ProblemListWithProblems> data) {
+        try {
+            problemListService.insertNewProblemsToList(data);
+            return new R().ok().builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
+
+    /*
+    * 添加单人用户至题单
+    * */
+    @GetMapping("/addUserToProblemList")
+    public Map<String, Object> addUserToProblemList(ProblemListWithUsers data) {
+        try {
+            problemListService.addOneToList(data);
+            return new R().ok().builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
+
+    /*
+    * 添加一群用户至题单
+    * */
+    @GetMapping("/addUsersToProblemList")
+    public Map<String, Object> addUsersToProblemList(List<ProblemListWithUsers> list) {
+        try {
+            problemListService.addSeveralToList(list);
+            return new R().ok().builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
 }

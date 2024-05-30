@@ -17,4 +17,8 @@ public interface ProblemListMapper {
 
     @Select("select * from problemlist where id = #{id}")
     ProblemList getProblemListById(int id);
+
+    @Insert("insert into problemlist(id, name, begin, end) " +
+            "values(#{id},#{name},#{begin},#{end})")
+    void insertNewProblemList(ProblemList probblemlist);
 }
