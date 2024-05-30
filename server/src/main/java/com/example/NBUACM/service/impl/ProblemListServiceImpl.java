@@ -3,12 +3,10 @@ package com.example.NBUACM.service.impl;
 import com.example.NBUACM.POJO.MySQLTable.ProblemListWithProblems;
 import com.example.NBUACM.POJO.MySQLTable.ProblemListWithUsers;
 import com.example.NBUACM.POJO.MySQLTable.Submission;
+import com.example.NBUACM.POJO.ReceiveCFData.problem_info.Problem_Info_DataInDB;
 import com.example.NBUACM.POJO.ReturnAppFrontData.ProblemListWithProblemsState;
 import com.example.NBUACM.entity.ProblemList;
-import com.example.NBUACM.mapper.ProblemListMapper;
-import com.example.NBUACM.mapper.ProblemListWithProblemsMapper;
-import com.example.NBUACM.mapper.ProblemListWithUsersMapper;
-import com.example.NBUACM.mapper.SubmissionMapper;
+import com.example.NBUACM.mapper.*;
 import com.example.NBUACM.service.ProblemListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.parsing.Problem;
@@ -29,6 +27,8 @@ public class ProblemListServiceImpl implements ProblemListService {
     private ProblemListWithUsersMapper problemListWithUsersMapper;
     @Autowired
     private SubmissionMapper submissionMapper;
+    @Autowired
+    private ProblemMapper problemMapper;
 
     /*
     * 更新所有表单的所有题目的AC情况
@@ -140,6 +140,80 @@ public class ProblemListServiceImpl implements ProblemListService {
             problemListWithProblemsMapper.updateACNumber(data);
         }
 
+    }
+
+
+    @Override
+    public void CreateNewProblemList(ProblemList problemlist) {
+        problemListMapper.insertNewProblemList(problemlist);
+    }
+
+
+    @Override
+    public void insertNewProblemsToList(List<ProblemListWithProblems> list) {
+
+        int len = list.size();
+        //先根据传过来的contestId和problemIndex去 problem表中查看problemId，有的话就直接拿过来赋值problemId，没有就新插入
+        DealWithNoExistProblem(list);  //先处理没出现的那些题目，加入到problem表中
+
+        for(int i = 0; i < len; i++) {
+            ProblemListWithProblems data = list.get(i);
+            List<Problem_Info_DataInDB> problem = problemMapper.getProblemByContestIdAndIndex(data.getContestId(), data.getProblemIndex());
+            data.setProblemId(problem.get(0).getProblemId());
+            data.setName(problem.get(0).getName());
+            problemListWithProblemsMapper.InsertNewProblemsToList(data);
+        }
+
+    }
+
+    @Override
+    public void DealWithNoExistProblem(List<ProblemListWithProblems> list) {
+        int len = list.size();
+        for(int i = 0; i < len; i++) {
+
+            ProblemListWithProblems data = list.get(i);
+            List<Problem_Info_DataInDB> problem = problemMapper.getProblemByContestIdAndIndex(data.getContestId(), data.getProblemIndex());
+
+            if(problem.size() == 0) {  //problem表中不存在这个题目，那就插入新的题目
+                Problem_Info_DataInDB new_problem = new Problem_Info_DataInDB();
+                new_problem.setContestId(data.getContestId());
+                new_problem.setProblemIndex(data.getProblemIndex());
+                String new_name = "GYM" + data.getContestId() + data.getProblemIndex();
+                new_problem.setName(new_name);
+                problemMapper.insert(new_problem);
+            }
+
+
+        }
+
+    }
+
+    /*
+    * 查询该用户是否已经加入了该题单
+    * */
+    @Override
+    public boolean HaveAddedToList(ProblemListWithUsers data) {
+        List<ProblemListWithUsers> list_in_DB = problemListWithUsersMapper.getProblemListsByProbelmListIdAndUid(data);
+        if(list_in_DB.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void addOneToList(ProblemListWithUsers data) {
+        if(!HaveAddedToList(data)) {
+            problemListWithUsersMapper.addNewToProblemList(data);
+        }
+    }
+    @Override
+    public void addSeveralToList(List<ProblemListWithUsers> list) {
+        int len = list.size();
+        for(int i = 0; i < len; i++) {
+            ProblemListWithUsers data = list.get(i);
+            addOneToList(data);
+        }
     }
 
 

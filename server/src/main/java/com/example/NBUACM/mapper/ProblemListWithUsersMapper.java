@@ -16,4 +16,14 @@ public interface ProblemListWithUsersMapper {
 
     @Select("select * from problemlistwithusers where uid = #{id}")
     List<ProblemListWithUsers> getProblemListsByUid(String id);
+
+    @Select("select * from problemlistwithusers where uid = #{uid} and problemListId = #{problemListId}")
+    List<ProblemListWithUsers> getProblemListsByProbelmListIdAndUid(ProblemListWithUsers data);
+
+    @Insert("insert into problemlistwithusers(problemListId, uid) " +
+            "values (#{problemListId},#{uid})")
+    void addNewToProblemList(ProblemListWithUsers data);//XX用户参与表单
+
+
+
 }
