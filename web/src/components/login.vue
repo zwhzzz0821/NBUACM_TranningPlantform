@@ -30,8 +30,17 @@ export default {
                       if(res.code === 400) {
                         Toast.fail('登录失败，请重试');
                       } else {
-                        this.$store.state.userInfo = res.user
-                        console.log("userInfo:",this.$store.state.userInfo); // 假设res是响应对象，你可以访问res.body或res.data获取响应数据
+                        if (res.user != null) {
+                          this.$store.state.userInfo = res.user
+                          this.$store.state.uid=res.user.uid
+                          console.log("userInfo:",this.$store.state.userInfo); // 假设res是响应对象，你可以访问res.body或res.data获取响应数据
+                          this.$router.push('user')
+                        } else {
+                          this.$store.state.userInfo = res.manager
+                          console.log("managerInfo:",this.$store.state.userInfo);
+                          this.$router.push('manager')
+                        }
+
                         Toast.success('登录成功');
                       }
                       console.log("code:",res.code)

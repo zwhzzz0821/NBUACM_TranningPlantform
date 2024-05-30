@@ -13,4 +13,5 @@ public interface UserService {
     List<User> getAllUsers();
     void changeUserInfo(User user);
 
+    boolean checkManager(String uid);
 }

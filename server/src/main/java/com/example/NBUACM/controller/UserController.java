@@ -44,6 +44,9 @@ public class UserController {
             }
             if(e.getPassword().equals(user.getPassword())){
                 System.out.println(e);
+                if (userService.checkManager(e.getUid())) {
+                    return new R().ok().add("manager", e).builder();
+                }
                 return new R().ok().add("user", e).builder();
             } else {
                 return new R().bad().builder();
