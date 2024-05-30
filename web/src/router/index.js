@@ -50,9 +50,14 @@ const routes = [
                 path: '/user/problemLists',
                 component: () => import('../components/problemLists.vue')
             }
-
+            ,
+            {
+                path: '/user/pushProblemlist',
+                component: () => import('../components/pushProblemlist.vue'),
+            }
+            
         ]
-    }
+    },
 ]
 
 const router = new VueRouter({

@@ -1,5 +1,6 @@
 <template>
 <div>
+    <el-divider content-position="right"><van-tag @click="$router.replace('/user/pushProblemlist')" plain type="primary"  size="medium">创建题单</van-tag></el-divider>
     <el-table
         :data="problemLists"
         border

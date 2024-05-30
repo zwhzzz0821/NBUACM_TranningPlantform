@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 
-@RequestMapping("/user")
+    @RequestMapping("/user")
 @RestController
 @EnableAutoConfiguration
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS})
