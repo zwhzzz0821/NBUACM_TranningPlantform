@@ -31,7 +31,7 @@ const routes = [
                 component: () => import('../components/problem.vue'),
             },
             {
-                path: 'blog',
+                path: 'blog/:problemId/:uid',
                 component: () => import('../components/blog.vue'),
             },
             {

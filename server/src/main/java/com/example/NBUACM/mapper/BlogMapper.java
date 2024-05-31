@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.validation.ObjectError;
 import java.util.Map;
+import java.util.List;
 @Mapper
 public interface BlogMapper {
     @Select("SELECT * FROM blog "
@@ -20,4 +21,7 @@ public interface BlogMapper {
     @Update("UPDATE blog SET username = #{username}, BlogContent = #{BlogContent} " +
             "WHERE uid = #{uid} AND ProblemId = #{ProblemId}")
     boolean updateBlog(Blog blog);
+
+    @Select("SELECT  * FROM blog where ProblemId = #{ProblemId}")
+    List<Map<String, Object>> GetBlogListByProblemId(Long ProblemId);
 }

@@ -7,6 +7,7 @@ import com.example.NBUACM.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -33,5 +34,9 @@ public class BlogServiceImpl implements BlogService {
 
     public boolean updateBlog(Blog blog) {
         return blogMapper.updateBlog(blog);
+    }
+
+    public List<Map<String, Object>> GetBlogList(long problemId) {
+        return blogMapper.GetBlogListByProblemId(problemId);
     }
 }
