@@ -394,4 +394,16 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     }
 
+    @Override
+    public  List<Submission> getACSubmissionFromDBByVerdictAndProblemId(String verdict, long probleId) {
+        try {
+            List<Submission> list = acsubmissionMapper.getSubmissionByVerdictAndProblemId(verdict, probleId);
+            return list;
+
+        } catch (Exception e) {
+            System.out.println("Error:"+e.getMessage());
+            return null;
+        }
+    }
+
 }

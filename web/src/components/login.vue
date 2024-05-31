@@ -38,7 +38,7 @@ export default {
                         } else {
                           this.$store.state.userInfo = res.manager
                           console.log("managerInfo:",this.$store.state.userInfo);
-                          this.$router.push('manager')
+                          this.$router.push('admin')
                         }
 
                         Toast.success('登录成功');

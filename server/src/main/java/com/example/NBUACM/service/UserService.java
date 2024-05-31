@@ -14,4 +14,6 @@ public interface UserService {
     void changeUserInfo(User user);
 
     boolean checkManager(String uid);
+
+    void registerManager(User user);
 }

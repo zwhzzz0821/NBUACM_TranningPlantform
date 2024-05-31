@@ -16,21 +16,16 @@
 
                               <el-menu-item class="el-icon-s-data" index="1-1" @click="handleMenuSelect(0)"> 排名 </el-menu-item>
 
-                              <el-menu-item class="el-icon-s-claim" index="1-2" @click="handleMenuSelect(1)"> 比赛 </el-menu-item>
+                              <el-menu-item class="el-icon-s-claim" index="1-2" @click="handleMenuSelect(1)"> 训练 </el-menu-item>
                                
                               <el-menu-item class="el-icon-s-opportunity" index="1-3" @click="handleMenuSelect(2)"> 题目 </el-menu-item>
                                
-                              <el-menu-item class="el-icon-s-custom" index="1-5" @click="handleMenuSelect(3)"> 用户列表 </el-menu-item>
+                              <el-menu-item class="el-icon-s-custom" index="1-4" @click="handleMenuSelect(3)"> 人员管理 </el-menu-item>
                               
-                              <el-menu-item class="el-icon-setting" index="1-6" @click="handleMenuSelect(4)"> 设置 </el-menu-item>
+                              <el-menu-item class="el-icon-setting" index="1-5" @click="handleMenuSelect(4)"> 设置 </el-menu-item>
                               
-                              <el-menu-item class="el-icon-s-management" index="1-7" @click="handleMenuSelect(5)"> 荣誉墙 </el-menu-item>
+                              <el-menu-item class="el-icon-s-management" index="1-6" @click="handleMenuSelect(5)"> 荣誉墙编辑 </el-menu-item>
 
-                              <el-menu-item class="el-icon-s-test" index="1-8" @click="handleMenuSelect(6)"> 个人用户 </el-menu-item>
-
-                              <el-menu-item class="el-icon-s-test" index="1-9" @click="handleMenuSelect(7)"> 登录测试 </el-menu-item>
-
-                              <el-menu-item class="el-icon-s-test" index="1-10" @click="handleMenuSelect(8)"> 题单 </el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
                     </el-menu>
@@ -45,21 +40,18 @@
   </template>
   
 <script>
-  import logoImg from "../assets/qwq.png"
+import logoImg from "../assets/qwq.png"
   export default{
     data() {
       return {
         logoImg: logoImg,
         tabs: [ 
-            { name: '排名', url: '/user/ranking' },
-            { name: '比赛', url: '/user/competition'},
-            { name: '题目', url: '/user/problem' },
-            { name: '用户列表', url: '/user/userList' },
-            { name: '设置', url: '/user/setting'},
-            { name: '荣誉墙', url: '/user/honor' },
-            { name: '个人用户', url: '/user/individual' },
-            { name: '登录测试', url: '/user/loginTest'},
-            { name: '题单',url: '/user/problemLists'},
+            { name: '排名', url: '/admin/ranking' },
+            { name: '训练', url: '/admin/ProblemList'},
+            { name: '题目', url: '/admin/Problem' },
+            { name: '人员管理', url: '/admin/Member' },
+            { name: '设置', url: '/admin/Setting'},
+            { name: '荣誉墙编辑', url: '/admin/Hornour' },
         ]
       }
     },
@@ -101,7 +93,7 @@
     font-size: 16px; /* 根据需要调整字体大小 */
   }
 
-  .custom-aside {
+.custom-aside {
   width: 100%;
   height: 208%;
   /* background-color: #f5f5f5; 选择你喜欢的背景颜色 */

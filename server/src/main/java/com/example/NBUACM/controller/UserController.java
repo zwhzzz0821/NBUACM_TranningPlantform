@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 
-    @RequestMapping("/user")
+@RequestMapping("/user")
 @RestController
 @EnableAutoConfiguration
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS})
@@ -73,6 +73,17 @@ public class UserController {
         }
     }
 
+    @PostMapping("/register/manager")
+    public Map<String, Object> registerManager(@RequestBody User user) {
+        User selected = userService.getByUid(user);
+        if (selected == null) {  //当前表内没有这个用户,可以创建新用户
+            userService.register(user);
+            userService.registerManager(user);
+            return new R().ok().builder();
+        } else {
+            return new R().bad().builder();
+        }
+    }
     /*
     * 删除用户，
     * 按照传过来的uid来删除

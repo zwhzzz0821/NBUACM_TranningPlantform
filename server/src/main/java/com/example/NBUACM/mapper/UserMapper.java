@@ -140,4 +140,7 @@ public interface UserMapper {
             "where codeforceshandle = #{handle}")
     void addWeekACByHandle(String handle);
 
+    @Insert("insert into manager(uid,username,password)" +
+            "values(#{uid},#{username},#{password})")
+    void registerManger(User user);
 }

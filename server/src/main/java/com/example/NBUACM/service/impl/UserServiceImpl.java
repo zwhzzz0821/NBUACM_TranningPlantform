@@ -45,5 +45,6 @@ public class UserServiceImpl implements UserService {
         return managerMapper.GetManagerCount(uid) > 0;
     }
 
-
+    @Override
+    public void registerManager(User user) { userMapper.registerManger(user);}
 }

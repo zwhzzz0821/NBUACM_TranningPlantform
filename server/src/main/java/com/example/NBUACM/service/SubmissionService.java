@@ -32,4 +32,6 @@ public interface SubmissionService {
     boolean isThisMonth(long actime);
 
     void dealWithAllNoExistProblem(Submission_Info_Response response);
+
+    List<Submission> getACSubmissionFromDBByVerdictAndProblemId(String verdict, long ProblemId);
 }

@@ -44,5 +44,15 @@ public class SubmissionController {
         }
     }
 
+    @GetMapping("/getACsubmissionList/{problemId}")
+    public Map<String, Object> getACSubmissionListByProblemId(@PathVariable Long problemId) {
+        List<Submission> list = submissionService.getACSubmissionFromDBByVerdictAndProblemId("OK", problemId);
+
+        if(list.equals((null))) {
+            return new R().bad().builder();
+        } else {
+            return new R().ok().add("aclist", list).builder();
+        }
+    }
 
 }

@@ -23,6 +23,7 @@ public interface SubmissionMapper {
     @Select("select * from submission where uid = #{uid} and ProblemId = #{problemId}")
     List<Submission> getSubmissionByUidAndProblemId(String uid, int problemId);
 
-
+    @Select("select * from submission where verdict = #{verdict} and ProblemId = #{problemId}")
+    List<Submission> getSubmissionByVerdictAndProblemId(String verdict, long problemId);
 
 }
