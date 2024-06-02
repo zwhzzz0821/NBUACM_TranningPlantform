@@ -198,10 +198,6 @@ export default {
       const users = [];
 
       let len = this.selectedUsers.length;
-      const total_user_len = this.users.length;
-      if(len === total_user_len + 1) {
-        len--;
-      }
       
       for(let i=0;i<len;i++) {
         users.push({

@@ -14,8 +14,6 @@ public interface ProblemListService {
     @Scheduled(fixedRate = 60 * 1000, initialDelay = 5000)//一分钟更新一次
     void updateAllProblemListACNumber();
 
-
-
     List<ProblemList> getAllProblemLists();
     List<ProblemList> getProblemListsByUid(String uid);
     List<ProblemListWithProblems> getProblemsByProblemListId(int id);

@@ -13,7 +13,7 @@
         </el-table-column>
         <el-table-column
             prop="name"
-            label="表单名称"
+            label="题单名称"
             width="120">
         </el-table-column>
         <el-table-column
