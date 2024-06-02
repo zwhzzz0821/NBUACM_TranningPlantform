@@ -11,6 +11,6 @@ public class ProblemList {
 
     int id;
     String name;
-    String begin;
-    String end;
+    long begin;
+    long end;
 }

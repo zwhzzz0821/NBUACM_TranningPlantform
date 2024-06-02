@@ -30,4 +30,8 @@ public class User {
     double weekAverageACRating;
     double monthAverageACRating;
     double totalAverageACRating;
+    String imageURL;
+    String phone;
+    String email;
+    String gender;
 }

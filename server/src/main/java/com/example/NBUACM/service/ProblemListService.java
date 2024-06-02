@@ -14,8 +14,6 @@ public interface ProblemListService {
     @Scheduled(fixedRate = 60 * 1000, initialDelay = 5000)//一分钟更新一次
     void updateAllProblemListACNumber();
 
-
-
     List<ProblemList> getAllProblemLists();
     List<ProblemList> getProblemListsByUid(String uid);
     List<ProblemListWithProblems> getProblemsByProblemListId(int id);
@@ -24,7 +22,7 @@ public interface ProblemListService {
 
     int judgeUserACthisProblem(int problemId, String uid);
     void updateProblemListACNumber(int problemListId);
-    void CreateNewProblemList(ProblemList problemlist);
+    int CreateNewProblemList(ProblemList problemlist);
     void insertNewProblemsToList(List<ProblemListWithProblems> list);
     void DealWithNoExistProblem(List<ProblemListWithProblems> list);
     void addOneToList(ProblemListWithUsers data);

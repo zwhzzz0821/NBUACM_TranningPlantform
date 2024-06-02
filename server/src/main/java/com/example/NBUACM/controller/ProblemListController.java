@@ -97,8 +97,8 @@ public class ProblemListController {
     @PostMapping("/createNewProblemList")
     public Map<String, Object> createNewProblemList(@RequestBody ProblemList data) {
         try {
-            problemListService.CreateNewProblemList(data);
-            return new R().ok().builder();
+            int problemListId = problemListService.CreateNewProblemList(data);
+            return new R().ok().add("problemListId",problemListId).builder();
         } catch (Exception e) {
             return new R().bad().builder();
         }
@@ -108,9 +108,9 @@ public class ProblemListController {
     * 添加一些题目到题单里
     * */
     @PostMapping("/insertNewProblemsToList")
-    public Map<String, Object> insertNewProblemsToList(@RequestBody List<ProblemListWithProblems> data) {
+    public Map<String, Object> insertNewProblemsToList(@RequestBody List<ProblemListWithProblems> problems) {
         try {
-            problemListService.insertNewProblemsToList(data);
+            problemListService.insertNewProblemsToList(problems);
             return new R().ok().builder();
         } catch (Exception e) {
             return new R().bad().builder();
@@ -120,8 +120,8 @@ public class ProblemListController {
     /*
     * 添加单人用户至题单
     * */
-    @GetMapping("/addUserToProblemList")
-    public Map<String, Object> addUserToProblemList(ProblemListWithUsers data) {
+    @PostMapping("/addUserToProblemList")
+    public Map<String, Object> addUserToProblemList(@RequestBody ProblemListWithUsers data) {
         try {
             problemListService.addOneToList(data);
             return new R().ok().builder();
@@ -133,12 +133,13 @@ public class ProblemListController {
     /*
     * 添加一群用户至题单
     * */
-    @GetMapping("/addUsersToProblemList")
-    public Map<String, Object> addUsersToProblemList(List<ProblemListWithUsers> list) {
+    @PostMapping("/addUsersToProblemList")
+    public Map<String, Object> addUsersToProblemList(@RequestBody List<ProblemListWithUsers> list) {
         try {
             problemListService.addSeveralToList(list);
             return new R().ok().builder();
         } catch (Exception e) {
+            System.out.println("ERROR:"+e.getMessage());
             return new R().bad().builder();
         }
     }

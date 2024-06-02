@@ -54,14 +54,18 @@ public interface UserMapper {
     @Update("update user " +
             "set username=#{username}, " +
             "password=#{password}, " +
-            "codeforceshandle=#{codeforceshandle} " +
+            "codeforceshandle=#{codeforceshandle}, " +
+            "phone=#{phone}, " +
+            "email=#{email}, " +
+            "gender=#{gender} " +
             "where uid=#{uid}")
     void updateUserInfoByUid(User user);
 
     @Update("update user " +
-            "set codeforcesrating=#{rating} " +
+            "set codeforcesrating=#{rating}, " +
+            "imageURL=#{url} " +
             "where codeforceshandle=#{handle}")
-    void updateUserCodeforcesRating(int rating, String handle);
+    void updateUserCodeforcesRatingAndImageURL(int rating, String handle, String url);
 
     @Update("update user " +
             "set monthAC = #{submits} " +

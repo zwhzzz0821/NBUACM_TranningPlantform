@@ -40,7 +40,7 @@ public class ProblemListServiceImpl implements ProblemListService {
         int problemLists_len = problemLists.size();
         for(int i=0;i<problemLists_len;i++) {
             int problemListId = problemLists.get(i).getId();
-            updateProblemListACNumber(problemListId);
+            updateProblemListACNumber(problemListId);   //更新题单每道题的ac数
         }
 
 
@@ -144,10 +144,11 @@ public class ProblemListServiceImpl implements ProblemListService {
 
 
     @Override
-    public void CreateNewProblemList(ProblemList problemlist) {
+    public int CreateNewProblemList(ProblemList problemlist) {
         System.out.println("插入数据前："+problemlist);
         problemListMapper.insertNewProblemList(problemlist);
         System.out.println("插入数据后："+problemlist);
+        return problemlist.getId();
     }
 
 
@@ -214,6 +215,9 @@ public class ProblemListServiceImpl implements ProblemListService {
         int len = list.size();
         for(int i = 0; i < len; i++) {
             ProblemListWithUsers data = list.get(i);
+            if (data.getUid() == null) {
+                continue; // 如果 uid 为空，则跳过当前迭代
+            }
             addOneToList(data);
         }
     }

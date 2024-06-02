@@ -42,7 +42,7 @@ public class CodeforcesServiceImpl implements CodeforcesService {
             * 更新个人的rating
             * */
             User_Info_Response user_info_response = getUserInfoByHandle(handle);
-            updateUserCodeforcesRating(user_info_response.getResult().get(0).getRating(),handle);
+            updateUserCodeforcesRatingAndImageURL(user_info_response.getResult().get(0).getRating(),handle, user_info_response.getResult().get(0).getTitlePhoto());
 
 
             /*
@@ -156,8 +156,8 @@ public class CodeforcesServiceImpl implements CodeforcesService {
     }
 
     @Override
-    public void updateUserCodeforcesRating(int rating, String handle) {
-        userMapper.updateUserCodeforcesRating(rating,handle);
+    public void updateUserCodeforcesRatingAndImageURL(int rating, String handle, String url) {
+        userMapper.updateUserCodeforcesRatingAndImageURL(rating,handle, url);
     }
 
     @Override
