@@ -7,26 +7,17 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        component: () => import('../components/login.vue'),
+        component: () => import('../views/login.vue'),
     },
     {
         path: '/user',
         component: () => import('../views/UserLayout.vue'),
         children:[
-            {
-                path: '/user/test',
-                component: () => import('../views/test.vue'),
-            },
-            {
-                path: '/user/trybootstrap',
-                component: () => import('../views/trybootstrap.vue'),
-            },
-            {
+            {//用户列表
                 path: 'userList',
-                component: () => import('../components/userList.vue'),
-
+                component: () => import('../components/admin/adminMember.vue'),
             },
-            {
+            {//题目
                 path: 'problem',
                 component: () => import('../components/problem.vue'),
             },
@@ -38,20 +29,19 @@ const routes = [
                 path: 'post/:problemId',
                 component: () => import('../components/post.vue'),
             },//individual
-            {
+            {//个人信息展示
                 path: '/user/individual',
                 component: () => import('../components/IndividualInfoShow.vue')
             },
-            {
+            {//登录测试
                 path: '/user/loginTest',
                 component: () => import('../components/loginTest.vue')
-            },//problemLists
+            },//题单
             {
                 path: '/user/problemLists',
                 component: () => import('../components/problemLists.vue')
-            }
-            ,
-            {
+            },
+            {//创建题单
                 path: '/user/pushProblemlist',
                 component: () => import('../components/pushProblemlist.vue'),
             },
@@ -77,13 +67,17 @@ const routes = [
                 path: '/admin/Problem',
                 component: () => import('../components/admin/adminProblem.vue')  
             },
-            {
+            {//训练功能
                 path: '/admin/ProblemList',
                 component: () => import('../components/admin/adminProblemList.vue')  
             },
             {
                 path: '/admin/Setting',
                 component: () => import('../components/admin/adminSetting.vue')  
+            },
+            {//创建题单
+                path:'/admin/NewProblemList',
+                component: () => import('../components/pushProblemlist.vue')
             }
         ]
     }

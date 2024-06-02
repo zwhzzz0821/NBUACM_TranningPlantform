@@ -3,6 +3,7 @@ package com.example.NBUACM.service;
 import com.example.NBUACM.POJO.MySQLTable.ProblemListWithProblems;
 import com.example.NBUACM.POJO.MySQLTable.ProblemListWithUsers;
 import com.example.NBUACM.POJO.ReturnAppFrontData.ProblemListWithProblemsState;
+import com.example.NBUACM.POJO.ReturnAppFrontData.UserWithACNumber_In_ProblemList;
 import com.example.NBUACM.entity.ProblemList;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,4 +29,5 @@ public interface ProblemListService {
     void addOneToList(ProblemListWithUsers data);
     boolean HaveAddedToList(ProblemListWithUsers data);
     void addSeveralToList(List<ProblemListWithUsers> list);
+    List<UserWithACNumber_In_ProblemList> checkAcNumbers(int problemListId);
 }

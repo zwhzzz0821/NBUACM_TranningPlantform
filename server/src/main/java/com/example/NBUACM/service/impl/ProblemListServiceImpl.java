@@ -5,7 +5,9 @@ import com.example.NBUACM.POJO.MySQLTable.ProblemListWithUsers;
 import com.example.NBUACM.POJO.MySQLTable.Submission;
 import com.example.NBUACM.POJO.ReceiveCFData.problem_info.Problem_Info_DataInDB;
 import com.example.NBUACM.POJO.ReturnAppFrontData.ProblemListWithProblemsState;
+import com.example.NBUACM.POJO.ReturnAppFrontData.UserWithACNumber_In_ProblemList;
 import com.example.NBUACM.entity.ProblemList;
+import com.example.NBUACM.entity.User;
 import com.example.NBUACM.mapper.*;
 import com.example.NBUACM.service.ProblemListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,8 @@ public class ProblemListServiceImpl implements ProblemListService {
     private SubmissionMapper submissionMapper;
     @Autowired
     private ProblemMapper problemMapper;
-
+    @Autowired
+    private UserMapper userMapper;
     /*
     * 更新所有表单的所有题目的AC情况
     * */
@@ -121,7 +124,9 @@ public class ProblemListServiceImpl implements ProblemListService {
 
     @Override
     public void updateProblemListACNumber(int problemListId) {
-        List<ProblemListWithUsers> users = problemListWithUsersMapper.getUsersByProblemListId(problemListId);  //拿到参与这个题单的用户
+//        List<ProblemListWithUsers> users = problemListWithUsersMapper.getUsersByProblemListId(problemListId);  //拿到参与这个题单的用户
+
+        List<User> users = userMapper.getAllUsers();
         List<ProblemListWithProblems> problems = problemListWithProblemsMapper.getProblemsByProblemListId(problemListId); //拿到这个题单的所有题目
 
         for(int i=0;i<problems.size();i++) {
@@ -220,6 +225,37 @@ public class ProblemListServiceImpl implements ProblemListService {
             }
             addOneToList(data);
         }
+    }
+
+
+    @Override
+    public List<UserWithACNumber_In_ProblemList> checkAcNumbers(int problemListId) {
+        List<User> userlist = userMapper.getAllUsers();
+        List<ProblemListWithProblems> problems = problemListWithProblemsMapper.getProblemsByProblemListId(problemListId);  //拿到这个题单所有的problems
+        int userlist_len = userlist.size();
+        int problems_len = problems.size();
+
+        List<UserWithACNumber_In_ProblemList> res = new ArrayList<>();
+        for(int i = 0; i < userlist_len; i++) {
+            String uid = userlist.get(i).getUid();
+            String username = userlist.get(i).getUsername();
+            int ac = 0;
+            for(int j = 0; j < problems_len; j++) {
+                int problemId = problems.get(j).getProblemId();
+                if(judgeUserACthisProblem(problemId, uid) == 3) {
+                    ac++;
+                }
+            }
+
+            UserWithACNumber_In_ProblemList newone = new UserWithACNumber_In_ProblemList();
+            newone.setAcnumber(ac);
+            newone.setUid(uid);
+            newone.setUsername(username);
+
+            res.add(newone);
+        }
+        return res;
+
     }
 
 

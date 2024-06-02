@@ -30,9 +30,10 @@
                 <el-table-column
                     fixed="right"
                     label="操作"
-                    width="100">
+                    width="200">
                     <template slot-scope="scope">
                     <el-button @click="handleClick(scope.row)" type="text" size="small">查看题目</el-button>
+                    <el-button @click="checkfinish(scope.row)" type="text" size="small">查看完成情况</el-button>
                     </template>
                 </el-table-column>
 
@@ -71,9 +72,10 @@
                 <el-table-column
                     fixed="right"
                     label="操作"
-                    width="100">
+                    width="200">
                     <template slot-scope="scope">
                     <el-button @click="handleClick(scope.row)" type="text" size="small">查看题目</el-button>
+                    <el-button @click="checkfinish(scope.row)" type="text" size="small">查看完成情况</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -92,16 +94,6 @@
         :data="newProblems"
         :row-style="{ height: '40px' }"
         style="width: 100%; margin-left: 0 auto">
-            <el-table-column
-            width="30">
-            <template slot-scope="scope">
-                <div :class="getCellStyle(scope.row.state)">
-                    <div v-if="scope.row.state === 1">#</div> <!-- 什么也不展示 -->
-                    <div v-else-if="scope.row.state === 2">#</div>
-                    <div v-else-if="scope.row.state === 3">#</div>
-                </div>
-            </template>
-            </el-table-column>
             <el-table-column
             label="问题来源"
             width="100">
@@ -138,28 +130,52 @@
                 <div>{{ scope.row.acNumber }}</div>
             </template>
             </el-table-column>
-            <el-table-column
-            label="状态"
-            width="100">
-            <template slot-scope="scope">
-                <div :class="stateClass(scope.row.state)">
-                    <div v-if="scope.row.state === 1"></div> <!-- 什么也不展示 -->
-                    <div v-else-if="scope.row.state === 2">WA</div>
-                    <div v-else-if="scope.row.state === 3">AC</div>
-                </div>
-            </template>
-            </el-table-column>
-          
-          
-  
+            <!-- 添加新的列 -->
         </el-table>
     </el-dialog>
 
+    
+    <!-- 弹窗，显示题单题目的完成情况 -->
+    <el-dialog
+    title="题目"
+    :visible.sync="dialogFinishedVisible"
+    width="60%"
+    :before-close="handleClose">
+        <el-table
+        :data="usersWithACNumbers"
+        :row-style="{ height: '40px' }"
+        style="width: 100%; margin-left: 0 auto">
+            
+            <el-table-column
+            label="学号"
+            width="100">
+            <template slot-scope="scope">
+                <div>{{ scope.row.uid }}</div>
+            </template>
+            </el-table-column>
+            <el-table-column
+            label="姓名"
+            >
+            <template slot-scope="scope">
+                <div>
+                <el-link :href="generateLink(scope.row)" type="primary">
+                    <div>{{ scope.row.username }}</div>
+                </el-link>
+                </div>
+            </template>
+            </el-table-column>
+            <el-table-column
+            label="AC数"
+            width="100">
+            <template slot-scope="scope">
+                <div>{{ scope.row.acnumber }}</div>
+            </template>
+            </el-table-column>
+            <!-- 添加新的列 -->
+        </el-table>
+    </el-dialog>
 
-
-
-
-
+    
 
 
 </div>
@@ -176,10 +192,11 @@ export default {
             upcomingList:[],
             pastList:[],
             dialogVisible:false,
+            dialogFinishedVisible:false,
             problems:[],
             newProblems:[],
             problemWithState:[],
-            
+            usersWithACNumbers:[],
         }
     },
     methods:{
@@ -244,6 +261,19 @@ export default {
             this.dialogVisible = true;
         },
 
+        checkfinish(row) {
+            this.dialogFinishedVisible=true;
+            request.get('/ProblemList/checkfinish',{
+                params:{
+                    problemListId:row.id
+                }
+            }).then(res => {
+                this.usersWithACNumbers = res.usersWithACNumbers;  //用户以及其完成的题目个数
+                console.log("usersWithACNumbers:",this.usersWithACNumbers);
+            })
+        },
+
+
         handleClose(done) {
             this.$confirm('确认关闭？')
             .then(_ => {
@@ -252,33 +282,6 @@ export default {
             .catch(_ => {});
         },
 
-        stateClass(state) {
-            switch (state) {
-            case 1:
-                return 'text-white'; 
-            case 2:
-                return 'text-red';   
-            case 3:
-                return 'text-green'; 
-            default:
-                return '';
-            }
-        },
-        
-        getCellStyle(state) {
-            console.log("state:",state);
-            switch (state) {
-            case 1:
-                return "white-background";
-            case 2:
-                return "red-background";
-            case 3:
-                return "green-background";
-            default:
-                return { backgroundColor: 'white' }; // 默认背景颜色
-            }
-        },
-        
         getProblemsWithState(row) {
             try {
                 request.get('/ProblemList/getProblemsState',{
@@ -325,24 +328,5 @@ export default {
 .box-card {
   margin-bottom: 20px; /* 为卡片底部添加外边距 */
 }
-.text-white {
-  color: white;
-}
 
-.text-red {
-  color: red;
-}
-
-.text-green {
-  color: green;
-}
-.green-background {
-  background-color: rgb(52, 167, 52);
-}
-.white-background {
-  background-color: white;
-}
-.red-background {
-  background-color: rgb(194, 50, 14);
-}
 </style>

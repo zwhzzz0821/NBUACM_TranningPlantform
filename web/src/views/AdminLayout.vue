@@ -25,6 +25,8 @@
                               <el-menu-item class="el-icon-setting" index="1-5" @click="handleMenuSelect(4)"> 设置 </el-menu-item>
                               
                               <el-menu-item class="el-icon-s-management" index="1-6" @click="handleMenuSelect(5)"> 荣誉墙编辑 </el-menu-item>
+                              
+                              <el-menu-item class="el-icon-s-management" index="1-7" @click="handleMenuSelect(6)"> 创建题单 </el-menu-item>
 
                             </el-menu-item-group>
                         </el-submenu>
@@ -52,6 +54,7 @@ import logoImg from "../assets/qwq.png"
             { name: '人员管理', url: '/admin/Member' },
             { name: '设置', url: '/admin/Setting'},
             { name: '荣誉墙编辑', url: '/admin/Hornour' },
+            { name: '创建题单', url: '/admin/NewProblemList' },
         ]
       }
     },

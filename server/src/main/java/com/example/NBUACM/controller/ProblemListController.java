@@ -3,6 +3,7 @@ import com.example.NBUACM.Bean.R;
 import com.example.NBUACM.POJO.MySQLTable.ProblemListWithProblems;
 import com.example.NBUACM.POJO.MySQLTable.ProblemListWithUsers;
 import com.example.NBUACM.POJO.ReturnAppFrontData.ProblemListWithProblemsState;
+import com.example.NBUACM.POJO.ReturnAppFrontData.UserWithACNumber_In_ProblemList;
 import com.example.NBUACM.entity.Blog;
 import com.example.NBUACM.entity.ProblemList;
 import com.example.NBUACM.service.BlogService;
@@ -138,6 +139,20 @@ public class ProblemListController {
         try {
             problemListService.addSeveralToList(list);
             return new R().ok().builder();
+        } catch (Exception e) {
+            System.out.println("ERROR:"+e.getMessage());
+            return new R().bad().builder();
+        }
+    }
+
+    /*
+    * 根据某个题单，获取该题单所有用户的ac题目数目
+    * */
+    @GetMapping("/checkfinish")
+    public Map<String, Object> checkfinish(int problemListId) {
+        try {
+            List<UserWithACNumber_In_ProblemList> list = problemListService.checkAcNumbers(problemListId);
+            return new R().ok().add("usersWithACNumbers", list).builder();
         } catch (Exception e) {
             System.out.println("ERROR:"+e.getMessage());
             return new R().bad().builder();
