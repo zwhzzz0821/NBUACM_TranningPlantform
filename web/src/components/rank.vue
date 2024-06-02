@@ -15,32 +15,56 @@
             <el-form-item>
               <el-button type="primary" @click="update" class="niceButton5" style="margin-left: 15px"><span>刷新</span></el-button>
             </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="openAddMemberDialog" class="niceButton5" style="margin-left: 15px; width: auto;"><span>增添新成员</span></el-button>
+            </el-form-item>
+						<el-dialog
+							:visible.sync="dialogVisible"
+							title="添加新成员"
+							width="25%"
+							:before-close="CloseDialog">
+							<el-form :model="newMemberForm" ref="newMemberForm" label-width="15%" class="form-with-vertical-items" style="width: 100%;">
+								<el-form-item label="姓名">
+									<el-input v-model="newMemberForm.username" style="width: 150%;"></el-input>
+								</el-form-item>
+								<el-form-item label="学号">
+									<el-input v-model="newMemberForm.uid"  style="width: 150%;"></el-input>
+								</el-form-item>
+								<el-form-item label="密码">
+									<el-input v-model="newMemberForm.password"  style="width: 150%;"></el-input>
+								</el-form-item>
+								<el-form-item label="角色">
+									<el-select v-model="roleSelected" style="width: 140%;">
+										<el-option
+											v-for="(role, index) in roles"
+											:key="index"
+											:label="role.label"
+											:value="role.value">
+										</el-option>
+									</el-select>
+								</el-form-item>
+								<el-form-item label="CF ID">
+									<el-input v-model="newMemberForm.codeforceshandle" style="width: 150%;"></el-input>
+								</el-form-item>
+								<el-form-item>
+									<span>
+										<el-button type="primary" @click="addNewMember" style="margin-left: 200%;">确定</el-button>
+									</span>
+								</el-form-item>	
+							</el-form>
+						</el-dialog>
           </el-form>
         </el-header>
         <el-divider></el-divider>
-				<div class="avatar-container">
-					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar first"></el-avatar>
-					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar middle"></el-avatar>
-					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar last"></el-avatar>
-				</div>
         <el-table
           :data="pagedRows"
           :row-style="{ height: '40px' }"
           style="width: 100%; margin-left: 0 auto">
-					<el-table-column
-						label="排名"
-						width="120">
-						<template slot-scope="scope">
-							<div :style="getRankBadgeStyle(scope.$index + 1)">
-								<template v-if="scope.$index < 3">
-									<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-								</template>
-								<template v-else>
-									<span>{{ scope.$index + 1 }}</span>
-								</template>
-							</div>
-						</template>
-					</el-table-column>
+            <el-table-column
+                type="index"
+                label="序号"
+                >
+            </el-table-column>
             <el-table-column
             label="学号"
             >
@@ -49,6 +73,10 @@
 								{{ scope.row.user.uid }}
 							</div>
 						</template>
+            </el-table-column>
+            <el-table-column
+            label="密码"
+            prop="user.password">
             </el-table-column>
             <el-table-column
             label="姓名"
@@ -85,6 +113,24 @@
 							</div>
 						</template>
             </el-table-column>
+						<el-table-column
+						label="操作"
+						>
+							<template slot-scope="scope">
+								<div>
+									<el-button type="primary" @click="delete(row)" class="niceButton5">删除</el-button>
+								</div>
+							</template>
+						</el-table-column>
+
+            <el-table-column
+            type="expand">
+            <template slot-scope="props">
+                <el-button type="text" @click="showChart(props.row)">查看rating折线图</el-button>
+                <!-- 为每个图表创建一个独立的容器 -->
+                <div :ref="'ratingChart-' + props.row.user.uid" class="rating-chart"></div>
+            </template>
+            </el-table-column>
         </el-table>
         <el-pagination
           background
@@ -117,7 +163,20 @@ import { getRatingColor, timeStamp} from "@/util/CFshow";
         number: null,
         username: "",
         pagedRows: [],
-        sortBykey: "rating",
+        dialogVisible: false,
+				newMemberForm: {
+					username: '',
+					uid: '',
+					password: '',
+					codeforceshandle: '',
+				},
+				roles: [
+					{ value: 'admin', label: '管理员' },
+					{ value: 'member', label: '普通成员' },
+				],
+				roleSelected: '',
+        selectedCommand: '',
+        dialogData: [],
       }
     },
     computed: {
@@ -141,83 +200,49 @@ import { getRatingColor, timeStamp} from "@/util/CFshow";
     methods: {
       getRatingColor,
       timeStamp,
-      getRankBadgeStyle(rank) {
-        let backgroundColor, color, borderRadius;
-
-        switch (rank) {
-            case 1:
-            backgroundColor = '#ffd700'; // 金牌，金色
-            color = '#000'; // 文字颜色，黑色
-            borderRadius = '50%'; // 圆形徽章
-            break;
-            case 2:
-            backgroundColor = '#c0c0c0'; // 银牌，银色
-            color = '#000';
-            borderRadius = '50%';
-            break;
-            case 3:
-            backgroundColor = '#cd7f32'; // 铜牌，铜色
-            color = '#fff';
-            borderRadius = '50%';
-            break;
-            default:
-            backgroundColor = '#eee'; // 默认背景色，浅灰色
-            color = '#000';
-            borderRadius = '0'; // 方形徽章
-        }
-
-        return {
-            backgroundColor,
-            color,
-            borderRadius,
-            display: 'inline-block',
-            padding: '4px 8px', // 徽章的内边距，可调整
-            textAlign: 'center',
-        };
-			},
 			openAddMemberDialog() {
-					this.dialogVisible = true;
+				this.dialogVisible = true;
 			},
 			closeDialog() {
-					this.dialogVisible = false;
-					// 清空表单
-					this.newMemberForm = {
-							name: '',
-							email: '',
-							role: '',
-					};
+				this.dialogVisible = false;
+				// 清空表单
+				this.newMemberForm = {
+					name: '',
+					email: '',
+					role: '',
+				};
 			},
 			addNewMember() {
-					// 验证表单数据
-					const isFormValid = this.$refs.newMemberForm.validate();
-					console.log("qaq");
-					if (isFormValid) {
-							console.log("qwq");
-							console.log('添加新成员:', this.newMemberForm);
-							if (this.roleSelected == 'admin') {
-									request.post('/user/register/manager', this.newMemberForm).then(response => {
-											if (response.data.success) {
-													this.$message.success('成员添加成功！');
-													this.closeDialog();
-											} else {
-													this.$message.error('添加失败，请重试。');
-											}
-									});
+				// 验证表单数据
+				const isFormValid = this.$refs.newMemberForm.validate();
+				console.log("qaq");
+				if (isFormValid) {
+					console.log("qwq");
+					console.log('添加新成员:', this.newMemberForm);
+					if (this.roleSelected == 'admin') {
+						request.post('/user/register/manager', this.newMemberForm).then(response => {
+							if (response.data.success) {
+								this.$message.success('成员添加成功！');
+								this.closeDialog();
 							} else {
-									request.post('/user/register', this.newMemberForm).then(response => {
-											if (response.data.success) {
-													this.$message.success('成员添加成功！');
-													this.closeDialog();
-											} else {
-													this.$message.error('添加失败，请重试。');
-											}
-									})
+								this.$message.error('添加失败，请重试。');
 							}
-							this.closeDialog();
+						});
 					} else {
-							this.$message.warning('请检查并完善表单信息。');
+						request.post('/user/register', this.newMemberForm).then(response => {
+							if (response.data.success) {
+								this.$message.success('成员添加成功！');
+								this.closeDialog();
+							} else {
+								this.$message.error('添加失败，请重试。');
+							}
+						})
 					}
-					this.update()
+					this.closeDialog();
+				} else {
+					this.$message.warning('请检查并完善表单信息。');
+				}
+				this.update()
 			},
       find() {
         const targetNumber = this.number;
@@ -253,36 +278,6 @@ import { getRatingColor, timeStamp} from "@/util/CFshow";
 </script>
   
 <style scoped>
-  .avatar-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 150px; /* 调整此值以适应你的设计 */
-  }
-
-  .avatar {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    z-index: 1;
-  }
-
-  .first {
-    left: calc(-50px + 30%);
-  }
-
-  .middle {
-    left: 0;
-    transform: translateY(-50px) translateX(600%);
-    z-index: 2;
-  }
-
-  .last {
-    right: calc(-50px + 47%);
-  }
   .chart-wrapper {
     margin-top: 10px;
   }

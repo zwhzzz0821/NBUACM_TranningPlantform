@@ -121,11 +121,6 @@ CREATE TABLE `problem` (
 -- Dumping data for table `problem`
 --
 
-LOCK TABLES `problem` WRITE;
-/*!40000 ALTER TABLE `problem` DISABLE KEYS */;
-/*!40000 ALTER TABLE `problem` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `problemlist`
 --
@@ -237,10 +232,6 @@ CREATE TABLE `submission` (
 -- Dumping data for table `submission`
 --
 
-LOCK TABLES `submission` WRITE;
-/*!40000 ALTER TABLE `submission` DISABLE KEYS */;
-/*!40000 ALTER TABLE `submission` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -313,11 +304,6 @@ CREATE TABLE `userandratinglist` (
 --
 -- Dumping data for table `userandratinglist`
 --
-
-LOCK TABLES `userandratinglist` WRITE;
-/*!40000 ALTER TABLE `userandratinglist` DISABLE KEYS */;
-/*!40000 ALTER TABLE `userandratinglist` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -328,4 +314,16 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-02 20:56:54
+-- Dump completed on 2024-05-24 20:55:12
+
+
+DROP TABLE IF EXISTS `manager`;
+CREATE TABLE `manager`  (
+  `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `codeforceshandle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`uid`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+
+SET FOREIGN_KEY_CHECKS = 1;
