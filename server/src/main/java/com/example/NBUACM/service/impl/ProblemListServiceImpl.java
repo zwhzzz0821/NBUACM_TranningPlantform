@@ -144,10 +144,11 @@ public class ProblemListServiceImpl implements ProblemListService {
 
 
     @Override
-    public void CreateNewProblemList(ProblemList problemlist) {
+    public int CreateNewProblemList(ProblemList problemlist) {
         System.out.println("插入数据前："+problemlist);
         problemListMapper.insertNewProblemList(problemlist);
         System.out.println("插入数据后："+problemlist);
+        return problemlist.getId();
     }
 
 

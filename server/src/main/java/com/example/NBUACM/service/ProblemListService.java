@@ -24,7 +24,7 @@ public interface ProblemListService {
 
     int judgeUserACthisProblem(int problemId, String uid);
     void updateProblemListACNumber(int problemListId);
-    void CreateNewProblemList(ProblemList problemlist);
+    int CreateNewProblemList(ProblemList problemlist);
     void insertNewProblemsToList(List<ProblemListWithProblems> list);
     void DealWithNoExistProblem(List<ProblemListWithProblems> list);
     void addOneToList(ProblemListWithUsers data);
