@@ -14,11 +14,11 @@ const routes = [
         component: () => import('../views/UserLayout.vue'),
         children:[
             {//用户列表
-                path: 'userList',
+                path: '/user/userList',
                 component: () => import('../components/admin/adminMember.vue'),
             },
             {//题目
-                path: 'problem',
+                path: '/user/problem',
                 component: () => import('../components/problem.vue'),
             },
             {
@@ -33,10 +33,6 @@ const routes = [
                 path: '/user/individual',
                 component: () => import('../components/IndividualInfoShow.vue')
             },
-            {//登录测试
-                path: '/user/loginTest',
-                component: () => import('../components/loginTest.vue')
-            },//题单
             {
                 path: '/user/problemLists',
                 component: () => import('../components/problemLists.vue')
@@ -45,6 +41,18 @@ const routes = [
                 path: '/user/pushProblemlist',
                 component: () => import('../components/pushProblemlist.vue'),
             },
+            {//
+                path: '/user/ProblemList',
+                component: () => import('../components/admin/adminProblemList.vue'),
+            },
+            {
+                path: '/user/ranking',
+                component: () => import('../components/admin/adminRanking.vue'),
+            },
+            {
+                path: '/user/setting',
+                component: () => import('../components/admin/adminSetting.vue'),
+            }
         ]
     },
     {
