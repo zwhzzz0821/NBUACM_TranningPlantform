@@ -66,6 +66,7 @@ export default{
 
         }).then(res => {
           this.tableData = res.userwithratinglists;
+          console.log(res.userwithratinglists)
         }).catch(()=>{})
       },
       showChart(row) {

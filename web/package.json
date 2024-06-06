@@ -13,6 +13,7 @@
     "bootstrap-vue": "^2.23.1",
     "echarts": "^4.9.0",
     "element-ui": "^2.15.9",
+    "file-saver": "^2.0.5",
     "from": "^0.1.7",
     "highlight.js": "^11.9.0",
     "hljs": "^6.2.3",
@@ -22,7 +23,9 @@
     "vant": "^2.12.48",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "xlsx": "^0.18.5",
+    "xlsx-style": "^0.8.13"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",

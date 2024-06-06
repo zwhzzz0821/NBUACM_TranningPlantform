@@ -109,6 +109,15 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getallusersSorted")
+    public Map<String, Object> GetAllUsersSorted() {
+        try {
+            List<User> userlist = userService.getAllUsersSorted();
+            return new R().ok().add("userlist", userlist).builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
     @PostMapping("/changeuserinfo")
     public Map<String, Object> changeuserinfo(@RequestBody User user) {
         try {

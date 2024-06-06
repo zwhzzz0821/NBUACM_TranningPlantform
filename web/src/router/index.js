@@ -17,6 +17,10 @@ const routes = [
                 path: '/user/userList',
                 component: () => import('../components/admin/adminMember.vue'),
             },
+            {
+                path: 'ranking',
+                component: () => import('../components/rank.vue'),
+            },
             {//题目
                 path: '/user/problem',
                 component: () => import('../components/problem.vue'),
