@@ -86,6 +86,10 @@ const routes = [
             {//创建题单
                 path:'/admin/NewProblemList',
                 component: () => import('../components/pushProblemlist.vue')
+            },
+            {//个人信息
+                path: '/admin/individual',
+                component: () => import('../components/IndividualInfoShow.vue')
             }
         ]
     }

@@ -221,6 +221,7 @@
         // 在这里添加实际的功能逻辑，比如跳转或数据处理
       },
       postBlog(row) {
+        // console.log("row",row);
         this.$router.replace('post/' + row.ProblemId)
       },
     },

@@ -2,9 +2,24 @@
     <div>
         <el-container style="height: 500px;">
             <!-- 表头 -->
-            <el-header style="font-size: 40px; background-color: #b0c4de9e; display: flex; justify-content: space-between; height: 18%">
-              <img :src="logoImg" style=" width: 35%; margin-top: 5px; margin-bottom: 5px">
-              <el-button type="text" @click="goToRootRoute" style="color: slategray">回到首页</el-button>
+            <el-header style="font-size: 40px; background-color: #b0c4de9e; display: flex; align-items: center; height: 18%; padding: 0 20px;">
+                <img :src="logoImg" style="width: 35%; margin: 5px;">
+                <!-- 使用flex: 1确保头像在最右端 -->
+                <div style="flex: 1;"></div>
+                <!-- el-dropdown用于创建下拉列表 -->
+                <el-dropdown @command="handleCommand">
+                  <!-- el-avatar作为下拉触发元素 -->
+                  <el-avatar :size="50" :src="$store.state.userInfo.imageURL" style="margin: 0 20px;">
+                    <!-- 下拉箭头 -->
+                    <i class="el-icon-arrow-down el-icon--right"></i>
+                  </el-avatar>
+                  <el-dropdown-menu slot="dropdown">
+                    <!-- 下拉菜单项 -->
+                    <el-dropdown-item command="1">个人资料</el-dropdown-item>
+                    <el-dropdown-item command="2">设置</el-dropdown-item>
+                    <el-dropdown-item divided command="3">退出登录</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
             </el-header>
             <el-container>
                 <!-- 左侧 -->
@@ -66,6 +81,30 @@ import logoImg from "../assets/qwq.png"
         this.$router.push(route);
       },
       goToRootRoute() {
+        this.$router.replace('/');
+      },
+      // 处理下拉菜单命令
+      handleCommand(command) {
+        switch (command) {
+          case '1':
+            const route = "/admin/individual";
+            this.$router.push(route);
+            break;
+          case '2':
+            // 处理设置点击事件
+            break;
+          case '3':
+            // 处理退出登录点击事件
+            this.logout();
+            break;
+          default:
+            break;
+        }
+      },
+      // 退出登录的方法
+      logout() {
+        this.$store.state.uid=-1;
+        this.$store.state.userInfo={};
         this.$router.replace('/');
       }
     },
