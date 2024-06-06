@@ -19,21 +19,21 @@
       </el-header>
       <el-divider></el-divider>
       <div class="avatar-container">
-        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar first"
+        <el-avatar :src="rows[1].imageURL" class="avatar first"
         :style="{
           backgroundColor: 'rgba(192, 192, 192, 0.3)', // 透明度调整的银色背景
           boxShadow: '0 0 5px rgba(192, 192, 192, 0.5)', // 添加银色阴影
           padding: '2px', 
           border: '2px solid silver'
         }"></el-avatar>
-        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar middle"
+        <el-avatar :src="rows[0].imageURL" class="avatar middle"
         :style="{
           backgroundColor: 'rgba(255, 215, 0, 0.3)', // 透明度调整的金色背景
           boxShadow: '0 0 5px rgba(255, 215, 0, 0.5)', // 添加金色阴影
           padding: '2px', 
           border: '2px solid gold' 
         }"></el-avatar>
-        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar last"
+        <el-avatar :src="rows[2].imageURL" class="avatar last"
         :style="{
           backgroundColor: 'rgba(178, 124, 56, 0.3)', // 透明度调整的古铜色背景，接近青铜
           boxShadow: '0 0 5px rgba(178, 124, 56, 0.5)', // 添加青铜色阴影
@@ -50,7 +50,7 @@
           width="120">
           <template slot-scope="scope">
             <div>
-              <template v-if="scope.$index < 3">
+              <template v-if="scope.$index < 3 && currentPage == 1">
                 <div v-if="scope.$index == 0">
                   <img :src="goldimg" alt="">
                 </div>
@@ -63,11 +63,26 @@
                 
               </template>
               <template v-else>
-                <span>{{ scope.$index + 1 }}</span>
+                <span>{{ scope.$index + (currentPage - 1) * pageSize + 1 }}</span>
               </template>
             </div>
           </template>
         </el-table-column>
+
+          <!-- 添加的新列，用于显示图片 -->
+          <el-table-column
+            label="图片"
+            width="120">
+            <template slot-scope="scope">
+              <div>
+                <!-- 使用v-if来判断图片URL是否存在 -->
+                <img v-if="scope.row.imageURL" :src="scope.row.imageURL" alt="图片" style="width: 80%; height: 80%">
+                <!-- 如果没有图片URL，则显示默认图片或提示 -->
+                <img v-else src="defaultImageURL" alt="默认图片" style="width: 80%; height: 80%;">
+              </div>
+            </template>
+          </el-table-column>
+
           <el-table-column
           label="学号"
           >
@@ -145,7 +160,7 @@ export default {
       bronzeimg: bronzeimg,
       rows: null,
       currentPage: 1,
-      pageSize: 10,
+      pageSize: 4,
       totalRows: 0,
       number: null,
       username: "",

@@ -107,7 +107,7 @@
                     <!-- 其他列根据实际数据结构添加 -->
                   </el-table>
                 </el-dialog>
-                <el-button size="mini" type="primary" class="niceButton5" @click="postBlog()">发布</el-button>
+                <el-button size="mini" type="primary" class="niceButton5" @click="postBlog(scope.row)">发布</el-button>
               </div>
             </template>
           </el-table-column>
@@ -217,12 +217,12 @@
       handleViewOtherSolutions(index, row) {
         console.log('当前行的索引:', index);
         console.log('当前行的数据:', row);
-         // TODO
+        // TODO
         // 在这里添加实际的功能逻辑，比如跳转或数据处理
       },
       postBlog(row) {
         // console.log("row",row);
-        this.$router.replace('post/' + row.ProblemId)
+        this.$router.replace('post/' + row.ProblemId);
       },
     },
     created() {

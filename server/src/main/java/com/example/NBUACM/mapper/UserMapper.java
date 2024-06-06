@@ -12,8 +12,8 @@ public interface UserMapper {
 
     @Select("select * from user where uid = #{uid}")    //靠uid登录
     User getByUid(User user);
-    @Insert("insert into user(uid,username,password)" +
-            "values(#{uid},#{username},#{password})")
+    @Insert("insert into user(uid,username,password,codeforceshandle)" +
+            "values(#{uid},#{username},#{password},#{codeforceshandle})")
     void register(User user);
     @Delete("delete from user where uid = #{uid}")
     void deleteByUid(User user);

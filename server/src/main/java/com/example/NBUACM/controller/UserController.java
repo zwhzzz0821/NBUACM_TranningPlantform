@@ -64,6 +64,7 @@ public class UserController {
     * */
     @PostMapping("/register")
     public Map<String, Object> register(@RequestBody User user) {
+        System.out.println("拿到的user：" + user);
         User selected = userService.getByUid(user);
         if (selected == null) {  //当前表内没有这个用户,可以创建新用户
             userService.register(user);
@@ -75,6 +76,7 @@ public class UserController {
 
     @PostMapping("/register/manager")
     public Map<String, Object> registerManager(@RequestBody User user) {
+        System.out.println("拿到的user：" + user);
         User selected = userService.getByUid(user);
         if (selected == null) {  //当前表内没有这个用户,可以创建新用户
             userService.register(user);

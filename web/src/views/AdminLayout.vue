@@ -91,7 +91,7 @@ import logoImg from "../assets/qwq.png"
             this.$router.push(route);
             break;
           case '2':
-            // 处理设置点击事件
+            this.$router.push(this.tabs[4].url);
             break;
           case '3':
             // 处理退出登录点击事件

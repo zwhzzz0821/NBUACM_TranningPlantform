@@ -37,6 +37,7 @@ export default {
                           this.$router.push('user')
                         } else {
                           this.$store.state.userInfo = res.manager
+                          this.$store.state.uid=res.manager.uid
                           console.log("managerInfo:",this.$store.state.userInfo);
                           this.$router.push('admin')
                         }
