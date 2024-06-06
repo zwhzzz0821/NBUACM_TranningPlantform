@@ -1,4 +1,5 @@
 module.exports = {
+    publicPath: '/',
     devServer: {
         host: '0.0.0.0',
         port: 8080,
@@ -16,4 +17,4 @@ module.exports = {
     },
     chainWebpack: config => { config.externals({ './cptable': 'var cptable' }) }
 }
-module.exports = { chainWebpack: config => { config.externals({ './cptable': 'var cptable' }) }}
+// module.exports = { chainWebpack: config => { config.externals({ './cptable': 'var cptable' }) }}
