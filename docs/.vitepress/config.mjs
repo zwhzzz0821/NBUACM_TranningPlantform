@@ -144,8 +144,8 @@ export default defineConfig({
         ]
       },
       { text: 'About US', link: '/about/intro'},
-      { text: '队员链接', link: 'http://www.nbuoj.com' },
-      { text: '管理员链接', link: 'http://www.nbuoj.com'}
+      { text: '队员链接', link: 'http://localhost:8080' },
+      { text: '管理员链接', link: 'http://localhost:8080'}
     ],
 
     sidebar: [

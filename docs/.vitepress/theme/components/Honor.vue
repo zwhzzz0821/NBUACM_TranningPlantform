@@ -94,7 +94,7 @@ export default {
 </script>
 
 <style scoped>
-$optionDefaultColours: #ED5565, #FC6E51, #FFCE54, #2ECC71, #5D9CEC, #AC92EC;
+
 
 body {
   display: flex;
