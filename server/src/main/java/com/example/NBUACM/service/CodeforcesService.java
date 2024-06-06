@@ -41,7 +41,7 @@ public interface CodeforcesService {
     * */
     void updateTableAllRatingList(User_Rating_Response response);
 
-    void updateUserCodeforcesRating(int rating, String handle);
+    void updateUserCodeforcesRatingAndImageURL(int rating, String handle, String url);
 
     void updateUserListRatingRank(List<User> userlist);
 
@@ -55,8 +55,6 @@ public interface CodeforcesService {
      * 按照handle来group数据，形成list
      * */
     List<GroupedRatingList> getUserWithRatinglists();
-
-
 
 
 }

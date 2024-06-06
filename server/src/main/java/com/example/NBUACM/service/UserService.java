@@ -11,6 +11,11 @@ public interface UserService {
     User getByUid(User user);
     void deleteByUid(User user);
     List<User> getAllUsers();
+
+    List<User> getAllUsersSorted();
     void changeUserInfo(User user);
 
+    boolean checkManager(String uid);
+
+    void registerManager(User user);
 }

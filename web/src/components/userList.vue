@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { getRatingColor } from "@/util/CFshow";
 import echarts from 'echarts';
 import { ContactList, Toast } from 'vant';
 import request from "../util/request";
@@ -65,6 +66,7 @@ export default{
 
         }).then(res => {
           this.tableData = res.userwithratinglists;
+          console.log(res.userwithratinglists)
         }).catch(()=>{})
       },
       showChart(row) {

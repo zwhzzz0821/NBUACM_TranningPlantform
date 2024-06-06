@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,5 +32,11 @@ public class BlogController {
         else {
             return new R().ok().add("check", blogService.updateBlog(blog)).builder();
         }
+    }
+
+    @GetMapping("/GetBlogList/{problemId}")
+    public Map<String, Object> GetBlogList(@PathVariable Long problemId) {
+        List<Map<String, Object>> ret = blogService.GetBlogList(problemId);
+        return new R().ok().add("BlogList", ret).builder();
     }
 }

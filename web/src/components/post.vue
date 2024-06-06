@@ -3,38 +3,41 @@
       <el-container style="height: 100%; width: 100%">
           <el-header style="height: 80%;">
           <el-page-header @back="this.$router.back()">
-            <template #content >
-              Blog of &nbsp;
-              <el-link
-                type="primary"
-                :href="generateLink()"
-                target="_blank"
-                size="large"
-              >
-              <img
-                src="../assets/CF.png"
-                alt="C"
-                width="14"
-                height="14"
-              />{{ problem.name ? problem.name : "No Title" }}</el-link
-              >
-              &nbsp;&nbsp;&nbsp;&nbsp;Rating:&nbsp;
-              <span :style="`color: ${getRatingColor(problem.rating)}`">
-                <span :class="problem.rating >= 3000 ? `first-letter-black` : ``">
-                  {{ problem.rating ? problem.rating : "No rating" }}
+              <template #content >
+                Author of &nbsp;
+                <el-avatar :size="18" :src="$store.state.userInfo.imageURL"></el-avatar>
+                &nbsp;
+                Blog of &nbsp;
+                <el-link
+                  type="primary"
+                  :href="generateLink()"
+                  target="_blank"
+                  size="large"
+                >
+                <img
+                  src="../assets/CF.png"
+                  alt="CF"
+                  width="14"
+                  height="14"
+                />{{ problem.name ? problem.name : "No Title" }}</el-link
+                >
+                &nbsp;&nbsp;&nbsp;&nbsp;Rating:&nbsp;
+                <span :style="`color: ${getRatingColor(problem.rating)}`">
+                  <span :class="problem.rating >= 3000 ? `first-letter-black` : ``">
+                    {{ problem.rating ? problem.rating : "No rating" }}
+                  </span>
                 </span>
-              </span>
-              &nbsp;&nbsp;&nbsp;&nbsp;Tags:&nbsp;
-              <span
-                v-for="item of problem.tags.split(',')"
-                :key="item"
-                :underline="false"
-              >
-                <el-tag style="margin: 0 2px" size="small">
-                  {{ item }}
-                </el-tag>
-              </span>
-            </template>
+                &nbsp;&nbsp;&nbsp;&nbsp;Tags:&nbsp;
+                <span
+                  v-for="item of problem.tags.split(',')"
+                  :key="item"
+                  :underline="false"
+                >
+                  <el-tag style="margin: 0 2px" size="small">
+                    {{ item }}
+                  </el-tag>
+                </span>
+              </template>
           </el-page-header>
         </el-header>
         <el-divider style="margin: 0" />
