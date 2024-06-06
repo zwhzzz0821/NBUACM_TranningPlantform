@@ -52,7 +52,7 @@ public class CodeforcesController {
             if(response.equals(null)) {
                 return new R().bad().builder();
             } else {
-                codeforcesService.updateUserCodeforcesRating(response.getResult().get(0).getRating(),handle);
+                codeforcesService.updateUserCodeforcesRatingAndImageURL(response.getResult().get(0).getRating(),handle, "没啥用这个函数,删了吧");
                 return new R().ok().add("user", response.getResult()).builder();
             }
         } catch (Exception e) {

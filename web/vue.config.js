@@ -13,5 +13,7 @@ module.exports = {
                 }
             }
         }
-    }
+    },
+    chainWebpack: config => { config.externals({ './cptable': 'var cptable' }) }
 }
+module.exports = { chainWebpack: config => { config.externals({ './cptable': 'var cptable' }) }}

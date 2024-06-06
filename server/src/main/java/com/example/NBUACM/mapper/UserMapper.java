@@ -12,15 +12,19 @@ public interface UserMapper {
 
     @Select("select * from user where uid = #{uid}")    //靠uid登录
     User getByUid(User user);
-    @Insert("insert into user(uid,username,password)" +
-            "values(#{uid},#{username},#{password})")
+    @Insert("insert into user(uid,username,password,codeforceshandle)" +
+            "values(#{uid},#{username},#{password},#{codeforceshandle})")
     void register(User user);
     @Delete("delete from user where uid = #{uid}")
     void deleteByUid(User user);
     @Select("select * from user")
     List<User> getAllUsers();
+
+    @Select("select * from user order by codeforcesrating desc ")
+    List<User> getAllUsersSorted();
     @Select("select * from user where codeforceshandle = #{codeforceshandle}")
     User getUserByCodeforcesHandle(String codeforceshandle);
+
 
 
     @Update("update user " +
@@ -53,14 +57,18 @@ public interface UserMapper {
     @Update("update user " +
             "set username=#{username}, " +
             "password=#{password}, " +
-            "codeforceshandle=#{codeforceshandle} " +
+            "codeforceshandle=#{codeforceshandle}, " +
+            "phone=#{phone}, " +
+            "email=#{email}, " +
+            "gender=#{gender} " +
             "where uid=#{uid}")
     void updateUserInfoByUid(User user);
 
     @Update("update user " +
-            "set codeforcesrating=#{rating} " +
+            "set codeforcesrating=#{rating}, " +
+            "imageURL=#{url} " +
             "where codeforceshandle=#{handle}")
-    void updateUserCodeforcesRating(int rating, String handle);
+    void updateUserCodeforcesRatingAndImageURL(int rating, String handle, String url);
 
     @Update("update user " +
             "set monthAC = #{submits} " +
@@ -139,4 +147,7 @@ public interface UserMapper {
             "where codeforceshandle = #{handle}")
     void addWeekACByHandle(String handle);
 
+    @Insert("insert into manager(uid,username,password)" +
+            "values(#{uid},#{username},#{password})")
+    void registerManger(User user);
 }

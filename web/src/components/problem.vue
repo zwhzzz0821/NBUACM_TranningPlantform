@@ -84,7 +84,29 @@
               >
             <template slot-scope="scope">
               <div>
-                <el-button size="mini" type="primary" class="niceButton5" @click="handleViewOtherSolutions(scope.$index, scope.row)">查看</el-button>
+                <el-button size="mini" type="primary" class="niceButton5" @click="handleCommand(scope.row.ProblemId)">查看</el-button>
+                <el-dialog
+                  v-if="showDialog"
+                  title="列表数据"
+                  width="50%"
+                  :visible.sync="showDialog"
+                  @close="showDialog = false"
+                >
+                  <el-table :data="dialogData">
+                    <!-- 表格列定义 -->
+                    <el-table-column prop="username" label="作者名"></el-table-column>
+                    <el-table-column>
+                      <template slot-scope="scope">
+                        <el-button 
+                          size="mini" 
+                          type="primary" 
+                          class="niceButton5" 
+                          @click="JumpToBlog(scope.row.uid, scope.row.ProblemId)">查看</el-button>
+                      </template>
+                    </el-table-column>
+                    <!-- 其他列根据实际数据结构添加 -->
+                  </el-table>
+                </el-dialog>
                 <el-button size="mini" type="primary" class="niceButton5" @click="postBlog(scope.row)">发布</el-button>
               </div>
             </template>
@@ -112,7 +134,7 @@
   import CFLogo from "../assets/CF.png";
   import { getRatingColor } from "@/util/CFshow";
   export default {
-    name: "BlacklistManagement",
+    name: "Problem",
     data() {
       return {
         CFLogo: CFLogo,
@@ -122,7 +144,10 @@
         totalRows: 0,
         number: null,
         contestNumber: null,
-        pagedRows: []
+        pagedRows: [],
+        showDialog: false,
+        selectedCommand: '',
+        dialogData: [],
       }
     },
     computed: {
@@ -147,6 +172,23 @@
       getRatingColor,
       generateLink(row) {
         return `https://codeforces.com/problemset/problem/${row.contestId}/${row.ProblemIndex}`;
+      },
+      JumpToBlog(uid, problemId) {
+        this.$router.push({
+          path: '/user/blog/' + problemId + "/" + uid,
+        });
+      },
+      handleCommand(command) {
+        console.log(command)
+        this.selectedCommand = command;
+        // 根据 command 获取对应的数据，这里假设有一个方法 fetchDataByCommand
+        this.fetchDataByCommand(command);
+        this.showDialog = true;
+      },
+      fetchDataByCommand(command) {
+        request.get("/Blog/GetBlogList/" + command ).then(res => {
+          this.dialogData = res.BlogList;
+        }) 
       },
       find() {
         const targetNumber = this.number;
@@ -175,11 +217,12 @@
       handleViewOtherSolutions(index, row) {
         console.log('当前行的索引:', index);
         console.log('当前行的数据:', row);
-         // TODO
+        // TODO
         // 在这里添加实际的功能逻辑，比如跳转或数据处理
       },
       postBlog(row) {
-        this.$router.replace('post/' + row.ProblemId)
+        // console.log("row",row);
+        this.$router.replace('post/' + row.ProblemId);
       },
     },
     created() {
@@ -209,7 +252,13 @@
     justify-content: center;
     align-items: center; /* 居中显示 footer 内容 */
   }
-
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
   /* 悬停添加箭头图标 */
   .niceButton5 {
     display: inline-block;

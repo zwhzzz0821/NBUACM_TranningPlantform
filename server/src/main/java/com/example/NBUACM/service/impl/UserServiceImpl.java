@@ -1,5 +1,6 @@
 package com.example.NBUACM.service.impl;
 import com.example.NBUACM.entity.*;
+import com.example.NBUACM.mapper.ManagerMapper;
 import com.example.NBUACM.mapper.UserMapper;
 import com.example.NBUACM.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private ManagerMapper managerMapper;
 
     @Override
     public void register(User user) {
@@ -32,11 +35,21 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userMapper.getAllUsers();
     }
+
+    @Override
+    public List<User> getAllUsersSorted() {
+        return userMapper.getAllUsersSorted();
+    }
     @Override
     public void changeUserInfo(User user) {
         userMapper.updateUserInfoByUid(user);
     }
 
+    @Override
+    public boolean checkManager(String uid) {
+        return managerMapper.GetManagerCount(uid) > 0;
+    }
 
-
+    @Override
+    public void registerManager(User user) { userMapper.registerManger(user);}
 }

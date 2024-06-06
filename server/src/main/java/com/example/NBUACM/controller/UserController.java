@@ -36,14 +36,25 @@ public class UserController {
     * */
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody User user) {
-        System.out.println();
-        User e = userService.getByUid(user);
-        System.out.println(e);
-        if(e.getPassword().equals(user.getPassword())){
-            return new R().ok().add("user", e).builder();
-        } else {
+        try {
+            System.out.println(user);
+            User e = userService.getByUid(user);
+            if(e.equals(null)) {
+                return new R().bad().builder();
+            }
+            if(e.getPassword().equals(user.getPassword())){
+                System.out.println(e);
+                if (userService.checkManager(e.getUid())) {
+                    return new R().ok().add("manager", e).builder();
+                }
+                return new R().ok().add("user", e).builder();
+            } else {
+                return new R().bad().builder();
+            }
+        } catch (Exception e) {
             return new R().bad().builder();
         }
+
     }
 
     /*
@@ -53,6 +64,7 @@ public class UserController {
     * */
     @PostMapping("/register")
     public Map<String, Object> register(@RequestBody User user) {
+        System.out.println("拿到的user：" + user);
         User selected = userService.getByUid(user);
         if (selected == null) {  //当前表内没有这个用户,可以创建新用户
             userService.register(user);
@@ -62,6 +74,18 @@ public class UserController {
         }
     }
 
+    @PostMapping("/register/manager")
+    public Map<String, Object> registerManager(@RequestBody User user) {
+        System.out.println("拿到的user：" + user);
+        User selected = userService.getByUid(user);
+        if (selected == null) {  //当前表内没有这个用户,可以创建新用户
+            userService.register(user);
+            userService.registerManager(user);
+            return new R().ok().builder();
+        } else {
+            return new R().bad().builder();
+        }
+    }
     /*
     * 删除用户，
     * 按照传过来的uid来删除
@@ -87,6 +111,15 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getallusersSorted")
+    public Map<String, Object> GetAllUsersSorted() {
+        try {
+            List<User> userlist = userService.getAllUsersSorted();
+            return new R().ok().add("userlist", userlist).builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+    }
     @PostMapping("/changeuserinfo")
     public Map<String, Object> changeuserinfo(@RequestBody User user) {
         try {
