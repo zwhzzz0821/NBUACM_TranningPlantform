@@ -19,6 +19,9 @@ public interface UserMapper {
     void deleteByUid(User user);
     @Select("select * from user")
     List<User> getAllUsers();
+
+    @Select("select * from user order by codeforcesrating desc ")
+    List<User> getAllUsersSorted();
     @Select("select * from user where codeforceshandle = #{codeforceshandle}")
     User getUserByCodeforcesHandle(String codeforceshandle);
 

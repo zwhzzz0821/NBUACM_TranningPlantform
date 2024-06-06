@@ -57,6 +57,4 @@ public interface CodeforcesService {
     List<GroupedRatingList> getUserWithRatinglists();
 
 
-
-
 }

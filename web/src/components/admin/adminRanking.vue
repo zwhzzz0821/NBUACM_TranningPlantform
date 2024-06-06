@@ -19,9 +19,27 @@
         </el-header>
         <el-divider></el-divider>
 				<div class="avatar-container">
-					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar first"></el-avatar>
-					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar middle"></el-avatar>
-					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar last"></el-avatar>
+					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar first"
+          :style="{
+            backgroundColor: 'rgba(192, 192, 192, 0.3)', // 透明度调整的银色背景
+            boxShadow: '0 0 5px rgba(192, 192, 192, 0.5)', // 添加银色阴影
+            padding: '2px', 
+            border: '2px solid silver'
+          }"></el-avatar>
+					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar middle"
+          :style="{
+            backgroundColor: 'rgba(255, 215, 0, 0.3)', // 透明度调整的金色背景
+            boxShadow: '0 0 5px rgba(255, 215, 0, 0.5)', // 添加金色阴影
+            padding: '2px', 
+            border: '2px solid gold' 
+          }"></el-avatar>
+					<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar last"
+          :style="{
+            backgroundColor: 'rgba(178, 124, 56, 0.3)', // 透明度调整的古铜色背景，接近青铜
+            boxShadow: '0 0 5px rgba(178, 124, 56, 0.5)', // 添加青铜色阴影
+            padding: '2px', 
+            border: '2px solid #CD7F32'
+          }"></el-avatar>
 				</div>
         <el-table
           :data="pagedRows"
@@ -31,9 +49,18 @@
 						label="排名"
 						width="120">
 						<template slot-scope="scope">
-							<div :style="getRankBadgeStyle(scope.$index + 1)">
+							<div>
 								<template v-if="scope.$index < 3">
-									<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                  <div v-if="scope.$index == 0">
+                    <img :src="goldimg" alt="">
+                  </div>
+                  <div v-if="scope.$index == 1">
+                    <img :src="silverimg" alt="">
+                  </div>
+                  <div v-if="scope.$index == 2">
+                    <img :src="bronzeimg" alt="">
+                  </div>
+                  
 								</template>
 								<template v-else>
 									<span>{{ scope.$index + 1 }}</span>
@@ -46,7 +73,7 @@
             >
 						<template slot-scope="scope">
 							<div>
-								{{ scope.row.user.uid }}
+								{{ scope.row.uid }}
 							</div>
 						</template>
             </el-table-column>
@@ -55,7 +82,7 @@
             >
 						<template slot-scope="scope">
 							<div>
-							{{ scope.row.user.username }}
+							{{ scope.row.username }}
 							</div>
 						</template>
             </el-table-column>
@@ -64,9 +91,9 @@
             >
 						<template slot-scope="scope">
 							<div>
-							<span :style="`color: ${getRatingColor(scope.row.user.codeforcesrating)}`">
-              <span :class="scope.row.user.codeforcesrating >= 3000 ? `first-letter-black` : ``">
-                {{ scope.row.user.codeforceshandle ? scope.row.user.codeforceshandle : "No rating" }}
+							<span :style="`color: ${getRatingColor(scope.row.codeforcesrating)}`">
+              <span :class="scope.row.codeforcesrating >= 3000 ? `first-letter-black` : ``">
+                {{ scope.row.codeforceshandle ? scope.row.codeforceshandle : "No rating" }}
               </span>
             </span>
 							</div>
@@ -77,9 +104,9 @@
             >
 						<template slot-scope="scope">
 							<div>
-							<span :style="`color: ${getRatingColor(scope.row.user.codeforcesrating)}`">
-              <span :class="scope.row.user.codeforcesrating >= 3000 ? `first-letter-black` : ``">
-                {{ scope.row.user.codeforcesrating ? scope.row.user.codeforcesrating : "No rating" }}
+							<span :style="`color: ${getRatingColor(scope.row.codeforcesrating)}`">
+              <span :class="scope.row.codeforcesrating >= 3000 ? `first-letter-black` : ``">
+                {{ scope.row.codeforcesrating ? scope.row.codeforcesrating : "No rating" }}
               </span>
             </span>
 							</div>
@@ -103,6 +130,9 @@
 </template>
   
 <script>
+import goldimg from "@/assets/gold.png"
+import silverimg from "@/assets/silver.png"
+import bronzeimg from "@/assets/bronze.png"
 import echarts from 'echarts';	
 import request from "@/util/request";
 import { getRatingColor, timeStamp} from "@/util/CFshow";
@@ -110,6 +140,9 @@ import { getRatingColor, timeStamp} from "@/util/CFshow";
     name: "Member",
     data() {
       return {
+        goldimg: goldimg,
+        silverimg: silverimg,
+        bronzeimg: bronzeimg,
         rows: null,
         currentPage: 1,
         pageSize: 10,
@@ -141,84 +174,6 @@ import { getRatingColor, timeStamp} from "@/util/CFshow";
     methods: {
       getRatingColor,
       timeStamp,
-      getRankBadgeStyle(rank) {
-        let backgroundColor, color, borderRadius;
-
-        switch (rank) {
-            case 1:
-            backgroundColor = '#ffd700'; // 金牌，金色
-            color = '#000'; // 文字颜色，黑色
-            borderRadius = '50%'; // 圆形徽章
-            break;
-            case 2:
-            backgroundColor = '#c0c0c0'; // 银牌，银色
-            color = '#000';
-            borderRadius = '50%';
-            break;
-            case 3:
-            backgroundColor = '#cd7f32'; // 铜牌，铜色
-            color = '#fff';
-            borderRadius = '50%';
-            break;
-            default:
-            backgroundColor = '#eee'; // 默认背景色，浅灰色
-            color = '#000';
-            borderRadius = '0'; // 方形徽章
-        }
-
-        return {
-            backgroundColor,
-            color,
-            borderRadius,
-            display: 'inline-block',
-            padding: '4px 8px', // 徽章的内边距，可调整
-            textAlign: 'center',
-        };
-			},
-			openAddMemberDialog() {
-					this.dialogVisible = true;
-			},
-			closeDialog() {
-					this.dialogVisible = false;
-					// 清空表单
-					this.newMemberForm = {
-							name: '',
-							email: '',
-							role: '',
-					};
-			},
-			addNewMember() {
-					// 验证表单数据
-					const isFormValid = this.$refs.newMemberForm.validate();
-					console.log("qaq");
-					if (isFormValid) {
-							console.log("qwq");
-							console.log('添加新成员:', this.newMemberForm);
-							if (this.roleSelected == 'admin') {
-									request.post('/user/register/manager', this.newMemberForm).then(response => {
-											if (response.data.success) {
-													this.$message.success('成员添加成功！');
-													this.closeDialog();
-											} else {
-													this.$message.error('添加失败，请重试。');
-											}
-									});
-							} else {
-									request.post('/user/register', this.newMemberForm).then(response => {
-											if (response.data.success) {
-													this.$message.success('成员添加成功！');
-													this.closeDialog();
-											} else {
-													this.$message.error('添加失败，请重试。');
-											}
-									})
-							}
-							this.closeDialog();
-					} else {
-							this.$message.warning('请检查并完善表单信息。');
-					}
-					this.update()
-			},
       find() {
         const targetNumber = this.number;
         const targetName = this.username;
@@ -239,10 +194,10 @@ import { getRatingColor, timeStamp} from "@/util/CFshow";
         this.pagedRows = this.currentPagedData;
       },
       update() {
-        request.get('/CFAPI/get_user_with_ratinglists', {
+        request.get('/user/getallusersSorted', {
 
         }).then(res => {
-        this.rows = res.userwithratinglists;
+        this.rows = res.userlist;
         }).catch(()=>{})
       },
     },
@@ -271,17 +226,17 @@ import { getRatingColor, timeStamp} from "@/util/CFshow";
   }
 
   .first {
-    left: calc(-50px + 30%);
+    left: calc(-50px + 40%);
   }
 
   .middle {
     left: 0;
-    transform: translateY(-50px) translateX(600%);
+    transform: translateY(-50px) translateX(800%);
     z-index: 2;
   }
 
   .last {
-    right: calc(-50px + 47%);
+    right: calc(-50px + 40%);
   }
   .chart-wrapper {
     margin-top: 10px;
