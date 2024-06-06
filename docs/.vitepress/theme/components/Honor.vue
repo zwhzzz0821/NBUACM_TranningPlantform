@@ -73,14 +73,14 @@ export default {
               '.vitepress/theme/styles/img/hzwsy.JPG',
           icon: 'fas fa-tint',
           main: 'ICPC沈阳区域赛 银奖',
-          sub: '胡值闻 蒋一波 吴凯晟',
+          sub: '胡值闻 蒋轶波 吴凯晟',
         },
         {
           background:
-              '.vitepress/theme/styles/img/zwhqhd.JPG',
+              '.vitepress/theme/styles/img/lh.png',
           icon: 'fas fa-tint',
-          main: 'ICPC济南区域赛 银奖',
-          sub: '朱文豪 赵瑞杰 李嘉琪',
+          main: 'ICPC昆明邀请赛 金奖',
+          sub: '李浩 吴镇桥 沈天佑',
         },
       ],
     };

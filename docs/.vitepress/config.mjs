@@ -108,7 +108,7 @@ export default defineConfig({
       },
     },
   },
-
+  base: './',
   head: [
     ['link', { rel: 'icon', href: 'icon/favicon.ico' }],
 
