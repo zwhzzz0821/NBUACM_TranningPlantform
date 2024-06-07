@@ -108,8 +108,14 @@ export default defineConfig({
       },
     },
   },
-  base: './',
   head: [
+    [
+      "meta",
+      {
+        name:"referrer",
+        content:"no-referrer"
+      }
+    ],
     ['link', { rel: 'icon', href: 'icon/favicon.ico' }],
 
     // 修正渲染

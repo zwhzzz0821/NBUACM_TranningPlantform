@@ -25,7 +25,7 @@ export default {
           name: '梁航锋',
           position: 'ACM协会会长',
           details: '梁航锋，中共预备党员，21级计算机科学与技术专业学生。曾获国际大学生程序设计竞赛第46届昆明站铜奖、第47届沈阳站铜奖、第47届济南站铜奖、第48届西安站银奖；曾获浙江省大学生程序设计竞赛三等奖两项、团体程序设计天梯赛个人三等奖两项、宁波大学程序设计竞赛特等奖一项等省级、校级奖项十余项。',
-          image: '.vitepress/theme/styles/img/member/lhf.png',
+          image: '/img/member/lhf.png',
           showDetails: false
         },
         {
@@ -33,7 +33,7 @@ export default {
           name: '林成峰',
           position: 'ACM协会副会长',
           details: '林成峰，共青团员，21级计算机科学与技术专业学生。曾获国际大学生程序设计竞赛第46届昆明站铜奖、第47届沈阳站铜奖、第47届济南站铜奖、第48届西安站银奖；曾获浙江省大学生程序设计竞赛三等奖两项、团体程序设计天梯赛个人三等奖两项、宁波大学程序设计竞赛特等奖一项等省级、校级奖项十余项。',
-          image: '.vitepress/theme/styles/img/member/IMG_1113.JPG',
+          image: '/img/member/IMG_1113.JPG',
           showDetails: false
         },
         {
@@ -41,7 +41,7 @@ export default {
           name: '赵瑞杰',
           position: 'ACM协会副会长',
           details: '赵瑞杰，共青团员，21级计算机科学与技术专业学生。曾获国际大学生程序设计竞赛第46届昆明站铜奖、第47届沈阳站铜奖、第47届济南站铜奖、第48届西安站银奖；曾获浙江省大学生程序设计竞赛三等奖两项、团体程序设计天梯赛个人三等奖两项、宁波大学程序设计竞赛特等奖一项等省级、校级奖项十余项。',
-          image: '.vitepress/theme/styles/img/member/IMG_1112.JPG',
+          image: '/img/member/IMG_1112.JPG',
           showDetails: false
         },
         {
@@ -49,7 +49,7 @@ export default {
           name: '朱文豪',
           position: 'ACM协会宣传部部长',
           details: '梁航锋，中共预备党员，21级计算机科学与技术专业学生。曾获国际大学生程序设计竞赛第46届昆明站铜奖、第47届沈阳站铜奖、第47届济南站铜奖、第48届西安站银奖；曾获浙江省大学生程序设计竞赛三等奖两项、团体程序设计天梯赛个人三等奖两项、宁波大学程序设计竞赛特等奖一项等省级、校级奖项十余项。',
-          image: '.vitepress/theme/styles/img/member/IMG_1111.JPG',
+          image: '/img/member/IMG_1111.JPG',
           showDetails: false
         },
         {
@@ -57,7 +57,7 @@ export default {
           name: '赖诗亮',
           position: 'ACM协会成员',
           details: '赖诗亮，发展对象，22级计算机科学与技术专业学生。曾获国际大学生程序设计竞赛第46届昆明站铜奖、第47届沈阳站铜奖、第47届济南站铜奖、第48届西安站银奖；曾获浙江省大学生程序设计竞赛三等奖两项、团体程序设计天梯赛个人三等奖两项、宁波大学程序设计竞赛特等奖一项等省级、校级奖项十余项。',
-          image: '.vitepress/theme/styles/img/member/IMG_1114.JPG',
+          image: '/img/member/IMG_1114.JPG',
           showDetails: false
         },
         {
@@ -65,7 +65,7 @@ export default {
           name: '陈炳灿',
           position: 'ACM协会社团部部长',
           details: '陈炳灿，22级计算机科学与技术专业学生。曾获国际大学生程序设计竞赛第46届昆明站铜奖、第47届沈阳站铜奖、第47届济南站铜奖、第48届西安站银奖；曾获浙江省大学生程序设计竞赛三等奖两项、团体程序设计天梯赛个人三等奖两项、宁波大学程序设计竞赛特等奖一项等省级、校级奖项十余项。',
-          image: '.vitepress/theme/styles/img/member/IMG_1116.JPG',
+          image: '/img/member/IMG_1116.JPG',
           showDetails: false
         },
       ]
