@@ -35,49 +35,49 @@ export default {
       options: [
         {
           background:
-              '.vitepress/theme/styles/img/cyb.JPG',
+              '/img/cyb.JPG',
           icon: 'fas fa-walking',
           main: 'ICPC武汉邀请赛 铜奖',
           sub: '陈一波 严齐航 胡健山',
         },
         {
           background:
-              '.vitepress/theme/styles/img/zwhjn.JPG',
+              '/img/zwhjn.JPG',
           icon: 'fas fa-snowflake',
           main: 'ICPC济南区域赛 银奖',
           sub: '朱文豪 赵瑞杰 李嘉琪',
         },
         {
           background:
-              '.vitepress/theme/styles/img/zwhnj.JPG',
+              '/img/zwhnj.JPG',
           icon: 'fas fa-tree',
           main: 'ICPC济南区域赛 银奖',
           sub: '朱文豪 赵瑞杰 李嘉琪',
         },
         {
           background:
-              '.vitepress/theme/styles/img/lhfxa.JPG',
+              '/img/lhfxa.JPG',
           icon: 'fas fa-tint',
           main: 'ICPC西安区域赛 银奖',
           sub: '梁航锋 李浩 林成峰',
         },
         {
           background:
-              '.vitepress/theme/styles/img/zwhqhd.JPG',
+              '/img/zwhqhd.JPG',
           icon: 'fas fa-tint',
           main: 'ICPC济南区域赛 银奖',
           sub: '朱文豪 赵瑞杰 李嘉琪',
         },
         {
           background:
-              '.vitepress/theme/styles/img/hzwsy.JPG',
+              '/img/hzwsy.JPG',
           icon: 'fas fa-tint',
           main: 'ICPC沈阳区域赛 银奖',
           sub: '胡值闻 蒋轶波 吴凯晟',
         },
         {
           background:
-              '.vitepress/theme/styles/img/lh.png',
+              '/img/lh.png',
           icon: 'fas fa-tint',
           main: 'ICPC昆明邀请赛 金奖',
           sub: '李浩 吴镇桥 沈天佑',
