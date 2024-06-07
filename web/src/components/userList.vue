@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getRatingColor } from "@/util/CFshow";
+import { getRatingColor } from "../util/CFshow";
 import echarts from 'echarts';
 import { ContactList, Toast } from 'vant';
 import request from "../util/request";

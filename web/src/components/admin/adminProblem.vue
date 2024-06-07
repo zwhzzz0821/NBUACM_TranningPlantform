@@ -161,9 +161,9 @@
 </template>
   
 <script>
-  import request from "@/util/request";
-  import CFLogo from  "@/assets/CF.png";
-  import { getRatingColor, timeStamp} from "@/util/CFshow";
+  import request from "../../util/request";
+  import CFLogo from  "../../assets/CF.png";
+  import { getRatingColor, timeStamp} from "../../util/CFshow";
   export default {
     name: "Problem",
     data() {

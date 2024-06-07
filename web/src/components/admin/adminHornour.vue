@@ -80,9 +80,9 @@
 </template>
 
 <script>
-import goldimg from "@/assets/gold.png"
-import silverimg from "@/assets/silver.png"
-import bronzeimg from "@/assets/bronze.png"
+import goldimg from "../../assets/gold.png"
+import silverimg from "../../assets/silver.png"
+import bronzeimg from "../../assets/bronze.png"
 import XLSX from 'xlsx-style';
 import saveAs from 'file-saver';
 import request from "../../util/request";

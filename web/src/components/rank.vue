@@ -145,12 +145,12 @@
 </template>
 
 <script>
-import goldimg from "@/assets/gold.png"
-import silverimg from "@/assets/silver.png"
-import bronzeimg from "@/assets/bronze.png"
+import goldimg from "../assets/gold.png"
+import silverimg from "../assets/silver.png"
+import bronzeimg from "../assets/bronze.png"
 import echarts from 'echarts';	
-import request from "@/util/request";
-import { getRatingColor, timeStamp} from "@/util/CFshow";
+import request from "../util/request";
+import { getRatingColor, timeStamp} from "../util/CFshow";
 export default {
   name: "Member",
   data() {

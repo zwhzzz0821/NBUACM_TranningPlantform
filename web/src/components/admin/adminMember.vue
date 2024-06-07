@@ -150,8 +150,8 @@
   
 <script>
 import echarts from 'echarts';	
-import request from "@/util/request";
-import { getRatingColor, timeStamp} from "@/util/CFshow";
+import request from "../../util/request";
+import { getRatingColor, timeStamp} from "../../util/CFshow";
   export default {
     name: "Member",
     data() {
