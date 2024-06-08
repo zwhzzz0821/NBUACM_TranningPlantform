@@ -70,7 +70,7 @@ export default {
         },
         {
           background:
-              '/img/hzwsy.JPG',
+              '/img/hzwsy.jpg',
           icon: 'fas fa-tint',
           main: 'ICPC沈阳区域赛 银奖',
           sub: '胡值闻 蒋轶波 吴凯晟',
