@@ -51,7 +51,7 @@ export default {
           background:
               '/img/zwhnj.JPG',
           icon: 'fas fa-tree',
-          main: 'ICPC济南区域赛 银奖',
+          main: 'ICPC南京区域赛 银奖',
           sub: '朱文豪 赵瑞杰 李嘉琪',
         },
         {
@@ -65,14 +65,14 @@ export default {
           background:
               '/img/zwhqhd.JPG',
           icon: 'fas fa-tint',
-          main: 'ICPC济南区域赛 银奖',
+          main: 'ICPC秦皇岛区域赛 银奖',
           sub: '朱文豪 赵瑞杰 李嘉琪',
         },
         {
           background:
               '/img/hzwsy.jpg',
           icon: 'fas fa-tint',
-          main: 'ICPC沈阳区域赛 银奖',
+          main: 'ICPC沈阳区域赛 铜奖',
           sub: '胡值闻 蒋轶波 吴凯晟',
         },
         {
