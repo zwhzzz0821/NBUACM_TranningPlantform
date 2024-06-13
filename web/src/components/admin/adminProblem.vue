@@ -1,7 +1,7 @@
 <template>
     <div>
       <el-container style="height: 100%; width: 100%">
-        <el-header style="height: 100%; padding: 0;">
+        <el-header style="height: 5%; padding: 0;">
           <el-form style="padding: 1em" :inline="true" class="demo-form-inline">
             <el-form-item label="问题号" style="margin-left: 60px">
               <el-input v-model="number" placeholder="问题号"></el-input>

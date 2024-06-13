@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container style="height: 100%; width: 100%">
-      <el-header style="height: 100%; padding: 0;">
+      <el-header style="height: 15%; padding: 0;">
         <el-form style="padding: 1em" :inline="true">
           <el-form-item label="学号" style="margin-left: 60px">
             <el-input v-model="number" placeholder="学号"></el-input>
@@ -148,7 +148,6 @@
 import goldimg from "../assets/gold.png"
 import silverimg from "../assets/silver.png"
 import bronzeimg from "../assets/bronze.png"
-import echarts from 'echarts';	
 import request from "../util/request";
 import { getRatingColor, timeStamp} from "../util/CFshow";
 export default {
@@ -246,7 +245,7 @@ export default {
 
 .middle {
   left: 0;
-  transform: translateY(-50px) translateX(800%);
+  transform: translateY(-50px) translateX(545%);
   z-index: 2;
 }
 

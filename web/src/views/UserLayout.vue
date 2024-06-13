@@ -23,10 +23,10 @@
             </el-header>
             <el-container>
                 <!-- 左侧 -->
-                <el-aside width="250px" class="custom-aside">
+                <el-aside width="13%" class="custom-aside">
                     <el-menu :default-openeds="['1']">
                         <el-submenu index="1">
-                            <template slot="title"><i class="el-icon-message"> NBUACM </i></template>
+                            <template slot="title"><i class="el-icon-message" style="margin-top: 15%;"> NBUACM </i></template>
                             <el-menu-item-group>
 
                               <el-menu-item class="el-icon-s-data" index="1-1" @click="handleMenuSelect(0)"> 排名 </el-menu-item>
@@ -37,11 +37,9 @@
                                
                               <el-menu-item class="el-icon-s-custom" index="1-4" @click="handleMenuSelect(3)"> 用户列表 </el-menu-item>
                               
-                              <el-menu-item class="el-icon-setting" index="1-5" @click="handleMenuSelect(4)"> 设置 </el-menu-item>
+                              <el-menu-item class="el-icon-s-tools" index="1-5" @click="handleMenuSelect(4)"> 设置 </el-menu-item>
 
-                              <el-menu-item class="el-icon-s-test" index="1-6" @click="handleMenuSelect(5)"> 个人资料 </el-menu-item>
-
-                              <el-menu-item class="el-icon-s-test" index="1-7" @click="handleMenuSelect(6)"> 题单 </el-menu-item>
+                              <el-menu-item class="el-icon-info" index="1-6" @click="handleMenuSelect(5)"> 个人资料 </el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
                     </el-menu>
@@ -68,7 +66,6 @@
             { name: '用户列表', url: '/user/userList' },
             { name: '设置', url: '/user/setting'},
             { name: '个人资料', url: '/user/individual' },
-            { name: '题单',url: '/user/problemLists'},
         ]
       }
     },
@@ -134,9 +131,9 @@
     font-size: 16px; /* 根据需要调整字体大小 */
   }
 
-  .custom-aside {
+.custom-aside {
   width: 100%;
-  height: 208%;
+  height: 100%;
   /* background-color: #f5f5f5; 选择你喜欢的背景颜色 */
   border-right: 1px solid #ebebeb; /* 右侧添加边框，颜色可调整 */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */

@@ -26,7 +26,7 @@
                 <el-aside width="250px" class="custom-aside">
                     <el-menu :default-openeds="['1']">
                         <el-submenu index="1">
-                            <template slot="title"><i class="el-icon-message"> NBUACM </i></template>
+                          <template slot="title"><i class="el-icon-message" style="margin-top: 15%;"> NBUACM </i></template>  
                             <el-menu-item-group>
 
                               <el-menu-item class="el-icon-s-data" index="1-1" @click="handleMenuSelect(0)"> 排名 </el-menu-item>
@@ -137,7 +137,7 @@ import logoImg from "../assets/qwq.png"
 
 .custom-aside {
   width: 100%;
-  height: 208%;
+  height: 100%;
   /* background-color: #f5f5f5; 选择你喜欢的背景颜色 */
   border-right: 1px solid #ebebeb; /* 右侧添加边框，颜色可调整 */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
