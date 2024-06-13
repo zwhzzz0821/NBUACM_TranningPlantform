@@ -1,14 +1,32 @@
 <template>
 <div>
-
-
-    <el-container style="height: 100%; width: 100%">
-        <el-card style="width: 100%; margin: 0px">
-            <v-md-editor :value="notice.info" ></v-md-editor>
+    <el-container style="width: 100%; margin: 15px;">
+        <el-card style="width: 200%; margin: 0px">
+            <el-form label-width="80px" :model="notice">
+                <el-form-item label="id">
+                    <el-input v-model="notice.id" disabled></el-input>
+                </el-form-item>
+                <el-form-item label="发布人">
+                    <el-input v-model="notice.author" disabled></el-input>
+                </el-form-item>
+                <el-form-item label="主题">
+                    <el-input v-model="notice.title"></el-input>
+                </el-form-item>
+            </el-form>
         </el-card>
     </el-container>
-    <!-- 添加提交按钮 -->
-    <el-button type="primary" @click="updateNotice">提交</el-button>
+    
+
+    <el-container style="width: 100%; margin: 15px;">
+          <el-card style="width: 200%; margin: 0px">
+            <v-md-editor :value="notice.info" mode="preview"></v-md-editor>
+          </el-card>
+    </el-container>
+
+    <el-container style="width: 100%; margin: 15px">
+          <v-md-editor v-model="NewInfo" height="px"></v-md-editor>
+          <el-button type="primary" @click="updateNotice">更新通知内容</el-button>
+    </el-container>
 </div>
 </template>
   
@@ -24,7 +42,7 @@
       problem: null,
       rating: 0,
       blogText: "",
-      info: "",
+      NewInfo: "",
       id: 0,   //这个是通知的id
       title:""
     }
@@ -37,18 +55,20 @@
         }
       }).then(res => {
         this.notice = res.notice;
+        this.NewInfo = this.notice.info;
         console.log(this.notice);
         console.log("现在的时间戳:", this.GetNowTimeStamp())
       });
     },
 
     updateNotice() {
+        console.log("info:", this.notice.info);
         request.post('/Notice/updateOne', {
             id:this.notice.id,
             author:this.notice.author,
             date:this.GetNowTimeStamp(),
             title:this.notice.title,
-            info:this.notice.info
+            info:this.NewInfo
         }).then(res => {
             if(res.code === 200) {
                 Toast.success("修改成功");

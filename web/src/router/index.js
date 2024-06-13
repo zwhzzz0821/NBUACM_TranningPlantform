@@ -102,6 +102,10 @@ const routes = [
             {
                 path: 'notice/update/:id',
                 component: () => import('../components/admin/adminUpdateNotice.vue')
+            },//创建通知
+            {
+                path: 'notice/create',
+                component: () => import('../components/admin/adminCreateNotice.vue')
             }
         ]
     }

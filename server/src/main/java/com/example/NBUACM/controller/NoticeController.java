@@ -55,6 +55,7 @@ public class NoticeController {
     @PostMapping("/updateOne")
     public Map<String, Object> updateOneNotice(@RequestBody Notice notice) {
         try {
+            System.out.println("notice:" + notice);
             noticeService.updateOneNotice(notice);
             return new R().ok().builder();
         } catch (Exception e) {

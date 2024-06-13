@@ -1,12 +1,15 @@
 <template>
 <div>
+    <el-button type="primary" @click="JumpToCreateNotice">创建新通知</el-button>
     <el-table :data="notices" style="width: 100%">
         <el-table-column type="expand">
             <template slot-scope="props">
                 <el-form label-position="left" inline class="demo-table-expand">
-                    <el-form-item label="内容">
-                        <span>{{ props.row.info }}</span>
-                    </el-form-item>
+                        <el-container style="width: 100%; margin: 15px;">
+                            <el-card style="width: 200%; margin: 0px">
+                                <v-md-editor :value="props.row.info" mode="preview"></v-md-editor>
+                            </el-card>
+                        </el-container>
                 </el-form>
             </template>
         </el-table-column>
@@ -31,12 +34,12 @@
             <template slot-scope="props">
                 <div>
                     <el-button type="primary" @click="deleteNotice(props.row)" class="niceButton5">删除</el-button>
-                    <el-button type="primary" @click="JumpTpUpdateNotice(props.row)" class="niceButton5">编辑</el-button>
+                    <el-button type="primary" @click="JumpToUpdateNotice(props.row)" class="niceButton5">编辑</el-button>
                 </div>
             </template>
         </el-table-column>
     </el-table>
-
+    
 
 </div>
 </template>
@@ -54,7 +57,9 @@ export default {
         
         getAllNotices() {
             request.get('/Notice/getAll').then(res => {
-                this.notices = res.notices;
+                this.notices = res.notices.sort((a, b) => {
+                    return b.date - a.date; // 降序排序
+                });
                 console.log("notices:",this.notices);
             });
         },
@@ -72,10 +77,13 @@ export default {
             })
         },
 
-        JumpTpUpdateNotice(row) {
+        JumpToUpdateNotice(row) {
             this.$router.push({ path: 'notice/update/' + row.id });
         },
 
+        JumpToCreateNotice() {
+            this.$router.push({ path: 'notice/create' });
+        }
         
 
     },
