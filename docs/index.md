@@ -26,7 +26,7 @@ features:
     details: 承担队内管理职责的均为本科学长学姐，氛围相当自由。很多队员最终拿到了大厂 Offer，也有很多队员保研/考研到浙大等名校。
   - icon: 👌
     title: 欢迎加入我们
-    details: 我们随时欢迎感兴趣的同学加入我们！！！！！ QQ：NBUACM交流群 907464453
+    details: 我们随时欢迎感兴趣的同学加入我们！！！！！ QQ：NBUACM交流群 907464453 
 ---
 
 <!-- From `https://github.com/vuejs/vitepress/blob/main/docs/index.md` -->
@@ -59,6 +59,13 @@ features:
 
 <div style="height: 30px;"></div>
 
+<h1>🌟集训队要闻</h1>
+<br>
+
+
+<News/>
+<br>
+
 <h1>🎁我们的荣誉</h1>
 <p>&#20;&#20;&#20;&#20;&#20;&#20;&#20;宁波大学ACM集训队自成立以来，凭借卓越的编程实力和不懈的努力，
 斩获了众多荣誉。在省级比赛中，多次荣获<strong>浙江省程序设计大赛</strong>二、三等奖，展示了我们在省内的领先地位。
@@ -85,14 +92,6 @@ features:
 </ul>
 <Honor/>
 
-<h1>🎡我们的活动</h1>
-<br>
-<Activities/>
-<br>
-<br>
-
-
-
 <h1>🌰优秀队员</h1>
 <br>
 <TeamMembers/>
@@ -101,3 +100,5 @@ features:
 <br>
 <h1>🧑‍🏫指导老师</h1>
 <TeacherList/>
+
+
