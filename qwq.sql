@@ -1,11 +1,19 @@
--- CREATE Database nbuacm;
--- USE nbuacm;
 -- MySQL dump 10.13  Distrib 8.3.0, for Win64 (x86_64)
 --
 -- Host: localhost    Database: nbuacm
 -- ------------------------------------------------------
 -- Server version	8.3.0
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `user`
@@ -39,12 +47,13 @@ CREATE TABLE `user` (
   `monthAverageACRating` double DEFAULT NULL,
   `totalAverageACRating` double DEFAULT NULL,
   `imageURL` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
-  `phone` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `gender` varchar(100) DEFAULT NULL,
+  `phone` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
+  `gender` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping data for table `user`
@@ -52,10 +61,9 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('123456789','123456','胡健山','5-3',1624,3,0,3,0,729,368,103,74,92,66,21,12,0,2,2,0,0,1260.054347826087,'https://userpic.codeforces.org/3252576/title/e014a85bbbc31b82.jpg','0','0','0'),('226001634','123456','不知名学弟','226001634',1409,0,0,0,0,422,221,88,48,71,13,1,0,0,3,3,0,0,1051.5837104072398,'https://userpic.codeforces.org/no-title.jpg','0','0','0'),('233333333','123456','朱文豪','Yukim1',1782,1,0,1,0,2458,1108,279,182,241,282,101,23,0,1,1,1100,0,1293.231046931408,'https://userpic.codeforces.org/2402327/title/5b8aacefdf3beaf9.jpg','1791654567','233@qq.com','男');
+INSERT INTO `user` VALUES ('123456789','123456','胡健山','5-3',1626,0,0,0,0,729,368,101,75,92,67,21,12,0,2,2,0,0,1260.054347826087,'https://userpic.codeforces.org/3252576/title/e014a85bbbc31b82.jpg','0','0','0'),('216001893','123456','cbc','bingcan',1148,0,0,0,0,89,39,11,8,14,5,1,0,0,4,4,0,0,1187.179487179487,'https://userpic.codeforces.org/no-title.jpg','0','0','0'),('226001634','123456','不知名学弟','226001634',1409,0,0,0,0,422,221,88,48,71,13,1,0,0,3,3,0,0,1051.5837104072398,'https://userpic.codeforces.org/no-title.jpg','0','0','0'),('233333333','123456','朱文豪','Yukim1',1782,0,0,0,0,2458,1108,279,182,241,282,101,23,0,1,1,0,0,1293.231046931408,'https://userpic.codeforces.org/2402327/title/63ca283b1a473a50.jpg','1791654567','233@qq.com','男');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
-
 
 
 
@@ -66,6 +74,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `allusersubmissionstatus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `allusersubmissionstatus` (
   `id` int NOT NULL AUTO_INCREMENT,
   `maxWeekAC` int DEFAULT '0',
@@ -79,7 +89,7 @@ CREATE TABLE `allusersubmissionstatus` (
   `avgMonthAverageACRating` double DEFAULT '0',
   `avgTotalAverageACRating` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,7 +97,9 @@ CREATE TABLE `allusersubmissionstatus` (
 --
 
 LOCK TABLES `allusersubmissionstatus` WRITE;
-INSERT INTO `allusersubmissionstatus` VALUES (1,3,0,1100,0,1293.231046931408,1.3333,0,366.6666666666667,0,1201.6230350549115);
+/*!40000 ALTER TABLE `allusersubmissionstatus` DISABLE KEYS */;
+INSERT INTO `allusersubmissionstatus` VALUES (1,0,0,0,0,1293.231046931408,0,0,0,0,1198.0121480860555);
+/*!40000 ALTER TABLE `allusersubmissionstatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -111,7 +123,36 @@ CREATE TABLE `blog` (
 
 LOCK TABLES `blog` WRITE;
 /*!40000 ALTER TABLE `blog` DISABLE KEYS */;
+INSERT INTO `blog` VALUES ('233333333','呵呵哒','> Problem: []() \n [TOC] \n # 思路 \n > 讲述看到这一题的思路 \n # 解题方法 \n> 描述你的解题方法 \n # 复杂度 \n 时间复杂度: \n > 添加时间复杂度, 示例： $O(n)$ \n 空间复杂度: \n > 添加空间复杂度, 示例： $O(n)$ \n # Code \n ``` \n cpp 21332131231233131232133123123\n``` \n',1);
 /*!40000 ALTER TABLE `blog` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `honors`
+--
+
+DROP TABLE IF EXISTS `honors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `honors` (
+  `hid` int NOT NULL AUTO_INCREMENT,
+  `award` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `acquiredTime` bigint DEFAULT NULL,
+  `player1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `player2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `player3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `coach` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  PRIMARY KEY (`hid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `honors`
+--
+
+LOCK TABLES `honors` WRITE;
+/*!40000 ALTER TABLE `honors` DISABLE KEYS */;
+/*!40000 ALTER TABLE `honors` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -123,8 +164,9 @@ DROP TABLE IF EXISTS `manager`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `manager` (
   `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `codeforceshandle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`uid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -135,8 +177,35 @@ CREATE TABLE `manager` (
 
 LOCK TABLES `manager` WRITE;
 /*!40000 ALTER TABLE `manager` DISABLE KEYS */;
-INSERT INTO `manager` VALUES ('233333333','朱文豪','123456');
+INSERT INTO `manager` VALUES ('233333333','朱文豪','123456','Yukim1');
 /*!40000 ALTER TABLE `manager` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notice`
+--
+
+DROP TABLE IF EXISTS `notice`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `notice` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `author` varchar(100) DEFAULT NULL,
+  `date` bigint unsigned DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `info` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notice`
+--
+
+LOCK TABLES `notice` WRITE;
+/*!40000 ALTER TABLE `notice` DISABLE KEYS */;
+INSERT INTO `notice` VALUES (1,'233',1718272861,'title1问得好','呵呵呵132199999'),(2,'334',1718272147,'title2','呵呵2333333'),(3,'zwh',1718273876,'呵呵呵呵呵呵呵呵呵','# 一级标题33233');
+/*!40000 ALTER TABLE `notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -156,12 +225,17 @@ CREATE TABLE `problem` (
   `rating` int DEFAULT NULL,
   `tags` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ProblemId`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9722 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `problem`
 --
+
+LOCK TABLES `problem` WRITE;
+/*!40000 ALTER TABLE `problem` DISABLE KEYS */;
+/*!40000 ALTER TABLE `problem` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `problemlist`
@@ -176,7 +250,7 @@ CREATE TABLE `problemlist` (
   `begin` bigint unsigned DEFAULT '0',
   `end` bigint unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,14 +341,17 @@ CREATE TABLE `submission` (
   PRIMARY KEY (`acsubmissionid`),
   KEY `fk_problem_id` (`ProblemId`),
   CONSTRAINT `fk_problem_id` FOREIGN KEY (`ProblemId`) REFERENCES `problem` (`ProblemId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4281 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `submission`
 --
 
-
+LOCK TABLES `submission` WRITE;
+/*!40000 ALTER TABLE `submission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `submission` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 --
@@ -293,12 +370,13 @@ CREATE TABLE `userandratinglist` (
   `newrating` int DEFAULT NULL,
   `ratingupdatetimeseconds` bigint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=204 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `userandratinglist`
 --
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -309,31 +387,4 @@ CREATE TABLE `userandratinglist` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-24 20:55:12
-
-
-DROP TABLE IF EXISTS `manager`;
-CREATE TABLE `manager`  (
-  `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `codeforceshandle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`uid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
-
-SET FOREIGN_KEY_CHECKS = 1;
-
-
-DROP TABLE IF EXISTS `honors`;
-CREATE TABLE `honors`  (
-  `hid` int NOT NULL AUTO_INCREMENT,
-  `award` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `acquiredTime` bigint NULL DEFAULT NULL,
-  `player1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `player2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `player3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `coach` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`hid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
-SET FOREIGN_KEY_CHECKS = 1;
+-- Dump completed on 2024-06-13 18:56:42
