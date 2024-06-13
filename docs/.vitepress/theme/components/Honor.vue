@@ -56,7 +56,7 @@ export default {
         },
         {
           background:
-              '/img/lhfxa.JPG',
+              '/img/lhfxa.png',
           icon: 'fas fa-tint',
           main: 'ICPC西安区域赛 银奖',
           sub: '梁航锋 李浩 林成峰',

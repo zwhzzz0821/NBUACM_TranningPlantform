@@ -141,6 +141,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Honor', link: '/honor'},
+      { text: 'News', link: '/News/News001'},
       { text: 'Resources',
         items: [
           { text: '基础', link: '/resource/basic', },
@@ -170,6 +171,12 @@ export default defineConfig({
           { text: '入门指南 by zwh', link: '/resource/guide'},
           { text: '个人算法学习笔记 by cyb', link: '/resource/cybnote'},
           { text: 'NBU CS GUIDE', link: 'https://sayoriaaa.github.io/nbu-icicles/'},
+        ]
+      },
+      {
+        text: '集训队要闻',
+        items: [
+          { text: 'ICPC昆明赛金牌', link: '/News/News001'},
         ]
       },
     ],
