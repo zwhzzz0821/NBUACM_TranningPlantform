@@ -118,7 +118,7 @@
 						>
 							<template slot-scope="scope">
 								<div>
-									<el-button type="primary" @click="delete(row)" class="niceButton5">删除</el-button>
+									<el-button type="primary" @click="deleteMember(scope.row)" class="niceButton5">删除</el-button>
 								</div>
 							</template>
 						</el-table-column>
@@ -152,6 +152,7 @@
 import echarts from 'echarts';	
 import request from "../../util/request";
 import { getRatingColor, timeStamp} from "../../util/CFshow";
+import { Toast } from 'vant';
   export default {
     name: "Member",
     data() {
@@ -404,7 +405,20 @@ import { getRatingColor, timeStamp} from "../../util/CFshow";
           ]
         });
 
-        }
+        },
+
+        deleteMember(row) {
+          request.post('/user/deleteuser', {
+            uid:row.user.uid
+          }).then(res => {
+            if(res.code === 200) {
+              Toast.success("删除成功")
+            } else {
+              Toast.fail("删除失败")
+            }
+          })
+        },
+        //继续添加函数
     },
     created() {
       this.update()

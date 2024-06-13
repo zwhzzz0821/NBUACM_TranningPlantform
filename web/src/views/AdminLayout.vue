@@ -43,6 +43,8 @@
                               
                               <el-menu-item class="el-icon-s-management" index="1-7" @click="handleMenuSelect(6)"> 创建题单 </el-menu-item>
 
+                              <el-menu-item class="el-icon-s-management" index="1-8" @click="handleMenuSelect(7)"> 通知 </el-menu-item>
+
                             </el-menu-item-group>
                         </el-submenu>
                     </el-menu>
@@ -70,6 +72,7 @@ import logoImg from "../assets/qwq.png"
             { name: '设置', url: '/admin/Setting'},
             { name: '荣誉墙编辑', url: '/admin/Hornour' },
             { name: '创建题单', url: '/admin/NewProblemList' },
+            { name: '通知', url: '/admin/adminNotice' }
         ]
       }
     },

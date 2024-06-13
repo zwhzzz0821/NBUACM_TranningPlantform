@@ -94,6 +94,14 @@ const routes = [
             {//个人信息
                 path: '/admin/individual',
                 component: () => import('../components/IndividualInfoShow.vue')
+            },//通知
+            {
+                path: '/admin/adminNotice',
+                component: () => import('../components/admin/adminNotice.vue')
+            },//编辑通知
+            {
+                path: 'notice/update/:id',
+                component: () => import('../components/admin/adminUpdateNotice.vue')
             }
         ]
     }
