@@ -8,6 +8,60 @@
 
 
 --
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `uid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `codeforceshandle` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `codeforcesrating` int DEFAULT '0',
+  `weekAC` int DEFAULT '0',
+  `monthAC` int DEFAULT '0',
+  `weekSubmits` int DEFAULT '0',
+  `monthSubmits` int DEFAULT '0',
+  `totalSubmits` int DEFAULT '0',
+  `totalACSubmits` int DEFAULT '0',
+  `Difficulty1` int DEFAULT '0',
+  `Difficulty2` int DEFAULT '0',
+  `Difficulty3` int DEFAULT '0',
+  `Difficulty4` int DEFAULT '0',
+  `Difficulty5` int DEFAULT '0',
+  `Difficulty6` int DEFAULT '0',
+  `Difficulty7` int DEFAULT '0',
+  `ratingRank` int DEFAULT '0',
+  `monthACRank` int DEFAULT '0',
+  `weekAverageACRating` double DEFAULT NULL,
+  `monthAverageACRating` double DEFAULT NULL,
+  `totalAverageACRating` double DEFAULT NULL,
+  `imageURL` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
+  `phone` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `gender` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('123456789','123456','胡健山','5-3',1624,3,0,3,0,729,368,103,74,92,66,21,12,0,2,2,0,0,1260.054347826087,'https://userpic.codeforces.org/3252576/title/e014a85bbbc31b82.jpg','0','0','0'),('226001634','123456','不知名学弟','226001634',1409,0,0,0,0,422,221,88,48,71,13,1,0,0,3,3,0,0,1051.5837104072398,'https://userpic.codeforces.org/no-title.jpg','0','0','0'),('233333333','123456','朱文豪','Yukim1',1782,1,0,1,0,2458,1108,279,182,241,282,101,23,0,1,1,1100,0,1293.231046931408,'https://userpic.codeforces.org/2402327/title/5b8aacefdf3beaf9.jpg','1791654567','233@qq.com','男');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+
+
+
+--
 -- Table structure for table `allusersubmissionstatus`
 --
 
@@ -221,54 +275,7 @@ CREATE TABLE `submission` (
 --
 
 
---
--- Table structure for table `user`
---
 
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
-  `uid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `codeforceshandle` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `codeforcesrating` int DEFAULT '0',
-  `weekAC` int DEFAULT '0',
-  `monthAC` int DEFAULT '0',
-  `weekSubmits` int DEFAULT '0',
-  `monthSubmits` int DEFAULT '0',
-  `totalSubmits` int DEFAULT '0',
-  `totalACSubmits` int DEFAULT '0',
-  `Difficulty1` int DEFAULT '0',
-  `Difficulty2` int DEFAULT '0',
-  `Difficulty3` int DEFAULT '0',
-  `Difficulty4` int DEFAULT '0',
-  `Difficulty5` int DEFAULT '0',
-  `Difficulty6` int DEFAULT '0',
-  `Difficulty7` int DEFAULT '0',
-  `ratingRank` int DEFAULT '0',
-  `monthACRank` int DEFAULT '0',
-  `weekAverageACRating` double DEFAULT NULL,
-  `monthAverageACRating` double DEFAULT NULL,
-  `totalAverageACRating` double DEFAULT NULL,
-  `imageURL` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
-  `phone` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `gender` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('123456789','123456','胡健山','5-3',1624,3,0,3,0,729,368,103,74,92,66,21,12,0,2,2,0,0,1260.054347826087,'https://userpic.codeforces.org/3252576/title/e014a85bbbc31b82.jpg','0','0','0'),('226001634','123456','不知名学弟','226001634',1409,0,0,0,0,422,221,88,48,71,13,1,0,0,3,3,0,0,1051.5837104072398,'https://userpic.codeforces.org/no-title.jpg','0','0','0'),('233333333','123456','朱文豪','Yukim1',1782,1,0,1,0,2458,1108,279,182,241,282,101,23,0,1,1,1100,0,1293.231046931408,'https://userpic.codeforces.org/2402327/title/5b8aacefdf3beaf9.jpg','1791654567','233@qq.com','男');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `userandratinglist`

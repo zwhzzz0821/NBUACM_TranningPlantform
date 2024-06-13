@@ -90,7 +90,7 @@ public class UserController {
     * 删除用户，
     * 按照传过来的uid来删除
     * */
-    @DeleteMapping("/deleteuser")
+    @PostMapping("/deleteuser")
     public Map<String, Object> deleteuser(@RequestBody User user) {
         try {
             System.out.println("user:"+user);
