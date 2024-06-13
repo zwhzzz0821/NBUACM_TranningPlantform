@@ -267,7 +267,8 @@ import { getRatingColor, timeStamp} from "../../util/CFshow";
         request.get('/CFAPI/get_user_with_ratinglists', {
 
         }).then(res => {
-        this.rows = res.userwithratinglists;
+          this.rows = res.userwithratinglists;
+          console.log("userwithratinglists:",rows);
         }).catch(()=>{})
       },
       showChart(row) {

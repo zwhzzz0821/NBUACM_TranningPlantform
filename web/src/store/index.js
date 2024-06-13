@@ -3,6 +3,7 @@ import Vue from 'vue'
 // 导入 vuex
 import Vuex from 'vuex'
 // vuex也是vue的插件, 需要use一下, 进行插件的安装初始化
+
 Vue.use(Vuex)
 
 // 创建仓库 store
@@ -16,7 +17,19 @@ const store = new Vuex.Store({
     username:"呵呵哒",
     userInfo:{},
   }
+
 })
+
+// 存储 state 到 localStorage
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('vuexState', JSON.stringify(store.state));
+});
+
+// 从 localStorage 获取 state
+const storedState = JSON.parse(localStorage.getItem('vuexState'));
+if (storedState) {
+  store.replaceState(Object.assign({}, store.state, storedState));
+}
 
 // 导出仓库
 export default store

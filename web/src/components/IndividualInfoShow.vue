@@ -7,12 +7,12 @@
         </el-container>
         <el-container v-else>
             <el-header>
-            <el-page-header>
-            <template #content>
-                <span class="text-large font-600 mr-3">
-                {{ userInfo.username }} 's information
-                </span>
-            </template>
+            <el-page-header @back="$router.back()">
+                <template #content>
+                    <span class="text-large font-600 mr-3">
+                    {{ userInfo.username }} 's information
+                    </span>
+                </template>
             </el-page-header>
             </el-header>
         

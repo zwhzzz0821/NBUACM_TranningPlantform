@@ -19,11 +19,10 @@ import VMdEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
 import '@kangc/v-md-editor/lib/theme/style/github.css';
-import MathJax, { initMathJax, renderByMathjax } from 'mathjax-vue'
+import MathJax, { initMathJax, renderByMathjax } from 'mathjax-vue';
 import Prism from "prismjs";
 import hljs from "highlight.js";
-import store from "../src/store/index.js"
-
+import store from "../src/store/index.js";
 // Vue.config.productionTip = false    
 // VMdEditor.use(githubTheme, {
 //   Hljs: hljs,
@@ -69,7 +68,7 @@ Vue.use(VMdEditor);
 Vue.use(VMdPreview);
 Vue.use(MathJax);
 Vue.use(store);
-
+// Vue.use(router);
 new Vue({
     router,
     store,

@@ -2,7 +2,7 @@
     <div>
       <el-container style="height: 100%; width: 100%">
           <el-header style="height: 80%;">
-          <el-page-header @back="this.$router.back()">
+          <el-page-header @back="$router.back()">
               <template #content >
                 Author of &nbsp;
                 <el-avatar :size="18" :src="$store.state.userInfo.imageURL"></el-avatar>

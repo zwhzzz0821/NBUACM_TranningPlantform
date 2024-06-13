@@ -41,7 +41,8 @@ export default {
                           console.log("managerInfo:",this.$store.state.userInfo);
                           this.$router.push('admin')
                         }
-
+                        console.log(res.user)
+                        localStorage.setItem("userInfo",res.user)
                         Toast.success('登录成功');
                       }
                       console.log("code:",res.code)

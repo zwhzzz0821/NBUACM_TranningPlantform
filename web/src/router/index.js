@@ -15,7 +15,7 @@ const routes = [
         children:[
             {//用户列表
                 path: '/user/userList',
-                component: () => import('../components/admin/adminMember.vue'),
+                component: () => import('../components/userList.vue'),
             },
             {
                 path: 'ranking',
@@ -47,15 +47,15 @@ const routes = [
             },
             {//
                 path: '/user/ProblemList',
-                component: () => import('../components/admin/adminProblemList.vue'),
+                component: () => import('../components/problemLists.vue'),
             },
             {
                 path: '/user/ranking',
-                component: () => import('../components/admin/adminRanking.vue'),
+                component: () => import('../components/rank.vue'),
             },
             {
                 path: '/user/setting',
-                component: () => import('../components/admin/adminSetting.vue'),
+                component: () => import('../components/setting.vue'),
             }
         ]
     },
@@ -100,7 +100,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    mode: 'hash',
+    // mode: 'hash',
+    mode: 'history',
     base: process.env.BASE_URL,
     routes
 })
