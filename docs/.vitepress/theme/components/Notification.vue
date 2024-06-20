@@ -26,55 +26,55 @@ export default {
       notifications: [
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
         {
           title: '宁大学子在2024年ICPC国际大学生程序设计竞赛全国邀请赛中荣获金奖',
-          url: 'info/1073/51900.htm',
+          url: 'News/News001',
         },
       ],
     };
