@@ -31,7 +31,7 @@
 
                               <el-menu-item class="el-icon-s-data" index="1-1" @click="handleMenuSelect(0)"> 排名 </el-menu-item>
 
-                              <el-menu-item class="el-icon-s-claim" index="1-2" @click="handleMenuSelect(1)"> 比赛 </el-menu-item>
+                              <el-menu-item class="el-icon-s-claim" index="1-2" @click="handleMenuSelect(1)"> 训练 </el-menu-item>
                                
                               <el-menu-item class="el-icon-s-opportunity" index="1-3" @click="handleMenuSelect(2)"> 题目 </el-menu-item>
                                
@@ -61,7 +61,7 @@
         logoImg: logoImg,
         tabs: [ 
             { name: '排名', url: '/user/ranking' },
-            { name: '比赛', url: '/user/ProblemList'},
+            { name: '训练', url: '/user/ProblemList'},
             { name: '题目', url: '/user/problem' },
             { name: '用户列表', url: '/user/userList' },
             { name: '设置', url: '/user/setting'},

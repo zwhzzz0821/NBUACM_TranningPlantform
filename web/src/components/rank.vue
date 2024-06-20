@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container style="height: 100%; width: 100%">
-      <el-header style="height: 15%; padding: 0;">
+      <el-header style="height: 8%; padding: 0;">
         <el-form style="padding: 1em" :inline="true">
           <el-form-item label="学号" style="margin-left: 60px">
             <el-input v-model="number" placeholder="学号"></el-input>
@@ -18,6 +18,8 @@
         </el-form>
       </el-header>
       <el-divider></el-divider>
+
+      <!-- 前三名的展示 -->
       <div class="avatar-container">
         <el-avatar :src="rows[1].imageURL" class="avatar first"
         :style="{
@@ -41,6 +43,8 @@
           border: '2px solid #CD7F32'
         }"></el-avatar>
       </div>
+
+
       <el-table
         :data="pagedRows"
         :row-style="{ height: '40px' }"
@@ -148,6 +152,7 @@
 import goldimg from "../assets/gold.png"
 import silverimg from "../assets/silver.png"
 import bronzeimg from "../assets/bronze.png"
+import echarts from 'echarts';	
 import request from "../util/request";
 import { getRatingColor, timeStamp} from "../util/CFshow";
 export default {
@@ -230,7 +235,7 @@ export default {
   height: 150px; /* 调整此值以适应你的设计 */
 }
 
-.avatar {
+/* .avatar {
   position: absolute;
   width: 100px;
   height: 100px;
@@ -251,7 +256,37 @@ export default {
 
 .last {
   right: calc(-50px + 40%);
+} */
+
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 20px;
+  position: relative; /* 保持相对定位 */
+}
+
+.first,
+.last {
+  position: relative;
+  z-index: 1;
+}
+
+.middle {
+  position: relative;
+  z-index: 2;
+  transform: translateY(-20%); /* 将中间头像往上调整20% */
+}
+
+
 .chart-wrapper {
   margin-top: 10px;
 }
