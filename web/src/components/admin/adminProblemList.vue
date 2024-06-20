@@ -148,7 +148,7 @@
             
             <el-table-column
             label="学号"
-            width="100">
+            width="120">
             <template slot-scope="scope">
                 <div>{{ scope.row.uid }}</div>
             </template>
