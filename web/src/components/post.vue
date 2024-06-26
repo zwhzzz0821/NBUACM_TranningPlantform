@@ -85,7 +85,7 @@ export default {
         console.log(this.postText)
         request.post(`/Blog/Insert/${this.problem_id}/${this.$store.state.uid}`, {
           uid: this.$store.state.uid,
-          username: this.$store.state.username,
+          username: this.$store.state.userInfo.username,
           blogContent: this.postText,
           problemId: this.problem_id,
         }).then((res) => {
