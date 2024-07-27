@@ -274,13 +274,13 @@ export default {
         },
 
 
-        handleClose(done) {
-            this.$confirm('确认关闭？')
-            .then(_ => {
-                done();
-            })
-            .catch(_ => {});
-        },
+        // handleClose(done) {      //关闭弹窗时的提示
+        //     this.$confirm('确认关闭？')
+        //     .then(_ => {
+        //         done();
+        //     })
+        //     .catch(_ => {});
+        // },
 
         getProblemsWithState(row) {
             try {
