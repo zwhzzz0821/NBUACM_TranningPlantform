@@ -70,6 +70,7 @@ export default {
                 id:row.id
             }).then(res => {
                 if(res.code === 200) {
+                    this.getAllNotices();  //更新当前通知界面
                     Toast.success("删除用户成功");
                 } else {
                     Toast.fail("删除用户失败");
