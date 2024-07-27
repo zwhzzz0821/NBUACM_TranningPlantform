@@ -134,7 +134,16 @@ export default {
             
             // 使用 filter() 方法筛选满足条件的数据，并赋值给 this.notices
             this.notices = this.notices.filter(item => {
-                return item.author == targetSearchName || item.title == targetSearchTheme;
+
+                // 检查作者名是否包含搜索的名称
+                const isAuthorMatch = targetSearchName ? item.author.includes(targetSearchName) : true;
+                // 检查标题是否包含搜索的主题
+                const isTitleMatch = targetSearchTheme ? item.title.includes(targetSearchTheme) : true;
+
+                // 如果作者或标题匹配，则保留该项
+                return isAuthorMatch && isTitleMatch;
+                
+                // return item.author == targetSearchName || item.title == targetSearchTheme;  //用这玩意只能查完整的数据
             });
         },
 
