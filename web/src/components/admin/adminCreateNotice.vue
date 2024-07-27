@@ -16,7 +16,7 @@
     
         <el-container style="width: 100%; margin: 15px">
               <v-md-editor v-model="notice.info" height="px"></v-md-editor>
-              <el-button type="primary" @click="createNotice">创建新通知</el-button>
+              <el-button type="primary" :disabled="notClick" @click="createNotice">创建新通知</el-button>
         </el-container>
     </div>
 </template>
@@ -35,12 +35,14 @@ export default {
             blogText: "",
             NewInfo: "",
             id: 0,   //这个是通知的id
-            title:""
+            title:"",
+            notClick:false   //表示当前不可点击的状态是false，即表示可以点击，反之
         }
     },
     methods: {
 
         createNotice() {
+            this.notClick = true;  //设置为不可点击，经过测试，可以设置为不可点击。
             request.post('/Notice/addNew', {
                 author:this.notice.author,
                 date:this.GetNowTimeStamp(),
@@ -52,6 +54,7 @@ export default {
                     this.jumpToAdminNoticeList()
                 } else {
                     Toast.fail("创建失败");
+                    this.notClick = false;  //创建失败那就可以继续点击
                 }
             });
         },
