@@ -1,5 +1,6 @@
 <template>
 <div>
+    <el-button type="primary" @click="routerBack">返回</el-button>
     <el-container style="width: 100%; margin: 15px;">
         <el-card style="width: 200%; margin: 0px">
             <el-form label-width="80px" :model="notice">
@@ -82,6 +83,9 @@
         return Math.floor(Date.now() / 1000); // 获取当前时间的10位时间戳
     },
 
+    routerBack() {
+      this.$router.back()
+    },
 
 
   },

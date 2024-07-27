@@ -78,11 +78,11 @@ export default {
         },
 
         JumpToUpdateNotice(row) {
-            this.$router.push({ path: 'notice/update/' + row.id });
+            this.$router.push({ path: '/admin/notice/update/' + row.id });
         },
 
         JumpToCreateNotice() {
-            this.$router.push({ path: 'notice/create' });
+            this.$router.push({ path: '/admin/notice/create' });
         }
         
 

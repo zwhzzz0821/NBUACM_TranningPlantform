@@ -1,5 +1,6 @@
 <template>
     <div>
+        <el-button type="primary" @click="routerBack">返回</el-button>
         <el-container style="width: 100%; margin: 15px;">
             <el-card style="width: 200%; margin: 0px">
                 <el-form label-width="80px" :model="notice">
@@ -48,6 +49,7 @@ export default {
             }).then(res => {
                 if(res.code === 200) {
                     Toast.success("创建成功");
+                    this.jumpToAdminNoticeList()
                 } else {
                     Toast.fail("创建失败");
                 }
@@ -58,7 +60,14 @@ export default {
             return Math.floor(Date.now() / 1000); // 获取当前时间的10位时间戳
         },
 
+        jumpToAdminNoticeList() {
+            // this.$router.push({ path: '/admin/adminNotice' });  //跳转回通知页面
+            this.routerBack()  //还是直接用back吧
+        },
 
+        routerBack() {
+            this.$router.back()
+        },
 
     },
     components: {
