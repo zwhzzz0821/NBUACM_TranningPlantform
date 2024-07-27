@@ -1,7 +1,25 @@
 <template>
 <div>
     <el-button type="primary" @click="JumpToCreateNotice">创建新通知</el-button>
-    <el-table :data="notices" style="width: 100%">
+
+    <el-header style="height: 20%; padding: 10;">
+        <el-form style="padding: 1em" :inline="true" class="demo-form-inline">
+        <el-form-item label="发布人" style="margin-left: 60px">
+            <el-input v-model="searchName" placeholder="发布人"></el-input>
+        </el-form-item>
+        <el-form-item label="主题" style="margin-left: 20px">
+            <el-input v-model="searchTheme" placeholder="主题"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="find" class="niceButton5" style="margin-left: 50px"><span>查找</span></el-button>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="update" class="niceButton5" style="margin-left: 15px"><span>刷新</span></el-button>
+        </el-form-item>
+        </el-form>
+    </el-header>
+
+    <el-table :data="pagedRows" style="width: 100%">
         <el-table-column type="expand">
             <template slot-scope="props">
                 <el-form label-position="left" inline class="demo-table-expand">
@@ -39,6 +57,17 @@
             </template>
         </el-table-column>
     </el-table>
+
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        class="pagination-container"
+        :total="totalRows"
+        :current-page.sync="currentPage"
+        :page-size="pageSize"
+        @current-change="onPageChange"
+        style="margin: 0 auto; display: block;">
+    </el-pagination>
     
 
 </div>
@@ -51,6 +80,13 @@ export default {
     data() {
         return {
             notices:[],
+            totalRows: 0,
+            currentPage: 1,
+            pageSize: 10,
+            pagedRows: [],  //分页
+            searchName: null,
+            searchTheme: null
+
         }
     },
     methods:{
@@ -70,6 +106,7 @@ export default {
                 id:row.id
             }).then(res => {
                 if(res.code === 200) {
+                    this.getAllNotices();  //更新当前通知界面
                     Toast.success("删除用户成功");
                 } else {
                     Toast.fail("删除用户失败");
@@ -78,11 +115,40 @@ export default {
         },
 
         JumpToUpdateNotice(row) {
-            this.$router.push({ path: 'notice/update/' + row.id });
+            this.$router.push({ path: '/admin/notice/update/' + row.id });
         },
 
         JumpToCreateNotice() {
-            this.$router.push({ path: 'notice/create' });
+            this.$router.push({ path: '/admin/notice/create' });
+        },
+
+        onPageChange(page) {
+            this.currentPage = page;
+            this.pagedRows = this.currentPagedData;
+        },
+
+        find() {
+            const targetSearchName = this.searchName;
+            const targetSearchTheme = this.searchTheme;
+            console.log(targetSearchName)
+            
+            // 使用 filter() 方法筛选满足条件的数据，并赋值给 this.notices
+            this.notices = this.notices.filter(item => {
+
+                // 检查作者名是否包含搜索的名称
+                const isAuthorMatch = targetSearchName ? item.author.includes(targetSearchName) : true;
+                // 检查标题是否包含搜索的主题
+                const isTitleMatch = targetSearchTheme ? item.title.includes(targetSearchTheme) : true;
+
+                // 如果作者或标题匹配，则保留该项
+                return isAuthorMatch && isTitleMatch;
+                
+                // return item.author == targetSearchName || item.title == targetSearchTheme;  //用这玩意只能查完整的数据
+            });
+        },
+
+        update() {
+            this.getAllNotices();
         }
         
 
@@ -93,9 +159,24 @@ export default {
     mounted() {
         
     },
-    watch:{
-        
-    }
+    watch: {
+      // 监听原始数据变化，重新计算分页数据
+      notices(newRows) {
+        this.totalRows = newRows.length;
+        this.pagedRows = this.currentPagedData;
+      },
+    },
+    computed: {
+      /**
+       * 根据当前页码和每页大小计算分页数据
+       */
+      currentPagedData() {
+        const start = (this.currentPage - 1) * this.pageSize;
+        const end = start + this.pageSize;
+
+        return this.notices.slice(start, end);
+      },
+    },
 }
 
 </script>

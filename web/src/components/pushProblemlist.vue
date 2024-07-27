@@ -41,7 +41,7 @@
       </div>
     </el-form-item>
           
-            <el-form-item label="选择人员">
+            <!-- <el-form-item label="选择人员">
             <el-table
                 :data="users"
                 style="width: 100%"
@@ -56,7 +56,7 @@
                 </template>
                 </el-table-column>
             </el-table>
-            </el-form-item>
+            </el-form-item> -->
           <el-form-item>
             <el-button type="primary" @click="submitForm">提交</el-button>
           </el-form-item>
@@ -136,7 +136,7 @@ export default {
           // console.log("时间戳转换end：",end);
 
           
-          // 先建立题单
+          // 先建立题单，再插入题目，再给题单加人
           request.post('/ProblemList/createNewProblemList',{
             name:this.formData.name,
             begin:startTimeSec,
@@ -197,7 +197,7 @@ export default {
       
       const users = [];
 
-      let len = this.selectedUsers.length;
+      let len = this.selectedUsers.length;   //把选择的用户全加了，这是前端的部分，目前是只能加所有用户，相关代码在springboot后端。
       
       for(let i=0;i<len;i++) {
         users.push({

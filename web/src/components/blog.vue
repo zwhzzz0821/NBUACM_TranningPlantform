@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container style="height: 100%; width: 100%">
-        <el-header style="height: 80%;">
+        <el-header style="height: 1%;">
         <el-page-header @back="$router.back()">
           <template #content >
             Blog of &nbsp;

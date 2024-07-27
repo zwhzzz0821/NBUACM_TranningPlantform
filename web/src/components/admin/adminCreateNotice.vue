@@ -1,5 +1,6 @@
 <template>
     <div>
+        <el-button type="primary" @click="routerBack">返回</el-button>
         <el-container style="width: 100%; margin: 15px;">
             <el-card style="width: 200%; margin: 0px">
                 <el-form label-width="80px" :model="notice">
@@ -15,7 +16,7 @@
     
         <el-container style="width: 100%; margin: 15px">
               <v-md-editor v-model="notice.info" height="px"></v-md-editor>
-              <el-button type="primary" @click="createNotice">创建新通知</el-button>
+              <el-button type="primary" :disabled="notClick" @click="createNotice">创建新通知</el-button>
         </el-container>
     </div>
 </template>
@@ -34,12 +35,14 @@ export default {
             blogText: "",
             NewInfo: "",
             id: 0,   //这个是通知的id
-            title:""
+            title:"",
+            notClick:false   //表示当前不可点击的状态是false，即表示可以点击，反之
         }
     },
     methods: {
 
         createNotice() {
+            this.notClick = true;  //设置为不可点击，经过测试，可以设置为不可点击。
             request.post('/Notice/addNew', {
                 author:this.notice.author,
                 date:this.GetNowTimeStamp(),
@@ -48,8 +51,10 @@ export default {
             }).then(res => {
                 if(res.code === 200) {
                     Toast.success("创建成功");
+                    this.jumpToAdminNoticeList()
                 } else {
                     Toast.fail("创建失败");
+                    this.notClick = false;  //创建失败那就可以继续点击
                 }
             });
         },
@@ -58,7 +63,14 @@ export default {
             return Math.floor(Date.now() / 1000); // 获取当前时间的10位时间戳
         },
 
+        jumpToAdminNoticeList() {
+            // this.$router.push({ path: '/admin/adminNotice' });  //跳转回通知页面
+            this.routerBack()  //还是直接用back吧
+        },
 
+        routerBack() {
+            this.$router.back()
+        },
 
     },
     components: {

@@ -80,6 +80,9 @@ public class ProblemListController {
         }
     }
 
+    /*
+    * 根据用户的id和题单id，可以知道这个用户写这个题单的状态
+    * */
     @GetMapping("/getProblemsState")
     public Map<String, Object> getProblemsState(String uid, int problemListId) {
         try {
