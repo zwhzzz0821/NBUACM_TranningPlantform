@@ -4,7 +4,7 @@ import com.example.NBUACM.Bean.R;
 import com.example.NBUACM.entity.Notice;
 import com.example.NBUACM.entity.ProblemList;
 import com.example.NBUACM.service.NoticeService;
-import javafx.beans.binding.ObjectExpression;
+//import javafx.beans.binding.ObjectExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
