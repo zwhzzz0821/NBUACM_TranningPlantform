@@ -23,10 +23,10 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `uid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `codeforceshandle` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `uid` varchar(100)  NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `username` varchar(100)  DEFAULT NULL,
+  `codeforceshandle` varchar(100)  DEFAULT NULL,
   `codeforcesrating` int DEFAULT '0',
   `weekAC` int DEFAULT '0',
   `monthAC` int DEFAULT '0',
@@ -46,12 +46,12 @@ CREATE TABLE `user` (
   `weekAverageACRating` double DEFAULT NULL,
   `monthAverageACRating` double DEFAULT NULL,
   `totalAverageACRating` double DEFAULT NULL,
-  `imageURL` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
-  `phone` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
-  `gender` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
+  `imageURL` varchar(100)  DEFAULT '0',
+  `phone` varchar(100)  DEFAULT '0',
+  `email` varchar(100)  DEFAULT '0',
+  `gender` varchar(100)  DEFAULT '0',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -89,7 +89,7 @@ CREATE TABLE `allusersubmissionstatus` (
   `avgMonthAverageACRating` double DEFAULT '0',
   `avgTotalAverageACRating` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,14 +136,14 @@ DROP TABLE IF EXISTS `honors`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `honors` (
   `hid` int NOT NULL AUTO_INCREMENT,
-  `award` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `award` varchar(255)  DEFAULT NULL,
   `acquiredTime` bigint DEFAULT NULL,
-  `player1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `player2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `player3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `coach` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `player1` varchar(255)  DEFAULT NULL,
+  `player2` varchar(255)  DEFAULT NULL,
+  `player3` varchar(255)  DEFAULT NULL,
+  `coach` varchar(255)  DEFAULT NULL,
   PRIMARY KEY (`hid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,12 +163,12 @@ DROP TABLE IF EXISTS `manager`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `manager` (
-  `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `codeforceshandle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `uid` varchar(255) NOT NULL,
+  `username` varchar(255)  DEFAULT NULL,
+  `password` varchar(255)  DEFAULT NULL,
+  `codeforceshandle` varchar(255)  DEFAULT NULL,
   PRIMARY KEY (`uid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,7 +195,7 @@ CREATE TABLE `notice` (
   `title` varchar(100) DEFAULT NULL,
   `info` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,7 +225,7 @@ CREATE TABLE `problem` (
   `rating` int DEFAULT NULL,
   `tags` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ProblemId`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,7 +250,7 @@ CREATE TABLE `problemlist` (
   `begin` bigint unsigned DEFAULT '0',
   `end` bigint unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -281,7 +281,7 @@ CREATE TABLE `problemlistwithproblems` (
   KEY `problemlistwithproblems_problemlist_FK` (`problemListId`),
   CONSTRAINT `problemlistwithproblems_problem_FK` FOREIGN KEY (`problemId`) REFERENCES `problem` (`ProblemId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `problemlistwithproblems_problemlist_FK` FOREIGN KEY (`problemListId`) REFERENCES `problemlist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,7 +307,7 @@ CREATE TABLE `problemlistwithusers` (
   KEY `problemlistwithusers_user_FK` (`uid`),
   CONSTRAINT `problemlistwithusers_problemlist_FK` FOREIGN KEY (`problemListId`) REFERENCES `problemlist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `problemlistwithusers_user_FK` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,7 +330,7 @@ DROP TABLE IF EXISTS `submission`;
 CREATE TABLE `submission` (
   `acsubmissionid` bigint unsigned NOT NULL AUTO_INCREMENT,
   `contestId` bigint unsigned DEFAULT NULL,
-  `ProblemIndex` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ProblemIndex` varchar(100)  DEFAULT NULL,
   `actime` bigint unsigned DEFAULT NULL,
   `handle` varchar(100) DEFAULT NULL,
   `ProblemId` int DEFAULT NULL,
@@ -341,7 +341,7 @@ CREATE TABLE `submission` (
   PRIMARY KEY (`acsubmissionid`),
   KEY `fk_problem_id` (`ProblemId`),
   CONSTRAINT `fk_problem_id` FOREIGN KEY (`ProblemId`) REFERENCES `problem` (`ProblemId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +370,7 @@ CREATE TABLE `userandratinglist` (
   `newrating` int DEFAULT NULL,
   `ratingupdatetimeseconds` bigint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
