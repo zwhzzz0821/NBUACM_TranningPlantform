@@ -95,6 +95,16 @@
         :row-style="{ height: '40px' }"
         style="width: 100%; margin-left: 0 auto">
             <el-table-column
+            width="30">
+            <template slot-scope="scope">
+                <div :class="getCellStyle(scope.row.state)">
+                    <div v-if="scope.row.state === 1">#</div> <!-- 什么也不展示 -->
+                    <div v-else-if="scope.row.state === 2">#</div>
+                    <div v-else-if="scope.row.state === 3">#</div>
+                </div>
+            </template>
+            </el-table-column>
+            <el-table-column
             label="问题来源"
             width="100">
             <template slot-scope="scope">
@@ -128,6 +138,17 @@
             width="100">
             <template slot-scope="scope">
                 <div>{{ scope.row.acNumber }}</div>
+            </template>
+            </el-table-column>
+            <el-table-column
+            label="状态"
+            width="100">
+            <template slot-scope="scope">
+                <div :class="stateClass(scope.row.state)">
+                    <div v-if="scope.row.state === 1"></div> <!-- 什么也不展示 -->
+                    <div v-else-if="scope.row.state === 2">WA</div>
+                    <div v-else-if="scope.row.state === 3">AC</div>
+                </div>
             </template>
             </el-table-column>
             <!-- 添加新的列 -->
@@ -200,6 +221,32 @@ export default {
         }
     },
     methods:{
+        stateClass(state) {
+            switch (state) {
+            case 1:
+                return 'text-white'; 
+            case 2:
+                return 'text-red';   
+            case 3:
+                return 'text-green'; 
+            default:
+                return '';
+            }
+        },
+
+        getCellStyle(state) {
+            console.log("state:",state);
+            switch (state) {
+            case 1:
+                return "white-background";
+            case 2:
+                return "red-background";
+            case 3:
+                return "green-background";
+            default:
+                return { backgroundColor: 'white' }; // 默认背景颜色
+            }
+        },
         
         getAllProblemLists() {
             request.get('/ProblemList/getProblemLists',{
@@ -327,6 +374,27 @@ export default {
 
 .box-card {
   margin-bottom: 20px; /* 为卡片底部添加外边距 */
+}
+
+.text-white {
+    color: white;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-green {
+    color: green;
+}
+.green-background {
+    background-color: rgb(52, 167, 52);
+}
+.white-background {
+    background-color: white;
+}
+.red-background {
+    background-color: rgb(194, 50, 14);
 }
 
 </style>
