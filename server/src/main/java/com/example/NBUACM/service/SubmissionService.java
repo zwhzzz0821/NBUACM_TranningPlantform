@@ -9,7 +9,7 @@ import java.util.List;
 @Transactional
 public interface SubmissionService {
 
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000, initialDelay = 5000)
+    @Scheduled(fixedRate = 60 * 1000, initialDelay = 5000)   //一个小时更新一次
     void updateACandSubmitsASScheduled();
 
 

@@ -58,7 +58,7 @@
             </el-table>
             </el-form-item> -->
           <el-form-item>
-            <el-button type="primary" @click="submitForm">提交</el-button>
+            <el-button type="primary" :disabled="isused" @click="submitForm">提交</el-button>
           </el-form-item>
         </el-form>
     </el-card>
@@ -91,6 +91,7 @@ export default {
           { required: true, message: '题单名称不能为空', trigger: 'blur' },
         ],
       },
+      isused: false,
     };
   },
   methods: {
@@ -105,9 +106,12 @@ export default {
     },
     submitForm() {
 
+      this.isused = true
+
       this.$refs.form.validate((valid) => {
         if(this.formData.startTime === ''||this.formData.endTime === '') {
           Toast.fail('请补充完整题单的开始时间和结束时间');
+          this.isused = false;
           return;
         }
         if (valid) {
@@ -209,6 +213,8 @@ export default {
       console.log("构建的users:",users);
       request.post('/ProblemList/addUsersToProblemList',users).then(res => {
         console.log("添加完users后",res);
+        Toast.success("题单创建成功");
+        this.$router.push({ path:'/admin/ProblemList' }) //跳转到训练功能
       })
     },
 

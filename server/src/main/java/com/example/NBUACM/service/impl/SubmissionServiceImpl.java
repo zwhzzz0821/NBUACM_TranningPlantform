@@ -45,7 +45,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
 
     @Override
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000, initialDelay = 5000)
+    @Scheduled(fixedRate = 60 * 1000, initialDelay = 5000)
     public void updateACandSubmitsASScheduled() {
         List<User> userlist = userMapper.getAllUsers();
         int user_len = userlist.size();
@@ -96,6 +96,7 @@ public class SubmissionServiceImpl implements SubmissionService {
             Submission_Info_Response response = responseEntity.getBody();
 //            uodateTableAllAcSubmission(response, handle);   //更新后端mysql数据库        这个姑且不需要了
 //            updateUserSubmits(response, handle);
+            System.out.println("获取用户提交数据成功");
             return response;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
