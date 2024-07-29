@@ -37,30 +37,40 @@ public class CodeforcesServiceImpl implements CodeforcesService {
 
         for(int i=0 ;i < user_len; i++) {
             String handle = userlist.get(i).getCodeforceshandle();
-
             /*
             * 更新个人的rating
             * */
-            User_Info_Response user_info_response = getUserInfoByHandle(handle);
-            updateUserCodeforcesRatingAndImageURL(user_info_response.getResult().get(0).getRating(),handle, user_info_response.getResult().get(0).getTitlePhoto());
+            try {
+                System.out.println("the handle is: " + handle);
+                User_Info_Response user_info_response = getUserInfoByHandle(handle);
+                updateUserCodeforcesRatingAndImageURL(user_info_response.getResult().get(0).getRating(),handle, user_info_response.getResult().get(0).getTitlePhoto());
 
 
-            /*
-            * 更新userandratinglist
-            * */
-            User_Rating_Response user_rating_response = getRatingListByHandle(handle);
-            updateTableAllRatingList(user_rating_response);
+                /*
+                 * 更新userandratinglist
+                 * */
+                User_Rating_Response user_rating_response = getRatingListByHandle(handle);
+                updateTableAllRatingList(user_rating_response);
+            } catch (Exception err) {
+                System.out.println("err：" + err.getMessage());
+            }
+
         }
 
-        /*
-         * 更新user表的ratingRank
-         * */
-        updateUserListRatingRank(userlist);
+        try {
+            /*
+             * 更新user表的ratingRank
+             * */
+            updateUserListRatingRank(userlist);
 
-        /*
-        * 更新user表的monthACRank
-        * */
-        updateUserListMonthACRank(userlist);
+            /*
+             * 更新user表的monthACRank
+             * */
+            updateUserListMonthACRank(userlist);
+        } catch (Exception err) {
+            System.out.println("err updateTheSum：" + err.getMessage());
+        }
+
 
     }
 
@@ -145,14 +155,23 @@ public class CodeforcesServiceImpl implements CodeforcesService {
 
     @Override
     public void updateTableAllRatingList(User_Rating_Response response) {
-        String handle = response.getResult().get(0).getHandle();
-        List<User_Rating_DataBean> newlist = response.getResult();
-        int newlistcount = newlist.size();
-        int oldlistcount = userRatingMapper.selectCountByHandle(handle);
+        try {
+            String handle = response.getResult().get(0).getHandle();
+            List<User_Rating_DataBean> newlist = response.getResult();
+            int newlistcount = newlist.size();
+            int oldlistcount = userRatingMapper.selectCountByHandle(handle);
 
-        for(int i = oldlistcount; i < newlistcount; i++) {  //把新的弄进数据库里
-            insertTableOneRating(newlist.get(i));
+            for(int i = oldlistcount; i < newlistcount; i++) {  //把新的弄进数据库里
+                try {
+                    insertTableOneRating(newlist.get(i));
+                } catch (Exception err) {
+                    System.out.println("insetTabelOneRating err:" + err.getMessage());
+                }
+            }
+        } catch (Exception err) {
+            System.out.println("updateTableAllRatingList error：" + err.getMessage());
         }
+
     }
 
     @Override

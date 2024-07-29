@@ -19,7 +19,7 @@ public interface UserRatingMapper {
     @Select("select count(*) from userandratinglist where handle=#{handle}")    //获取同一个handle的条数
     int selectCountByHandle(String handle);
 
-    @Select("SELECT DISTINCT handle FROM userandratinglist")
+    @Select("SELECT DISTINCT codeforceshandle FROM user")
     List<String> selectDistinctHandles();
 
 }

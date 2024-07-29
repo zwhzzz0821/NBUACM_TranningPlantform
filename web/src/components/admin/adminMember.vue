@@ -224,6 +224,7 @@ import { Toast } from 'vant';
 						request.post('/user/register/manager', this.newMemberForm).then(response => {
 							if (response.data.success) {
 								this.$message.success('成员添加成功！');
+                this.update()
 								this.closeDialog();
 							} else {
 								this.$message.error('添加失败，请重试。');
@@ -234,6 +235,7 @@ import { Toast } from 'vant';
 							if (response.data.success) {
 								this.$message.success('成员添加成功！');
 								this.closeDialog();
+                this.update()
 							} else {
 								this.$message.error('添加失败，请重试。');
 							}
@@ -269,7 +271,8 @@ import { Toast } from 'vant';
 
         }).then(res => {
           this.rows = res.userwithratinglists;
-          console.log("userwithratinglists:",rows);
+          console.log("userwithratinglists:",this.rows);
+          
         }).catch(()=>{})
       },
       showChart(row) {
@@ -416,11 +419,15 @@ import { Toast } from 'vant';
             } else {
               Toast.fail("删除失败")
             }
+            this.update()
           })
         },
         //继续添加函数
     },
     created() {
+      this.update()
+    },
+    mounted() {
       this.update()
     }
   }
