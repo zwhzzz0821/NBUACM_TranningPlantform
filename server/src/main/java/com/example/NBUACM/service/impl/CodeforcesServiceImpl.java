@@ -30,7 +30,7 @@ public class CodeforcesServiceImpl implements CodeforcesService {
     private UserMapper userMapper;
 
     @Override
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000, initialDelay = 10000)
+    @Scheduled(fixedRate = 60 * 1000, initialDelay = 10000)
     public void updateUserInfoAndRatingList() {
         List<User> userlist = userMapper.getAllUsers();
         int user_len = userlist.size();

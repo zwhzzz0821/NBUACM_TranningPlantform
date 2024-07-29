@@ -5,7 +5,7 @@ module.exports = {
         port: 8080,
         proxy: {
             '/api': {
-                // target: 'http://123.60.188.56:9003/', //接口域名
+                // target: 'http://39.101.169.58:9003/', //接口域名
                 target: 'http://localhost:9003',
                 changeOrigin: true,             //是否跨域
                 ws: true,                       //是否代理 websockets

@@ -22,7 +22,7 @@ public class ProblemServiceimpl implements ProblemService {
     private ProblemMapper problemMapper;
 
     @Override
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000, initialDelay = 1000)
+    @Scheduled(fixedRate = 60 * 1000, initialDelay = 1000)
     public void getAllProblemFromCF() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
