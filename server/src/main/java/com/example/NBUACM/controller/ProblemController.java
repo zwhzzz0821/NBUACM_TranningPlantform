@@ -19,15 +19,30 @@ public class ProblemController {
     @Autowired
     ProblemService problemService;
 
+    /*
+    * 获取mysql里存着的所有的题目
+    * */
     @GetMapping("/show")
     public Map<String, Object> show() {
-        return new R().ok().add("problemList", problemService.getAllProblem()).builder();
+        try {
+            return new R().ok().add("problemList", problemService.getAllProblem()).builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
     }
 
+    /*
+    * 根据problemId获取单个题目
+    * */
     @GetMapping("/GetProblem/{problemId}")
     public Map<String, Object> GetProblem(@PathVariable Long problemId) {
-        Map<String, Object> ret = problemService.getOneProblem(problemId);
-        return new R().ok().add("ProblemRet", ret).builder();
+        try {
+            Map<String, Object> ret = problemService.getOneProblem(problemId);
+            return new R().ok().add("ProblemRet", ret).builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+
     }
 
 }

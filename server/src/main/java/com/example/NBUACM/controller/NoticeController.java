@@ -21,6 +21,9 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
+    /*
+    * 获取所有的通知
+    * */
     @GetMapping("/getAll")
     public Map<String, Object> getAllNotices() {
         try {
@@ -31,6 +34,9 @@ public class NoticeController {
         }
     }
 
+    /*
+    * 根据通知的id来获取通知信息
+    * */
     @GetMapping("/getOne")
     public Map<String, Object> getOneNotice(Notice notice) {
         try {
@@ -41,7 +47,9 @@ public class NoticeController {
         }
     }
 
-
+    /*
+    * 添加一个新的通知
+    * */
     @PostMapping("/addNew")
     public Map<String, Object> addNewNotice(@RequestBody Notice notice) {
         try {
@@ -52,6 +60,9 @@ public class NoticeController {
         }
     }
 
+    /*
+    * 更新一个通知
+    * */
     @PostMapping("/updateOne")
     public Map<String, Object> updateOneNotice(@RequestBody Notice notice) {
         try {
@@ -63,6 +74,9 @@ public class NoticeController {
         }
     }
 
+    /*
+    * 删除一个通知
+    * */
     @PostMapping("/deleteOne")
     public Map<String, Object> deleteOneNotice(@RequestBody Notice notice) {
         try {

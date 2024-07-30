@@ -22,37 +22,61 @@ public class SubmissionController {
     private SubmissionService submissionService;
 
 
+    /*
+    * 用于测试用的
+    * 根据CF的用户名，从CF获取某个用户的交题记录
+    * */
     @GetMapping("/submissiontest")
     public Map<String, Object> submissiontest(String handle) {
-        Submission_Info_Response response = submissionService.getSubmissionsByHandleFromCF(handle);
-        if(response.equals(null)){
+        try {
+            Submission_Info_Response response = submissionService.getSubmissionsByHandleFromCF(handle);
+            if(response.equals(null)){
+                return new R().bad().builder();
+            } else {
+                return new R().ok().add("acsubmissionList", response.getResult()).builder();
+            }
+        } catch (Exception e) {
             return new R().bad().builder();
-        } else {
-            return new R().ok().add("acsubmissionList", response.getResult()).builder();
         }
+
     }
 
-
+    /*
+    * 从mysql数据库中获取交题评判为ACCEPT的记录
+    * */
     @GetMapping("/getACsubmissionlist")
     public Map<String, Object> getACsubmissionlist(String handle) {
-        List<Submission> list = submissionService.getACSubmissionFromDBByHandle(handle);
-        if(list.equals(null)) {
-            return new R().bad().builder();
-        } else {
+        try {
+            List<Submission> list = submissionService.getACSubmissionFromDBByHandle(handle);
+            if(list.equals(null)) {
+                return new R().bad().builder();
+            } else {
 //            System.out.println("acsubmissionList:" + list);
-            return new R().ok().add("acsubmissionList", list).builder();
+                return new R().ok().add("acsubmissionList", list).builder();
+            }
+        } catch (Exception e) {
+            return new R().bad().builder();
         }
+
     }
 
+    /*
+    * 获取
+    * */
     @GetMapping("/getACsubmissionList/{problemId}")
     public Map<String, Object> getACSubmissionListByProblemId(@PathVariable Long problemId) {
-        List<Submission> list = submissionService.getACSubmissionFromDBByVerdictAndProblemId("OK", problemId);
+        try {
+            List<Submission> list = submissionService.getACSubmissionFromDBByVerdictAndProblemId("OK", problemId);
 
-        if(list.equals((null))) {
+            if(list.equals((null))) {
+                return new R().bad().builder();
+            } else {
+                return new R().ok().add("aclist", list).builder();
+            }
+        } catch (Exception e) {
             return new R().bad().builder();
-        } else {
-            return new R().ok().add("aclist", list).builder();
         }
+
     }
 
 }

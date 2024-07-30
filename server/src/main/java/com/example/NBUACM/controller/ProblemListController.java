@@ -26,7 +26,7 @@ public class ProblemListController {
     private ProblemListService problemListService;
 
     /*
-    * 给前端送去题单列表(管理员用)
+    * 给前端送去所有的题单列表(管理员用)
     * */
     @GetMapping("/getProblemLists")
     public Map<String, Object> getProblemLists() {
@@ -39,7 +39,7 @@ public class ProblemListController {
     }
 
     /*
-    * 通过uid来给题单列表（个人用户用）
+    * 通过uid来给题单列表（个人用户用），也就是根据不同的人给出不同的题单列表
     * */
     @GetMapping("/getProblemListsByUid")
     public Map<String, Object> getProblemListsByUid(String uid) {

@@ -37,17 +37,17 @@ public class UserController {
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody User user) {
         try {
-            System.out.println(user);
+            System.out.println("/user/login 登录的用户为：" + user);
             User e = userService.getByUid(user);
             if(e.equals(null)) {
                 return new R().bad().builder();
             }
             if(e.getPassword().equals(user.getPassword())){
                 System.out.println(e);
-                if (userService.checkManager(e.getUid())) {
+                if (userService.checkManager(e.getUid())) {  //先检测是不是管理员，是的话就把管理员的信息返给前端
                     return new R().ok().add("manager", e).builder();
                 }
-                return new R().ok().add("user", e).builder();
+                return new R().ok().add("user", e).builder();  //其余人就是普通用户
             } else {
                 return new R().bad().builder();
             }
@@ -64,25 +64,33 @@ public class UserController {
     * */
     @PostMapping("/register")
     public Map<String, Object> register(@RequestBody User user) {
-        System.out.println("拿到的user：" + user);
-        User selected = userService.getByUid(user);
-        if (selected == null) {  //当前表内没有这个用户,可以创建新用户
-            userService.register(user);
-            return new R().ok().builder();
-        } else {
+        try {
+            System.out.println("/user/register 注册的用户为：" + user);
+            User selected = userService.getByUid(user);
+            if (selected == null) {  //当前表内没有这个用户,可以创建新用户
+                userService.register(user);
+                return new R().ok().builder();
+            } else {
+                return new R().bad().builder();
+            }
+        } catch (Exception e) {
             return new R().bad().builder();
         }
     }
 
     @PostMapping("/register/manager")
     public Map<String, Object> registerManager(@RequestBody User user) {
-        System.out.println("拿到的user：" + user);
-        User selected = userService.getByUid(user);
-        if (selected == null) {  //当前表内没有这个用户,可以创建新用户
-            userService.register(user);
-            userService.registerManager(user);
-            return new R().ok().builder();
-        } else {
+        try {
+            System.out.println("/user/register/manager 注册的user(管理员)为：" + user);
+            User selected = userService.getByUid(user);
+            if (selected == null) {  //当前表内没有这个用户,可以创建新用户
+                userService.register(user);
+                userService.registerManager(user);
+                return new R().ok().builder();
+            } else {
+                return new R().bad().builder();
+            }
+        } catch (Exception e) {
             return new R().bad().builder();
         }
     }
@@ -101,6 +109,9 @@ public class UserController {
         }
     }
 
+    /*
+    * 获取所有用户的列表
+    * */
     @GetMapping("/getallusers")
     public Map<String, Object> getallusers() {
         try {
@@ -111,6 +122,9 @@ public class UserController {
         }
     }
 
+    /*
+    * 获取排序过的所有用户的列表
+    * */
     @GetMapping("/getallusersSorted")
     public Map<String, Object> GetAllUsersSorted() {
         try {
@@ -120,6 +134,10 @@ public class UserController {
             return new R().bad().builder();
         }
     }
+
+    /*
+    * 修改用户信息
+    * */
     @PostMapping("/changeuserinfo")
     public Map<String, Object> changeuserinfo(@RequestBody User user) {
         try {
@@ -131,6 +149,9 @@ public class UserController {
         }
     }
 
+    /*
+    * 根据uid获取单个用户信息
+    * */
     @GetMapping("/getuser")
     public Map<String, Object> getuser(String uid) {
         try {
@@ -147,6 +168,9 @@ public class UserController {
         }
     }
 
+    /*
+    * 获取所有用户的在Codeforces上的提交记录
+    * */
     @GetMapping("/getAllUserSubmissionStatus")
     public Map<String, Object> getAllUserSubmissionStatus() {
         try {

@@ -18,22 +18,47 @@ public class HonorsController {
     @Autowired
     HonorsService honorsService;
 
+    /*
+    * 获取荣誉列表，也就是所有的荣誉
+    * */
     @GetMapping("/Get")
     public Map<String, Object> GetHonors() {
-        List<honors> honorsList = honorsService.Get();
-        return new R().ok().add("honors", honorsList).builder();
+        try {
+            List<honors> honorsList = honorsService.Get();
+            return new R().ok().add("honors", honorsList).builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+
     }
 
-
+    /*
+    * 添加一个新的荣誉
+    * */
     @PostMapping("/Add")
-    public void PostHonors(@RequestBody honors h) {
-        System.out.println(h.toString());
-        honorsService.Add(h);
+    public Map<String, Object> PostHonors(@RequestBody honors h) {
+        try {
+            System.out.println(h.toString());
+            honorsService.Add(h);
+            return new R().ok().builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+
     }
 
+    /*
+    * 删除一个荣誉
+    * */
     @PostMapping("/Delete")
-    public void DeleteHonors(@RequestBody int hid) {
-        honorsService.Delete(hid);
+    public Map<String, Object> DeleteHonors(@RequestBody int hid) {
+        try {
+            honorsService.Delete(hid);
+            return new R().ok().builder();
+        } catch (Exception e) {
+            return new R().bad().builder();
+        }
+
     }
 
 }

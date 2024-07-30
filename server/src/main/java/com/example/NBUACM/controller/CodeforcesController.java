@@ -43,7 +43,8 @@ public class CodeforcesController {
 
     /*
     * 用于获取指定用户的Codeforces的基本信息,
-    * 并更新个人用户的rating
+    * 并更新个人用户的rating。
+    * 这个接口是拿来测试Codeforces的接口是否正常的
     * */
     @GetMapping("/user_info")
     public Map<String, Object> user_info(String handle) {
@@ -68,13 +69,18 @@ public class CodeforcesController {
     * */
     @GetMapping("/user_rating")
     public Map<String, Object> user_rating(String handle) {
-        User_Rating_Response response = codeforcesService.getRatingListByHandle(handle);
-        if(response.equals(null)) {
+        try {
+            User_Rating_Response response = codeforcesService.getRatingListByHandle(handle);
+            if(response.equals(null)) {
+                return new R().bad().builder();
+            } else {
+                codeforcesService.updateTableAllRatingList(response);
+                return new R().ok().add("ratingList", response.getResult()).builder();
+            }
+        } catch (Exception e) {
             return new R().bad().builder();
-        } else {
-            codeforcesService.updateTableAllRatingList(response);
-            return new R().ok().add("ratingList", response.getResult()).builder();
         }
+
     }
 
     /*
@@ -93,11 +99,21 @@ public class CodeforcesController {
     * */
     @GetMapping("/get_user_with_ratinglists")
     public Map<String, Object> get_user_with_ratinglists() {
-        List<GroupedRatingList> list = codeforcesService.getUserWithRatinglists();
-        if(list.equals(null)) {
+        try {
+            List<GroupedRatingList> list = codeforcesService.getUserWithRatinglists();
+            if(list.equals(null)) {
+                return new R().bad().builder();
+            } else {
+                return new R().ok().add("userwithratinglists",list).builder();
+            }
+        } catch (Exception e) {
             return new R().bad().builder();
-        } else {
-            return new R().ok().add("userwithratinglists",list).builder();
         }
     }
+
+
+
+
+
+
 }
