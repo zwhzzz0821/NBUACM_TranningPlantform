@@ -12,7 +12,7 @@ import java.util.List;
 
 @Transactional
 public interface ProblemListService {
-    @Scheduled(fixedRate = 60 * 1000, initialDelay = 5000)//一分钟更新一次
+    @Scheduled(fixedRate = 60 * 60 * 1000, initialDelay = 5000)//一分钟更新一次
     void updateAllProblemListACNumber();
 
     List<ProblemList> getAllProblemLists();

@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.List;
 @Transactional
 public interface ProblemService {
-    @Scheduled(fixedRate = 60 * 1000, initialDelay = 1000)
+    @Scheduled(fixedRate = 60 * 60 * 1000, initialDelay = 1000)
     void getAllProblemFromCF();
 
     public List<Map<String, Object>> getAllProblem();

@@ -37,7 +37,7 @@ public class ProblemListServiceImpl implements ProblemListService {
     * 更新所有表单的所有题目的AC情况
     * */
     @Override
-    @Scheduled(fixedRate = 60 * 1000, initialDelay = 5000)
+    @Scheduled(fixedRate = 60 * 60 * 1000, initialDelay = 5000)
     public void updateAllProblemListACNumber() {
         List<ProblemList> problemLists = problemListMapper.getAllProblemLists();
         int problemLists_len = problemLists.size();

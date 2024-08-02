@@ -45,7 +45,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
 
     @Override
-    @Scheduled(fixedRate = 60 * 1000, initialDelay = 5000)
+    @Scheduled(fixedRate = 60 * 60 * 1000, initialDelay = 5000)
     public void updateACandSubmitsASScheduled() {
         List<User> userlist = userMapper.getAllUsers();
         int user_len = userlist.size();

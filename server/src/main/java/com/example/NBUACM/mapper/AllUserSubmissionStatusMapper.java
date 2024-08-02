@@ -2,6 +2,7 @@ package com.example.NBUACM.mapper;
 
 import com.example.NBUACM.POJO.MySQLTable.AllUserSubmissionStatus;
 import com.example.NBUACM.entity.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -47,8 +48,28 @@ public interface AllUserSubmissionStatusMapper {
 
 
 
-    @Select("select * from allusersubmissionstatus")
+    @Select("select * from allusersubmissionstatus LIMIT 1")
     AllUserSubmissionStatus getAllUserSubmissionStatus();
 
-
+    @Insert("insert into allusersubmissionstatus (maxWeekAC, " +
+            "maxMonthAC, " +
+            "maxWeekAverageACRating, " +
+            "maxMonthAverageACRating, " +
+            "maxTotalAverageACRating, " +
+            "avgWeekAC, " +
+            "avgMonthAC, " +
+            "avgWeekAverageACRating, " +
+            "avgMonthAverageACRating, " +
+            "avgTotalAverageACRating )" +
+            "values (#{maxWeekAC}, " +
+            "#{maxMonthAC}, " +
+            "#{maxWeekAverageACRating}, " +
+            "#{maxMonthAverageACRating}, " +
+            "#{maxTotalAverageACRating}, " +
+            "#{avgWeekAC}, " +
+            "#{avgMonthAC}, " +
+            "#{avgWeekAverageACRating}, " +
+            "#{avgMonthAverageACRating}, " +
+            "#{avgTotalAverageACRating})")
+    void insertAllUsrSbmssnStts(AllUserSubmissionStatus data);
 }

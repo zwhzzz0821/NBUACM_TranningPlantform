@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public interface CodeforcesService {
 
-    @Scheduled(fixedRate = 60 * 1000, initialDelay = 10000)
+    @Scheduled(fixedRate = 60 * 60 * 1000, initialDelay = 10000)
     void updateUserInfoAndRatingList();
 
 
