@@ -34,7 +34,7 @@ public class BlogController {
     }
 
     /*
-    * 根据题目id和用户id创建新的博客
+    * 根据题目id和用户id创建新的博客，如果博客已存在，那就采用更新的方式
     * */
     @PostMapping("/Insert/{problemId}/{uid}")
     public Map<String, Object> InsertBlog(@RequestBody Blog blog) {
