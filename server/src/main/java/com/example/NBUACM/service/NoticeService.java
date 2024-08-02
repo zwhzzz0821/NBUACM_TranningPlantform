@@ -12,6 +12,6 @@ public interface NoticeService {
     void deleteOneNotice(Notice data);
     void updateOneNotice(Notice data);
     List<Notice> getAllNotices();//获取所有的通知
-    Notice getOneNoticeById(Notice notice);
+    Notice getOneNoticeById(Notice notice); //根据通知的ID获取通知
 
 }

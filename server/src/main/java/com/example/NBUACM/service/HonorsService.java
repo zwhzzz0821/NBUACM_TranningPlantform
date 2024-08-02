@@ -7,9 +7,18 @@ import java.util.List;
 @Transactional
 @Service
 public interface HonorsService {
+    /*
+    * 添加荣誉
+    * */
     void Add(honors h);
 
+    /*
+    * 获取荣誉列表
+    * */
     List<honors> Get();
 
+    /*
+    * 删除荣誉
+    * */
     void Delete(int hid);
 }

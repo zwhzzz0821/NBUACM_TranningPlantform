@@ -10,7 +10,7 @@ public interface NoticeMapper {
     @Select("select * from notice")
     List<Notice> getAllNotices();//获取所有的通知
 
-    @Select("select * from notice where id = #{id}")
+    @Select("select * from notice where id = #{id} LIMIT 1")  //虽然id是主键且递增的，这里还是加一个LIMIT吧
     Notice getNoticeById(Notice notice);
 
     @Insert("insert into notice(author, date, title, info) " +
