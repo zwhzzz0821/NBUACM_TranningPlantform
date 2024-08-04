@@ -53,7 +53,7 @@ public class CodeforcesServiceImpl implements CodeforcesService {
                  * 更新userandratinglist
                  * */
                 User_Rating_Response user_rating_response = getRatingListByHandle(handle); //从CF那获取某个用户的历史rating_list
-                updateTableAllRatingList(user_rating_response);  //更新mysql数据。能进入这里，就意味着各种数据的获取是正常的，除非mysql出现问题
+                updateTableAllRatingList(user_rating_response, handle);  //更新mysql数据。能进入这里，就意味着各种数据的获取是正常的，除非mysql出现问题
 
                 // 更新完毕，代表handle没有问题。虽然用的是update，如果有较多备注的话，一次看不到所有的问题所在，但是至少出问题确实会有提示
             } catch (Exception err) {
@@ -61,7 +61,7 @@ public class CodeforcesServiceImpl implements CodeforcesService {
                 * 这个用户出现了数据获取或者更新的异常，可以在这里进行后续操作，比如给点提示啥的。
                 * 这里的异常可以肯定是Codeforces用户名的问题
                 * */
-                System.out.println("err：" + err.getMessage());  //There is a problem with your codeforcesHandle(CF用户名)
+                System.out.println("updateUserInfoAndRatingList_in_for err：" + err.getMessage());  //There is a problem with your codeforcesHandle(CF用户名)
             }
 
         }
@@ -77,7 +77,7 @@ public class CodeforcesServiceImpl implements CodeforcesService {
              * */
             updateUserListMonthACRank(userlist);
         } catch (Exception err) {
-            System.out.println("err updateTheSum：" + err.getMessage());
+            System.out.println("updateUserInfoAndRatingList_out_for err updateTheSum：" + err.getMessage());
         }
 
 
@@ -145,11 +145,15 @@ public class CodeforcesServiceImpl implements CodeforcesService {
     }
 
     @Override
-    public void updateTableAllRatingList(User_Rating_Response response) {
+    public void updateTableAllRatingList(User_Rating_Response response, String handle) {
         try {
-            String handle = response.getResult().get(0).getHandle();
             List<User_Rating_DataBean> newlist = response.getResult();
             int newlistcount = newlist.size();
+            if(newlistcount == 0) {
+                System.out.println("用户 " + handle + " 还未打过cf比赛");
+                return;
+            }
+
             int oldlistcount = userRatingMapper.selectCountByHandle(handle);
 
             for(int i = oldlistcount; i < newlistcount; i++) {  //把新的弄进数据库里
@@ -211,7 +215,7 @@ public class CodeforcesServiceImpl implements CodeforcesService {
             }
             return groupedRatingLists;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("getUserWithRatinglists Error: " + e.getMessage());
             throw new SpecificException(e.getMessage());
         }
     }

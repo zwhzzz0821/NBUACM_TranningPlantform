@@ -74,7 +74,7 @@ public class CodeforcesController {
             if(response.equals(null)) {
                 return new R().bad().builder();
             } else {
-                codeforcesService.updateTableAllRatingList(response);
+                codeforcesService.updateTableAllRatingList(response, handle);
                 return new R().ok().add("ratingList", response.getResult()).builder();
             }
         } catch (Exception e) {

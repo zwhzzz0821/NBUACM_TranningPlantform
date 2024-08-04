@@ -41,7 +41,7 @@ public interface CodeforcesService {
     /*
     * 查看后端数据库指定用户的rating列表的数量，发生变化就插入最新的
     * */
-    void updateTableAllRatingList(User_Rating_Response response);
+    void updateTableAllRatingList(User_Rating_Response response, String handle);
 
     void updateUserCodeforcesRatingAndImageURL(int rating, String handle, String url);
 

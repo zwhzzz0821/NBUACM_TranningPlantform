@@ -24,7 +24,7 @@ public class AllUserSubmissionStatusServiceImpl implements AllUserSubmissionStat
             }
             return allUserSubmissionStatusMapper.getAllUserSubmissionStatus();
         } catch (Exception e) {
-            System.out.println("AllUserSubmissionStatusServiceImpl err :" + e.getMessage());  //如果出故障了，那我也照样新增一行，把数据给到前端。
+            System.out.println("getAllUserSubmissionStatus err :" + e.getMessage());  //如果出故障了，那我也照样新增一行，把数据给到前端。
             AllUserSubmissionStatus temp = new AllUserSubmissionStatus();
             allUserSubmissionStatusMapper.insertAllUsrSbmssnStts(temp);
             return allUserSubmissionStatusMapper.getAllUserSubmissionStatus();

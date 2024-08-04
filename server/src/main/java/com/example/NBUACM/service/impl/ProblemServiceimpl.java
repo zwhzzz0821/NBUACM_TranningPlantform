@@ -51,7 +51,7 @@ public class ProblemServiceimpl implements ProblemService {
                 problemMapper.insert(db_list.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("getAllProblemFromCF Error: " + e.getMessage());
         }
     }
 

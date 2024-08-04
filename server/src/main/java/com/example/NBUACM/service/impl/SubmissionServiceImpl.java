@@ -72,7 +72,7 @@ public class SubmissionServiceImpl implements SubmissionService {
                  * */
                 updateWeekANDMonthANDTotalAvgACRatingWithHandle(handle);
             } catch (Exception e) {
-                System.out.println("err:" + e.getMessage());
+                System.out.println("updateACandSubmitsASScheduled err:" + e.getMessage());
             }
 
         }
@@ -101,7 +101,7 @@ public class SubmissionServiceImpl implements SubmissionService {
             System.out.println("获取用户提交数据成功");
             return response;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+//            System.out.println("Error: " + e.getMessage());
             throw new SpecificException(e.getMessage());
         }
     }
