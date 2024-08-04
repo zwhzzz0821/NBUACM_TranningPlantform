@@ -66,8 +66,9 @@ public class UserController {
     public Map<String, Object> register(@RequestBody User user) {
         try {
             System.out.println("/user/register 注册的用户为：" + user);
-            User selected = userService.getByUid(user);
-            if (selected == null) {  //当前表内没有这个用户,可以创建新用户
+            User selectedByUid = userService.getByUid(user);
+            User selectedByHandle = userService.getByCodeforcesHandle(user);
+            if (selectedByUid == null && selectedByHandle == null) {  //当前表内没有这个用户,并且handle唯一，才可以创建新用户
                 userService.register(user);
                 return new R().ok().builder();
             } else {
@@ -83,7 +84,8 @@ public class UserController {
         try {
             System.out.println("/user/register/manager 注册的user(管理员)为：" + user);
             User selected = userService.getByUid(user);
-            if (selected == null) {  //当前表内没有这个用户,可以创建新用户
+            User selectedByHandle = userService.getByCodeforcesHandle(user);
+            if (selected == null && selectedByHandle == null) {  //当前表内没有这个用户,并且handle唯一，才可以创建新用户
                 userService.register(user);
                 userService.registerManager(user);
                 return new R().ok().builder();

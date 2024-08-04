@@ -9,6 +9,7 @@ import java.util.Map;
 public interface UserService {
     void register(User user);
     User getByUid(User user);
+    User getByCodeforcesHandle(User user);
     void deleteByUid(User user);
     List<User> getAllUsers();
 

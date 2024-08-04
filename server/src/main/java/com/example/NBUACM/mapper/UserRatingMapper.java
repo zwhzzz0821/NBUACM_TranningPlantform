@@ -20,6 +20,6 @@ public interface UserRatingMapper {
     int selectCountByHandle(String handle);
 
     @Select("SELECT DISTINCT codeforceshandle FROM user")
-    List<String> selectDistinctHandles();
+    List<String> selectDistinctHandles();  //本应该从ratinglist表中获得的，但是前端要求显示全部的用户，所以这里从user表中拿了
 
 }

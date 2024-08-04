@@ -204,7 +204,7 @@ public class CodeforcesServiceImpl implements CodeforcesService {
     public List<GroupedRatingList> getUserWithRatinglists() throws SpecificException {
         try {
             // 首先，获取所有不同的 handle 值
-            List<String> handles = userRatingMapper.selectDistinctHandles();
+            List<String> handles = userRatingMapper.selectDistinctHandles(); //本应该从ratinglist表中获得的，但是前端要求显示全部的用户，所以这里从user表中拿了
 
             List<GroupedRatingList> groupedRatingLists = new ArrayList<>();
             // 然后，为每个 handle 获取 ratingList

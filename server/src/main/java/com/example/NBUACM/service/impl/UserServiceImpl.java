@@ -28,6 +28,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.getByUid(user);
     }
     @Override
+    public User getByCodeforcesHandle(User user) {
+        return userMapper.getUserByCodeforcesHandle(user.getCodeforceshandle());
+    }
+    @Override
     public void deleteByUid(User user) {
         userMapper.deleteByUid(user);
     }

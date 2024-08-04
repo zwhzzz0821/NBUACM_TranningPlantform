@@ -208,17 +208,42 @@ import { Toast } from 'vant';
 				this.dialogVisible = false;
 				// 清空表单
 				this.newMemberForm = {
-					name: '',
-					email: '',
-					role: '',
+					username: '',
+					uid: '',
+					password: '',
+					codeforceshandle: ''
 				};
+        this.roleSelected = ''
 			},
+
+      checkFieldsNotEmpty() {
+        let errors = [];
+
+        if (!this.newMemberForm.username) {
+          errors.push('用户名不能为空。');
+        }
+        if (!this.newMemberForm.uid) {
+          errors.push('用户ID不能为空。');
+        }
+        if (!this.newMemberForm.password) {
+          errors.push('密码不能为空。');
+        }
+        if (!this.newMemberForm.codeforceshandle) {
+          errors.push('codeforces的用户名不能为空。')
+        }
+
+        if (errors.length > 0) {
+          // 使用 this.$message 显示错误信息
+          this.$message.error(errors.join(' '));
+          return false;
+        }
+        return true;
+      },
 			addNewMember() {
 				// 验证表单数据
-				const isFormValid = this.$refs.newMemberForm.validate();
-				console.log("qaq");
+				const isFormValid = this.checkFieldsNotEmpty();
+
 				if (isFormValid) {
-					console.log("qwq");
 					console.log('添加新成员:', this.newMemberForm);
 					if (this.roleSelected == 'admin') {
 						request.post('/user/register/manager', this.newMemberForm).then(response => {
@@ -230,7 +255,7 @@ import { Toast } from 'vant';
 								this.$message.error('添加失败，请重试');
 							}
 						});
-					} else {
+					} else if(this.roleSelected == 'member') {
 						request.post('/user/register', this.newMemberForm).then(response => {
 							if (response.code === 200) {
 								this.$message.success('成员添加成功！');
@@ -240,9 +265,12 @@ import { Toast } from 'vant';
 								this.$message.error('添加失败，请重试。');
 							}
 						})
-					}
+					} else {
+            this.$message.warning('请检查并完善表单信息。');
+          }
 				} else {
-					this.$message.warning('请检查并完善表单信息。');
+					// this.$message.warning('请检查并完善表单信息。');
+          Toast.fail('请检查并完善表单信息。')
 				}
 			},
       find() {
