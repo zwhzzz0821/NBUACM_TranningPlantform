@@ -67,7 +67,6 @@ public class SubmissionController {
     public Map<String, Object> getACSubmissionListByProblemId(@PathVariable Long problemId) {
         try {
             List<Submission> list = submissionService.getACSubmissionFromDBByVerdictAndProblemId("OK", problemId);
-
             if(list.equals((null))) {
                 return new R().bad().builder();
             } else {

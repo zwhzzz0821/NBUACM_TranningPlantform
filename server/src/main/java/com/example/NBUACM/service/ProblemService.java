@@ -6,10 +6,19 @@ import java.util.Map;
 import java.util.List;
 @Transactional
 public interface ProblemService {
+    /*
+    * 定时更新题目表（problem）
+    * */
     @Scheduled(fixedRate = 60 * 60 * 1000, initialDelay = 1000)
     void getAllProblemFromCF();
 
-    public List<Map<String, Object>> getAllProblem();
+    /*
+    * 获取所有题目
+    * */
+    List<Map<String, Object>> getAllProblem();
 
-    public Map<String, Object> getOneProblem(long problemId);
+    /*
+    * 根据题目id来获取题目
+    * */
+    Map<String, Object> getOneProblem(long problemId);
 }

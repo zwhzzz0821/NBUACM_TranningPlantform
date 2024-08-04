@@ -1,5 +1,6 @@
 package com.example.NBUACM.service.impl;
 
+import com.example.NBUACM.Exception.SpecificException;
 import com.example.NBUACM.POJO.MySQLTable.Submission;
 import com.example.NBUACM.POJO.MySQLTable.AllUserSubmissionStatus;
 import com.example.NBUACM.POJO.ReceiveCFData.problem_info.Problem_Info_DataInDB;
@@ -10,6 +11,7 @@ import com.example.NBUACM.mapper.SubmissionMapper;
 import com.example.NBUACM.mapper.AllUserSubmissionStatusMapper;
 import com.example.NBUACM.mapper.ProblemMapper;
 import com.example.NBUACM.mapper.UserMapper;
+import com.example.NBUACM.service.ApiClient.CodeforcesApiClient;
 import com.example.NBUACM.service.ProblemService;
 import com.example.NBUACM.service.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +27,15 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SubmissionServiceImpl implements SubmissionService {
 
     @Autowired
-    private SubmissionMapper acsubmissionMapper;
+    private SubmissionMapper submissionMapper;
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -42,7 +46,8 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     @Autowired
     private ProblemService problemService;
-
+    @Autowired
+    private CodeforcesApiClient codeforcesApiClient;
 
     @Override
     @Scheduled(fixedRate = 60 * 60 * 1000, initialDelay = 5000)
@@ -51,20 +56,25 @@ public class SubmissionServiceImpl implements SubmissionService {
         int user_len = userlist.size();
 
         for(int i=0 ;i < user_len; i++) {
-            String handle = userlist.get(i).getCodeforceshandle();
-            String uid = userlist.get(i).getUid();
+            try {
+                String handle = userlist.get(i).getCodeforceshandle();  //获取该用户的用户名
+                String uid = userlist.get(i).getUid();
 
-            Submission_Info_Response response = getSubmissionsByHandleFromCF(handle);  //从CF那边拿数据
+                Submission_Info_Response response = getSubmissionsByHandleFromCF(handle);  //从CF那边拿数据
 
-            updateUserSubmits(response, handle); //拿到的信息在这里分析并更新后端数据库的user表
+                updateUserSubmits(response, handle); //拿到的信息在这里分析并更新后端数据库的user表
 
-//            dealWithAllNoExistProblem(response);   //先把problem表中不存在的部分给更新一下
-            uodateTableAllAcSubmission(response, handle, uid); //更新acsubmission表
+//            dealWithAllNoExistProblem(response);   //先把problem表中不存在的部分给更新一下（）
+                uodateTableAllAcSubmission(response, handle, uid); //更新submission表
 
-            /*
-            * 接下来更新user表中的周AC题目的平均rating，月AC题目的平均rating，以及所有AC题目的平均rating
-            * */
-            updateWeekANDMonthANDTotalAvgACRatingWithHandle(handle);
+                /*
+                 * 接下来更新user表中的周AC题目的平均rating，月AC题目的平均rating，以及所有AC题目的平均rating
+                 * */
+                updateWeekANDMonthANDTotalAvgACRatingWithHandle(handle);
+            } catch (Exception e) {
+                System.out.println("err:" + e.getMessage());
+            }
+
         }
         /*
          * 接下来更新allusersubmissionstatus表的各个max和avg
@@ -75,32 +85,24 @@ public class SubmissionServiceImpl implements SubmissionService {
 
 
     @Override
-    public Submission_Info_Response getSubmissionsByHandleFromCF(String handle) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
-        String url = "https://codeforces.com/api/user.status?handle=" + handle;
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
+    public Submission_Info_Response getSubmissionsByHandleFromCF(String handle) throws SpecificException {
+        /*
+         * 准备参数
+         * */
+        Map<String, String> uriVariables = new HashMap<>();
+        uriVariables.put("handle", handle); // 替换为实际的handle值
         try {
-            ResponseEntity<Submission_Info_Response> responseEntity = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    entity,
-                    Submission_Info_Response.class  // 指定返回类型为Response
+
+            Submission_Info_Response response = codeforcesApiClient.exchangeForResponse(
+                    "https://codeforces.com/api/user.status?handle={handle}",
+                    uriVariables,
+                    Submission_Info_Response.class
             );
-            Submission_Info_Response response = responseEntity.getBody();
-//            uodateTableAllAcSubmission(response, handle);   //更新后端mysql数据库        这个姑且不需要了
-//            updateUserSubmits(response, handle);
             System.out.println("获取用户提交数据成功");
             return response;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-            return null;
+            throw new SpecificException(e.getMessage());
         }
     }
 
@@ -190,7 +192,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     @Override
     public void updateWeekANDMonthANDTotalAvgACRatingWithHandle(String handle) {
-        List<Submission> list = acsubmissionMapper.getACSubmissionByhandle(handle, "OK");
+        List<Submission> list = submissionMapper.getACSubmissionByhandle(handle, "OK");
         int len = list.size();
 
         double week_Sum_Rating = 0;
@@ -342,13 +344,13 @@ public class SubmissionServiceImpl implements SubmissionService {
 //        }
 
 
-        acsubmissionMapper.InsertOneACSubmission(insertOne);
+        submissionMapper.InsertOneACSubmission(insertOne);
 
     }
     @Override
     public void uodateTableAllAcSubmission(Submission_Info_Response response, String handle, String uid) {
 
-        List<Submission> old_list = acsubmissionMapper.getAllSubmissionByhandle(handle);
+        List<Submission> old_list = submissionMapper.getAllSubmissionByhandle(handle);
         int old_list_length = old_list.size();
 
         List<Submission_Info_DataBean> new_list = response.getResult();
@@ -382,28 +384,28 @@ public class SubmissionServiceImpl implements SubmissionService {
     }
 
     @Override
-    public List<Submission> getACSubmissionFromDBByHandle(String handle) {
+    public List<Submission> getACSubmissionFromDBByHandle(String handle) throws Exception {
         try {
-            List<Submission> list = acsubmissionMapper.getACSubmissionByhandle(handle, "OK");
+            List<Submission> list = submissionMapper.getACSubmissionByhandle(handle, "OK");
             return list;
 
         } catch (Exception e) {
-            System.out.println("Error:"+e.getMessage());
-            return null;
+            System.out.println("getACSubmissionFromDBByHandle Error:"+e.getMessage());
+            throw new Exception(e.getMessage());
+//            return null;
         }
 
 
     }
 
     @Override
-    public  List<Submission> getACSubmissionFromDBByVerdictAndProblemId(String verdict, long probleId) {
+    public  List<Submission> getACSubmissionFromDBByVerdictAndProblemId(String verdict, long probleId) throws Exception {
         try {
-            List<Submission> list = acsubmissionMapper.getSubmissionByVerdictAndProblemId(verdict, probleId);
+            List<Submission> list = submissionMapper.getSubmissionByVerdictAndProblemId(verdict, probleId);
             return list;
-
         } catch (Exception e) {
-            System.out.println("Error:"+e.getMessage());
-            return null;
+            System.out.println("getACSubmissionFromDBByVerdictAndProblemId Error:"+e.getMessage());
+            throw new Exception(e.getMessage());
         }
     }
 

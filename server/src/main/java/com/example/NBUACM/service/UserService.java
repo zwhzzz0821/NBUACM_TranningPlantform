@@ -12,7 +12,7 @@ public interface UserService {
     void deleteByUid(User user);
     List<User> getAllUsers();
 
-    List<User> getAllUsersSorted();
+    List<User> getAllUsersSorted(); //按照rating值降序排序返回用户列表
     void changeUserInfo(User user);
 
     boolean checkManager(String uid);

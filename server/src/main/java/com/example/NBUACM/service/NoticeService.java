@@ -8,10 +8,29 @@ import java.util.List;
 @Service
 public interface NoticeService {
 
+    /*
+    * 添加一个新的通知
+    * */
     void addOneNewNotice(Notice data);
+
+    /*
+    *根据通知id， 删除一个通知
+    * */
     void deleteOneNotice(Notice data);
+
+    /*
+    * 根据通知id，更新一个通知
+    * */
     void updateOneNotice(Notice data);
-    List<Notice> getAllNotices();//获取所有的通知
-    Notice getOneNoticeById(Notice notice); //根据通知的ID获取通知
+
+    /*
+    * 获取所有通知
+    * */
+    List<Notice> getAllNotices();
+
+    /*
+    * 根据通知的ID获取通知
+    * */
+    Notice getOneNoticeById(Notice notice);
 
 }

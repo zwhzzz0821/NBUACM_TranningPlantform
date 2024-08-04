@@ -33,9 +33,7 @@ public class ProblemListServiceImpl implements ProblemListService {
     private ProblemMapper problemMapper;
     @Autowired
     private UserMapper userMapper;
-    /*
-    * 更新所有表单的所有题目的AC情况
-    * */
+
     @Override
     @Scheduled(fixedRate = 60 * 60 * 1000, initialDelay = 5000)
     public void updateAllProblemListACNumber() {
@@ -126,7 +124,7 @@ public class ProblemListServiceImpl implements ProblemListService {
     public void updateProblemListACNumber(int problemListId) {
 //        List<ProblemListWithUsers> users = problemListWithUsersMapper.getUsersByProblemListId(problemListId);  //拿到参与这个题单的用户
 
-        List<User> users = userMapper.getAllUsers();
+        List<User> users = userMapper.getAllUsers(); //获取所有用户
         List<ProblemListWithProblems> problems = problemListWithProblemsMapper.getProblemsByProblemListId(problemListId); //拿到这个题单的所有题目
 
         for(int i=0;i<problems.size();i++) {
@@ -196,12 +194,9 @@ public class ProblemListServiceImpl implements ProblemListService {
 
     }
 
-    /*
-    * 查询该用户是否已经加入了该题单
-    * */
     @Override
     public boolean HaveAddedToList(ProblemListWithUsers data) {
-        List<ProblemListWithUsers> list_in_DB = problemListWithUsersMapper.getProblemListsByProbelmListIdAndUid(data);
+        List<ProblemListWithUsers> list_in_DB = problemListWithUsersMapper.getProblemListsByProbelmListIdAndUid(data);  //可以直接用int，应该没必要返回list
         if(list_in_DB.size() == 0) {
             return false;
         } else {
