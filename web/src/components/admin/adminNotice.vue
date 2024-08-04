@@ -93,10 +93,15 @@ export default {
         
         getAllNotices() {
             request.get('/Notice/getAll').then(res => {
-                this.notices = res.notices.sort((a, b) => {
-                    return b.date - a.date; // 降序排序
-                });
-                console.log("notices:",this.notices);
+                if(res.code === 200) {
+                    this.notices = res.notices.sort((a, b) => {
+                        return b.date - a.date; // 降序排序
+                    });
+                    console.log("notices:",this.notices);
+                } else {
+                    Toast.fail('获取数据失败')
+                }
+                
             });
         },
 
@@ -106,8 +111,8 @@ export default {
                 id:row.id
             }).then(res => {
                 if(res.code === 200) {
-                    this.getAllNotices();  //更新当前通知界面
                     Toast.success("删除用户成功");
+                    this.getAllNotices();  //更新当前通知界面
                 } else {
                     Toast.fail("删除用户失败");
                 }

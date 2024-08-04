@@ -70,13 +70,23 @@ methods: {
   },
   GetProblem() {
     request.get(`/Problem/GetProblem/${this.problemId}`).then((res) => {
-      this.problem = res.ProblemRet
+      if(res.code === 200) {
+        this.problem = res.ProblemRet
+      } else {
+        Toast.fail('获取数据失败')
+      }
+      
     });
   },
   update() {
     request.get(`/Blog/GetBlog/${this.problemId}/${this.$store.state.uid}`).then((res) => {
-      console.log(res)
-      this.blogText = res.BlogContent.BlogContent
+      if(res.code === 200) {
+        console.log(res)
+        this.blogText = res.BlogContent.BlogContent
+      } else {
+        Toast.fail('获取数据失败')
+      }
+      
     });
   }
 },
@@ -89,10 +99,15 @@ created() {
   console.log(this.$route.params.uid)
   this.GetProblem();
   request.get(`/Blog/GetBlog/${this.problemId}/${this.$route.params.uid}`).then((res) => {
-    console.log(res)
-    if (res.BlogContent.BlogContent != null) {
-      this.blogText = res.BlogContent.BlogContent
+    if(res.code === 200) {
+      console.log(res)
+      if (res.BlogContent.BlogContent != null) {
+        this.blogText = res.BlogContent.BlogContent
+      }
+    } else {
+      Toast.fail('获取数据失败')
     }
+    
   });
 },
 }

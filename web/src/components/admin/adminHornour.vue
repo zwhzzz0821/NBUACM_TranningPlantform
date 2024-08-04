@@ -101,6 +101,7 @@ import bronzeimg from "../../assets/bronze.png"
 import FileSaver from 'file-saver'
 import * as XLSX from 'xlsx'
 import request from "../../util/request";
+import { Toast } from "vant"
 export default {
   data() {
     return {
@@ -150,8 +151,13 @@ export default {
           pageSize,
         }
       }).then(res => {
-        this.honors = res.honors; // 假设后端返回的是荣誉列表数据
-        this.totalRows = res.length; // 假设后端返回总记录数
+        if(res.code === 200) {
+          this.honors = res.honors; // 假设后端返回的是荣誉列表数据
+          this.totalRows = res.length; // 假设后端返回总记录数
+        } else {
+          Toast.fail("获取荣誉列表失败")
+        }
+        
       });
     },
     onPageChange(page) {
@@ -172,22 +178,32 @@ export default {
     deleteItem(index) {
       // 在这里实现删除逻辑
 			
-			request.post("/honors/Delete", this.honors[index].hid).then(res => {})
-      console.log('删除荣誉:', this.honors[index]);
-			this.updated();
-			this.$message.success('删除成功')
-      this.updated();
+			request.post("/honors/Delete", this.honors[index].hid).then(res => {
+        if(res.code === 200) {
+          console.log('删除荣誉:', this.honors[index]);
+          this.$message.success('删除成功');
+          this.updated();
+        } else {
+          this.$message.error("删除失败");
+        }
+      });
+      
     },
     saveEdit() {
 			// 在这里实现保存编辑后的荣誉到服务器
 			var date = new Date(this.editForm.acquiredTime)
 			this.editForm.acquiredTime = date.getTime()
       console.log('保存荣誉:', this.editForm);
-			request.post('/honors/Add', this.editForm).then(res => {})
-			this.updated();
-			this.$message.success('添加成功')
-      this.dialogVisible = false;
-      this.updated();
+			request.post('/honors/Add', this.editForm).then(res => {
+        if(res.code === 200) {
+          this.$message.success('添加成功')
+          this.dialogVisible = false;
+          this.updated();
+        } else {
+          this.$message.fail('添加失败');
+        }
+      })
+			
     },
     uploadPhoto(index) {
         // 这里可以打开一个文件选择对话框，然后使用FileReader API读取文件并存储

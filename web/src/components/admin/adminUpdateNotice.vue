@@ -55,10 +55,15 @@
             id:id
         }
       }).then(res => {
-        this.notice = res.notice;
-        this.NewInfo = this.notice.info;
-        console.log(this.notice);
-        console.log("现在的时间戳:", this.GetNowTimeStamp())
+        if(res.code === 200) {
+          this.notice = res.notice;
+          this.NewInfo = this.notice.info;
+          console.log(this.notice);
+          console.log("现在的时间戳:", this.GetNowTimeStamp())
+        } else {
+          Toast.fail('获取数据失败');
+        }
+        
       });
     },
 

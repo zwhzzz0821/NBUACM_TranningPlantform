@@ -95,10 +95,15 @@ export default {
             console.log('更新用户信息:', this.userInfoForm);
             
             request.post('/user/changeuserinfo',this.userInfoForm).then(res => {
-                console.log("res:",res);
-                // 更新成功后，关闭对话框
-                this.dialogVisible = false;
-                this.getUserInfo();
+                if(res.code === 200) {
+                    console.log("res:",res);
+                    // 更新成功后，关闭对话框
+                    this.dialogVisible = false;
+                    this.getUserInfo();
+                } else {
+                    Toast.fail('获取数据失败');
+                }
+                
             });
         },
         getUserInfo() {
@@ -107,8 +112,13 @@ export default {
                     uid:this.$store.state.userInfo.uid
                 }
             }).then(res => {
-                this.userInfo = res.user;
-                this.updateStoreUserInfo();
+                if(res.code === 200) {
+                    this.userInfo = res.user;
+                    this.updateStoreUserInfo();
+                } else {
+                    Toast.fail('获取数据失败')
+                }
+                
             });
         },
         updateStoreUserInfo() {

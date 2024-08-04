@@ -148,8 +148,13 @@ export default {
             request.get('/user/getAllUserSubmissionStatus', {
 
             }).then(res => {
-                this.allUserSubmissionStatus = res.allUserSubmissionStatus;
-                this.getUserInfo();
+                if(res.code === 200) {
+                    this.allUserSubmissionStatus = res.allUserSubmissionStatus;
+                    this.getUserInfo();
+                } else {
+                    Toast.fail('获取数据失败')
+                }
+                
             })
         },
         
@@ -159,12 +164,16 @@ export default {
                     uid: this.$store.state.uid
                 }
             }).then(res => {
+                if(res.code === 200) {
+                    this.userInfo = res.user;
+                    this.userlistsize = res.userlistsize;
+                    console.log("userInfo:",this.userInfo);
+                    console.log("userlistsize:",this.userlistsize);
+                    this.getACSubmissionByhandle();
+                } else {
+                    Toast.fail('获取数据失败')
+                }
                 
-                this.userInfo = res.user;
-                this.userlistsize = res.userlistsize;
-                console.log("userInfo:",this.userInfo);
-                console.log("userlistsize:",this.userlistsize);
-                this.getACSubmissionByhandle();
             });
         },
 
@@ -174,48 +183,48 @@ export default {
                     handle:this.userInfo.codeforceshandle
                 }
             }).then(res => {
-                this.ACSubmissionlist = res.acsubmissionList;
-                console.log("ACSubmissionlist:",this.ACSubmissionlist);
-                this.initSubmissionStatus();  //初始化submissionStatus，准备后面给chart生成图片了
-                
-                this.submissionStatus.submission_number = this.userInfo.totalSubmits;   //总提交数
-                this.submissionStatus.ac_submission_number = this.userInfo.totalACSubmits    //总AC数
+                if(res.code === 200) {
+                    this.ACSubmissionlist = res.acsubmissionList;
+                    console.log("ACSubmissionlist:",this.ACSubmissionlist);
+                    this.initSubmissionStatus();  //初始化submissionStatus，准备后面给chart生成图片了
+                    
+                    this.submissionStatus.submission_number = this.userInfo.totalSubmits;   //总提交数
+                    this.submissionStatus.ac_submission_number = this.userInfo.totalACSubmits    //总AC数
 
-                this.submissionStatus.easy_ac_submission_number1 = this.userInfo.difficulty1;   //入门
-                this.submissionStatus.easy_ac_submission_number2 = this.userInfo.difficulty2;   //普及-
-                this.submissionStatus.medium_ac_submission_number1 = this.userInfo.difficulty3; //普及/提高-
-                this.submissionStatus.medium_ac_submission_number2 = this.userInfo.difficulty4; //普及+/提高
-                this.submissionStatus.hard_ac_submission_number = this.userInfo.difficulty5;    //提高+/省选-
-                this.submissionStatus.veryhard_ac_submission_number = this.userInfo.difficulty6;    //省选/NOI-
-                this.submissionStatus.hardcore_ac_submission_number = this.userInfo.difficulty7;    //NOI/NOI+/CTSC
-                
-                this.submissionStatus.month_submission_number = this.userInfo.monthSubmits;
-                this.submissionStatus.month_ac_submission_number = this.userInfo.monthAC;
-                this.submissionStatus.week_submission_number = this.userInfo.weekSubmits;
-                this.submissionStatus.week_ac_submission_number = this.userInfo.weekAC;
+                    this.submissionStatus.easy_ac_submission_number1 = this.userInfo.difficulty1;   //入门
+                    this.submissionStatus.easy_ac_submission_number2 = this.userInfo.difficulty2;   //普及-
+                    this.submissionStatus.medium_ac_submission_number1 = this.userInfo.difficulty3; //普及/提高-
+                    this.submissionStatus.medium_ac_submission_number2 = this.userInfo.difficulty4; //普及+/提高
+                    this.submissionStatus.hard_ac_submission_number = this.userInfo.difficulty5;    //提高+/省选-
+                    this.submissionStatus.veryhard_ac_submission_number = this.userInfo.difficulty6;    //省选/NOI-
+                    this.submissionStatus.hardcore_ac_submission_number = this.userInfo.difficulty7;    //NOI/NOI+/CTSC
+                    
+                    this.submissionStatus.month_submission_number = this.userInfo.monthSubmits;
+                    this.submissionStatus.month_ac_submission_number = this.userInfo.monthAC;
+                    this.submissionStatus.week_submission_number = this.userInfo.weekSubmits;
+                    this.submissionStatus.week_ac_submission_number = this.userInfo.weekAC;
 
-                this.submissionStatus.average_ac_rating = this.userInfo.totalAverageACRating;
-                this.submissionStatus.month_average_ac_rating = this.userInfo.monthAverageACRating;
-                this.submissionStatus.week_average_ac_rating = this.userInfo.weekAverageACRating;
+                    this.submissionStatus.average_ac_rating = this.userInfo.totalAverageACRating;
+                    this.submissionStatus.month_average_ac_rating = this.userInfo.monthAverageACRating;
+                    this.submissionStatus.week_average_ac_rating = this.userInfo.weekAverageACRating;
 
-                console.log("average_ac_rating:",this.submissionStatus.average_ac_rating);
-                console.log("month_average_ac_rating:",this.submissionStatus.month_average_ac_rating);
-                console.log("week_average_ac_rating:",this.submissionStatus.week_average_ac_rating);
-                this.submissionStatus.career_ranking = this.userInfo.ratingRank;
-                this.submissionStatus.active_ranking = this.userInfo.monthACRank;
+                    console.log("average_ac_rating:",this.submissionStatus.average_ac_rating);
+                    console.log("month_average_ac_rating:",this.submissionStatus.month_average_ac_rating);
+                    console.log("week_average_ac_rating:",this.submissionStatus.week_average_ac_rating);
+                    this.submissionStatus.career_ranking = this.userInfo.ratingRank;
+                    this.submissionStatus.active_ranking = this.userInfo.monthACRank;
 
-                console.log("career_ranking:",this.submissionStatus.career_ranking);
-                console.log("active_ranking:",this.submissionStatus.active_ranking);
-                
-                this.getPercentage();
-                this.getWeekMonthData();
-                showCareerCharts(this.submissionStatus);
-                showActivityCharts(this.ACSubmissionlist, this.submissionStatus, this.allUserSubmissionStatus);
-
-               
+                    console.log("career_ranking:",this.submissionStatus.career_ranking);
+                    console.log("active_ranking:",this.submissionStatus.active_ranking);
+                    
+                    this.getPercentage();
+                    this.getWeekMonthData();
+                    showCareerCharts(this.submissionStatus);
+                    showActivityCharts(this.ACSubmissionlist, this.submissionStatus, this.allUserSubmissionStatus);
+                } else {
+                    Toast.fail('获取数据失败')
+                }
             });
-
-
         },
 
 

@@ -146,9 +146,14 @@ export default {
             begin:startTimeSec,
             end:endTimeSec
           }).then(res => {
-            console.log("res:",res)
-            this.formData.problemListId = res.problemListId;
-            this.addProblemsToList();  //插入题目
+            if(res.code === 200) {
+              console.log("res:",res)
+              this.formData.problemListId = res.problemListId;
+              this.addProblemsToList();  //插入题目
+            } else {
+              Toast.fail('请求失败')
+            }
+            
           });
 
 
@@ -191,9 +196,13 @@ export default {
 
       console.log("构造出的problems",problems)
       request.post('/ProblemList/insertNewProblemsToList',problems).then(res => {
+        if(res.code === 200) {
           console.log("添加完题目后",res);
-          this.addPeopleToList();
-          // 把人员添加到这个题单内
+          this.addPeopleToList();// 把人员添加到这个题单内
+        } else {
+          Toast.fail('请求失败')
+        }
+          
       })
     },
 
@@ -212,9 +221,14 @@ export default {
 
       console.log("构建的users:",users);
       request.post('/ProblemList/addUsersToProblemList',users).then(res => {
-        console.log("添加完users后",res);
-        Toast.success("题单创建成功");
-        this.$router.push({ path:'/admin/ProblemList' }) //跳转到训练功能
+        if(res.code === 200) {
+          console.log("添加完users后",res);
+          Toast.success("题单创建成功");
+          this.$router.push({ path:'/admin/ProblemList' }) //跳转到训练功能
+        } else {
+          Toast.fail('请求失败')
+        }
+        
       })
     },
 
@@ -232,7 +246,11 @@ export default {
     }, 
     updated() {
         request.get("/user/getallusers").then(res => {
+          if(res.code === 200) {
             this.users = res.userlist
+          } else {
+            Toast.fail('请求失败')
+          }
         })
     },
   },

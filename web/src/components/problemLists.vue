@@ -179,11 +179,16 @@
             getAllProblemLists() {
                 request.get('/ProblemList/getProblemLists',{
     
-                }).then(res => {{
-                    this.problemLists = res.problemLists;
-                    console.log(res);
-                    this.divideProblemLLists();
-                }});
+                }).then(res => {
+                    if(res.code === 200) {
+                        this.problemLists = res.problemLists;
+                        console.log(res);
+                        this.divideProblemLLists();
+                    } else {
+                        Toast.fail('获取数据失败')
+                    }
+                    
+                });
             },
             divideProblemLLists() {
                 // 获取当前时间的时间戳（以毫秒为单位）
@@ -222,8 +227,13 @@
                             problemListId:row.id
                         }
                     }).then(res => {
-                        this.problems = res.problems;
-                        this.getProblemsWithState(row);//获取各个问题的状态
+                        if(res.code === 200) {
+                            this.problems = res.problems;
+                            this.getProblemsWithState(row);//获取各个问题的状态
+                        } else {
+                            Toast.fail('获取数据失败')
+                        }
+                        
                     })
                 } catch(error) {
                     console.log("ERROR:",error);
@@ -279,16 +289,19 @@
                             uid:this.$store.state.userInfo.uid
                         }
                     }).then(res => {
-                        this.problemWithState = res.problemWithState;
-                        console.log("problemWithState:",this.problemWithState);
-                        for (let i = 0; i < this.problems.length; i++) {
-                            const problem = this.problems[i];
-                            let state = this.problemWithState[i].state;
-                            problem.state = state;
+                        if(res.code === 200) {
+                            this.problemWithState = res.problemWithState;
+                            console.log("problemWithState:",this.problemWithState);
+                            for (let i = 0; i < this.problems.length; i++) {
+                                const problem = this.problems[i];
+                                let state = this.problemWithState[i].state;
+                                problem.state = state;
+                            }
+                            console.log("new problems:",this.problems)
+                            this.newProblems = this.problems;
+                        } else {
+                            Toast.fail('获取数据失败')
                         }
-                        console.log("new problems:",this.problems)
-                        this.newProblems = this.problems;
-    
                     })
                 } catch(error) {
                     console.log("error:",error)

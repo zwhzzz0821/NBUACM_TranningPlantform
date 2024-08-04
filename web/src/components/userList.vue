@@ -222,28 +222,29 @@ export default {
         console.log('添加新成员:', this.newMemberForm);
         if (this.roleSelected == 'admin') {
           request.post('/user/register/manager', this.newMemberForm).then(response => {
-            if (response.data.success) {
-              this.$message.success('成员添加成功！');
+            if (response.code === 200) {
+              this.$message.success('管理员添加成功！');
               this.closeDialog();
+              this.update()
             } else {
               this.$message.error('添加失败，请重试。');
             }
           });
         } else {
           request.post('/user/register', this.newMemberForm).then(response => {
-            if (response.data.success) {
+            if (response.code === 200) {
               this.$message.success('成员添加成功！');
               this.closeDialog();
+              this.update()
             } else {
               this.$message.error('添加失败，请重试。');
             }
           })
         }
-        this.closeDialog();
       } else {
         this.$message.warning('请检查并完善表单信息。');
       }
-      this.update()
+      
     },
     find() {
       const targetNumber = this.number;
@@ -268,8 +269,13 @@ export default {
       request.get('/CFAPI/get_user_with_ratinglists', {
 
       }).then(res => {
-        this.rows = res.userwithratinglists;
-        console.log("userwithratinglists:",rows);
+        if(res.code === 200) {
+          this.rows = res.userwithratinglists;
+          console.log("userwithratinglists:",rows);
+        } else {
+          Toast.fail('获取数据失败')
+        }
+        
       }).catch(()=>{})
     },
     showChart(row) {

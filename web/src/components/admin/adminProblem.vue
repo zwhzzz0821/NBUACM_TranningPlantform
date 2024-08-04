@@ -164,6 +164,7 @@
   import request from "../../util/request";
   import CFLogo from  "../../assets/CF.png";
   import { getRatingColor, timeStamp} from "../../util/CFshow";
+import { Toast } from "vant";
   export default {
     name: "Problem",
     data() {
@@ -210,8 +211,13 @@
       GetCompletedList(problemId) {
         this.showProblemDialog = true
         request.get("/submission/getACsubmissionList/" + problemId ).then(res => {
-          this.ProblemdialogData = res.aclist;
-          console.log(res.aclist)
+          if(res.code === 200) {
+            this.ProblemdialogData = res.aclist;
+            console.log(res.aclist)
+          } else {
+            Toast.fail('获取数据失败')
+          }
+         
         })
       },
       JumpToBlog(uid, problemId) {
@@ -233,7 +239,12 @@
       },
       fetchDataByCommand(command) {
         request.get("/Blog/GetBlogList/" + command ).then(res => {
-          this.dialogData = res.BlogList;
+          if(res.code === 200) {
+            this.dialogData = res.BlogList;
+          } else {
+            Toast.fail('获取数据失败')
+          }
+          
         }) 
       },
       find() {
@@ -257,7 +268,12 @@
       },
       update() {
         request.get('/Problem/show').then(res => {
-          this.rows = res.problemList;
+          if(res.code === 200) {
+            this.rows = res.problemList;
+          } else {
+            Toast.fail('获取数据失败')
+          }
+          
         })
       },
       handleViewOtherSolutions(index, row) {

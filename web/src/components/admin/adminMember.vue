@@ -222,17 +222,17 @@ import { Toast } from 'vant';
 					console.log('添加新成员:', this.newMemberForm);
 					if (this.roleSelected == 'admin') {
 						request.post('/user/register/manager', this.newMemberForm).then(response => {
-							if (response.data.success) {
-								this.$message.success('成员添加成功！');
+							if (response.code === 200) {
+                this.$message.success('管理员添加成功！')
                 this.update()
 								this.closeDialog();
 							} else {
-								this.$message.error('添加失败，请重试。');
+								this.$message.error('添加失败，请重试');
 							}
 						});
 					} else {
 						request.post('/user/register', this.newMemberForm).then(response => {
-							if (response.data.success) {
+							if (response.code === 200) {
 								this.$message.success('成员添加成功！');
 								this.closeDialog();
                 this.update()
@@ -241,11 +241,9 @@ import { Toast } from 'vant';
 							}
 						})
 					}
-					this.closeDialog();
 				} else {
 					this.$message.warning('请检查并完善表单信息。');
 				}
-				this.update()
 			},
       find() {
         const targetNumber = this.number;
@@ -270,8 +268,13 @@ import { Toast } from 'vant';
         request.get('/CFAPI/get_user_with_ratinglists', {
 
         }).then(res => {
-          this.rows = res.userwithratinglists;
-          console.log("userwithratinglists:",this.rows);
+          if(res.code === 200) {
+            this.rows = res.userwithratinglists;
+            console.log("userwithratinglists:",this.rows);
+          } else {
+            this.$message.error('获取数据失败');
+          }
+          
           
         }).catch(()=>{})
       },
@@ -408,21 +411,21 @@ import { Toast } from 'vant';
           ]
         });
 
-        },
+      },
 
-        deleteMember(row) {
-          request.post('/user/deleteuser', {
-            uid:row.user.uid
-          }).then(res => {
-            if(res.code === 200) {
-              Toast.success("删除成功")
-            } else {
-              Toast.fail("删除失败")
-            }
-            this.update()
-          })
-        },
-        //继续添加函数
+      deleteMember(row) {
+        request.post('/user/deleteuser', {
+          uid:row.user.uid
+        }).then(res => {
+          if(res.code === 200) {
+            Toast.success("删除成功")
+            this.update()   //更新数据
+          } else {
+            Toast.fail("删除失败")
+          }
+        })
+      },
+      //继续添加函数
     },
     created() {
       this.update()

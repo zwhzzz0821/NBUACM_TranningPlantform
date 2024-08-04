@@ -216,7 +216,12 @@ export default {
       request.get('/user/getallusersSorted', {
 
       }).then(res => {
-      this.rows = res.userlist;
+        if(res.code === 200) {
+          this.rows = res.userlist;
+        } else {
+          Toast.fail('获取数据失败');
+        }
+        
       }).catch(()=>{})
     },
   },

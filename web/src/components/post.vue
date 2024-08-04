@@ -77,7 +77,12 @@ export default {
     },
     GetProblem() {
       request.get(`/Problem/GetProblem/${this.problem_id}`).then((res) => {
-        this.problem = res.ProblemRet
+        if(res.code === 200) {
+          this.problem = res.ProblemRet
+        } else {
+          Toast.fail('获取数据失败')
+        }
+        
       });
     },
     updatePost() {
@@ -89,11 +94,20 @@ export default {
           blogContent: this.postText,
           problemId: this.problem_id,
         }).then((res) => {
-          this.$message({
-            message: '发布成功',
-            type: 'success'
-          });
-          this.update()
+          if(res.code === 200) {
+            this.$message({
+              message: '发布成功',
+              type: 'success'
+            });
+            this.update()
+          } else {
+            console.log(error)
+            this.$message({
+                message: '发布失败',
+                type: 'error'
+            })
+          }
+          
         });
       } catch (error) {
         console.log(error)
@@ -105,8 +119,13 @@ export default {
     },
     update() {
       request.get(`/Blog/GetBlog/${this.problem_id}/${this.$store.state.uid}`).then((res) => {
-        console.log(res)
-        this.blogText = res.BlogContent.BlogContent
+        if(res.code === 200) {
+          console.log(res)
+          this.blogText = res.BlogContent.BlogContent
+        } else {
+          Toast.fail('获取数据失败')
+        }
+        
       });
     }
   },
@@ -117,11 +136,16 @@ export default {
     this.problem_id = this.$route.params.problemId;
     this.GetProblem();
     request.get(`/Blog/GetBlog/${this.problem_id}/${this.$store.state.uid}`).then((res) => {
-      console.log(res)
-      if (res.BlogContent.BlogContent != null) {
-        this.blogText = res.BlogContent.BlogContent
-        this.postText = res.BlogContent.BlogContent
+      if(res.code === 200) {
+        console.log(res)
+        if (res.BlogContent.BlogContent != null) {
+          this.blogText = res.BlogContent.BlogContent
+          this.postText = res.BlogContent.BlogContent
+        }
+      } else {
+        Toast.fail('获取数据失败')
       }
+      
     });
   },
 }
