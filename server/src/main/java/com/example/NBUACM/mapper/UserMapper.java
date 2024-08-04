@@ -10,7 +10,7 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
-    @Select("select * from user where uid = #{uid}")    //靠uid登录
+    @Select("select * from user where uid = #{uid} LIMIT 1")    //靠uid登录
     User getByUid(User user);
     @Insert("insert into user(uid,username,password,codeforceshandle)" +
             "values(#{uid},#{username},#{password},#{codeforceshandle})")
@@ -22,7 +22,7 @@ public interface UserMapper {
 
     @Select("select * from user order by codeforcesrating desc ")
     List<User> getAllUsersSorted();
-    @Select("select * from user where codeforceshandle = #{codeforceshandle}")
+    @Select("select * from user where codeforceshandle = #{codeforceshandle} LIMIT 1")
     User getUserByCodeforcesHandle(String codeforceshandle);
 
 

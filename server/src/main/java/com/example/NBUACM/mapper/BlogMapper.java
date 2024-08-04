@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface BlogMapper {
     @Select("SELECT * FROM blog "
-            + "where uid = #{uid} and ProblemId = #{ProblemId}")
+            + "where uid = #{uid} and ProblemId = #{ProblemId} LIMIT 1")
     Map<String, Object> getBlogByUidAndProblemId(String uid, Long ProblemId);
 
     @Insert("INSERT INTO blog (uid, username, BlogContent, ProblemId) "

@@ -12,7 +12,7 @@ public interface ProblemListMapper {
     @Select("select * from problemlist")
     List<ProblemList> getAllProblemLists();//获取所有的题单
 
-    @Select("select * from problemlist where id = #{id}")
+    @Select("select * from problemlist where id = #{id} LIMIT 1")
     ProblemList getProblemListById(int id);
 
     @Insert("insert into problemlist(id, name, begin, end) " +
