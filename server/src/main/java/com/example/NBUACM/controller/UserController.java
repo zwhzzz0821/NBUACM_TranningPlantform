@@ -141,11 +141,26 @@ public class UserController {
     * 修改用户信息
     * */
     @PostMapping("/changeuserinfo")
-    public Map<String, Object> changeuserinfo(@RequestBody User user) {
+    public Map<String, Object> changeuserinfo(@RequestBody User newUserInfo) {
         try {
-            System.out.println("user:"+user);
-            userService.changeUserInfo(user);
-            return new R().ok().builder();
+            User oldUserInfo = userService.getByUid(newUserInfo);
+
+            System.out.println("oldUserInfo:" + oldUserInfo);
+            System.out.println("newUserInfo:" + newUserInfo);
+
+            if(oldUserInfo.getCodeforceshandle() == newUserInfo.getCodeforceshandle()) { //如果cf的handle没改，其他的随便改
+                userService.changeUserInfo(newUserInfo);
+                return new R().ok().builder();
+            } else { //cf的handle发生了改变，那就要看看新的handle在数据库里有没有重复了
+                User selectedByHandle = userService.getByCodeforcesHandle(newUserInfo);
+                if(selectedByHandle == null) {
+                    userService.changeUserInfo(newUserInfo);
+                    return new R().ok().builder();
+                } else {
+                    return new R().bad().builder();
+                }
+            }
+
         } catch (Exception e) {
             return new R().bad().builder();
         }
